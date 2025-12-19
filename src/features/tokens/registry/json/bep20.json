@@ -1,0 +1,443 @@
+[
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "BTC",
+    "contractAddress": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c",
+    "decimals": 18,
+    "binancePair": "BTCUSDT",
+    "logo": "https://raw.githubusercontent.com/ubeswap/default-token-list/master/assets/asset_WBTC.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "ETH",
+    "contractAddress": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+    "decimals": 18,
+    "binancePair": "ETHUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x2170Ed0880ac9A755fd29B2688956BD959F933F8/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "SOL",
+    "contractAddress": "0x570A5D26f7765Ecb712C0924E4De545B89fD43dF",
+    "decimals": 18,
+    "binancePair": "SOLUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x570A5D26f7765Ecb712C0924E4De545B89fD43dF.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "XRP",
+    "contractAddress": "0x1D2F0da169ceB9fC7B3144628dB156f3F6c60dBE",
+    "decimals": 18,
+    "binancePair": "XRPUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x1D2F0da169ceB9fC7B3144628dB156f3F6c60dBE/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "ADA",
+    "contractAddress": "0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47",
+    "decimals": 18,
+    "binancePair": "ADAUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "DOGE",
+    "contractAddress": "0xbA2aE424d960c26247Dd6c32edC70B295c744C43",
+    "decimals": 8,
+    "binancePair": "DOGEUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0xbA2aE424d960c26247Dd6c32edC70B295c744C43.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "TRX",
+    "contractAddress": "0x85EAC5Ac2F758618dFa09bDbe0cf174e7d574D5B",
+    "decimals": 18,
+    "binancePair": "TRXUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x85EAC5Ac2F758618dFa09bDbe0cf174e7d574D5B.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "TON",
+    "contractAddress": "0x76a797a59ba2c17726896976b7b3747bfd1d220f",
+    "decimals": 9,
+    "binancePair": "TONUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x76A797A59Ba2C17726896976B7B3747BfD1d220f.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "DOT",
+    "contractAddress": "0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402",
+    "decimals": 18,
+    "binancePair": "DOTUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "AVAX",
+    "contractAddress": "0x1CE0c2827e2eF14D5C4f29a091d735A204794041",
+    "decimals": 18,
+    "binancePair": "AVAXUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x1CE0c2827e2eF14D5C4f29a091d735A204794041.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "BCH",
+    "contractAddress": "0x8fF795a6F4D97E7887C79beA79aba5cc76444aDf",
+    "decimals": 18,
+    "binancePair": "BCHUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x8fF795a6F4D97E7887C79beA79aba5cc76444aDf/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "LTC",
+    "contractAddress": "0x4338665CBB7B2485A8855A139b75D5e34AB0DB94",
+    "decimals": 18,
+    "binancePair": "LTCUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x4338665CBB7B2485A8855A139b75D5e34AB0DB94/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "NEAR",
+    "contractAddress": "0x1Fa4a73a3F0133f0025378af00236f3aBDEE5D63",
+    "decimals": 18,
+    "binancePair": "NEARUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x1Fa4a73a3F0133f0025378af00236f3aBDEE5D63.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "ATOM",
+    "contractAddress": "0x0Eb3a705fc54725037CC9e008bDede697f62F335",
+    "decimals": 18,
+    "binancePair": "ATOMUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x0Eb3a705fc54725037CC9e008bDede697f62F335/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "UNI",
+    "contractAddress": "0xBf5140A22578168FD562DCcF235E5D43A02ce9B1",
+    "decimals": 18,
+    "binancePair": "UNIUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0xBf5140A22578168FD562DCcF235E5D43A02ce9B1/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "AAVE",
+    "contractAddress": "0xfb6115445Bff7b52FeB98650C87f44907E58f802",
+    "decimals": 18,
+    "binancePair": "AAVEUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0xfb6115445Bff7b52FeB98650C87f44907E58f802.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "COMP",
+    "contractAddress": "0x52CE071Bd9b1C4B00A0b92D298c512478CaD67e8",
+    "decimals": 18,
+    "binancePair": "COMPUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x52CE071Bd9b1C4B00A0b92D298c512478CaD67e8.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "1INCH",
+    "contractAddress": "0x111111111117dc0aa78b770fa6a738034120c302",
+    "decimals": 18,
+    "binancePair": "1INCHUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x111111111117dC0aa78b770fA6A738034120C302/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "CAKE",
+    "contractAddress": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
+    "decimals": 18,
+    "binancePair": "CAKEUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "INJ",
+    "contractAddress": "0xa2B726B1145A4773F68593CF171187d8EBe4d495",
+    "decimals": 18,
+    "binancePair": "INJUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0xa2B726B1145A4773F68593CF171187d8EBe4d495/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "XVS",
+    "contractAddress": "0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63",
+    "decimals": 18,
+    "binancePair": "XVSUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "SFP",
+    "contractAddress": "0xD41FDb03Ba84762dD66a0af1a6C8540FF1ba5dfb",
+    "decimals": 18,
+    "binancePair": "SFPUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0xD41FDb03Ba84762dD66a0af1a6C8540FF1ba5dfb/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "TWT",
+    "contractAddress": "0x4B0F1812e5Df2A09796481Ff14017e6005508003",
+    "decimals": 18,
+    "binancePair": "TWTUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x4B0F1812e5Df2A09796481Ff14017e6005508003/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "YFI",
+    "contractAddress": "0x88f1A5ae2A3BF98AEAF342D26B30a79438c9142e",
+    "decimals": 18,
+    "binancePair": "YFIUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x88f1A5ae2A3BF98AEAF342D26B30a79438c9142e/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "LINK",
+    "contractAddress": "0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD",
+    "decimals": 18,
+    "binancePair": "LINKUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "BAND",
+    "contractAddress": "0xAD6cAEb32CD2c308980a548bD0Bc5AA4306c6c18",
+    "decimals": 18,
+    "binancePair": "BANDUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0xAD6cAEb32CD2c308980a548bD0Bc5AA4306c6c18/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "FIL",
+    "contractAddress": "0x0D8Ce2A99Bb6e3B7Db580eD848240e4a0F9aE153",
+    "decimals": 18,
+    "binancePair": "FILUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x0D8Ce2A99Bb6e3B7Db580eD848240e4a0F9aE153/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "FET",
+    "contractAddress": "0x031b41e504677879370e9DBcF937283A8691Fa7f",
+    "decimals": 18,
+    "binancePair": "FETUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x031b41e504677879370e9DBcF937283A8691Fa7f.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "NFP",
+    "contractAddress": "0x75E8ddB518bB757b4282cd5b83bb70d4101D12FB",
+    "decimals": 18,
+    "binancePair": "NFPUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x75E8ddB518bB757b4282cd5b83bb70d4101D12FB.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "USDT",
+    "contractAddress": "0x55d398326f99059fF775485246999027B3197955",
+    "decimals": 18,
+    "binancePair": "USDTUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x55d398326f99059fF775485246999027B3197955/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "USDC",
+    "contractAddress": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+    "decimals": 18,
+    "binancePair": "USDCUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "DAI",
+    "contractAddress": "0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3",
+    "decimals": 18,
+    "binancePair": "DAIUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3/logo.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "FDUSD",
+    "contractAddress": "0xc5f0f7b66764F6ec8C8Dff7BA683102295E16409",
+    "decimals": 18,
+    "binancePair": "FDUSDUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0xc5f0f7b66764F6ec8C8Dff7BA683102295E16409.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "TUSD",
+    "contractAddress": "0x40af3827F39D0EAcBF4A168f8D4ee67c121D11c9",
+    "decimals": 18,
+    "binancePair": "TUSDUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x40af3827F39D0EAcBF4A168f8D4ee67c121D11c9.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "AXS",
+    "contractAddress": "0x715D400F88C167884bbCc41C5FeA407ed4D2f8A0",
+    "decimals": 18,
+    "binancePair": "AXSUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x715D400F88C167884bbCc41C5FeA407ed4D2f8A0.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "SAND",
+    "contractAddress": "0x67b725d7e342d7B611fa85e859Df9697D9378B2e",
+    "decimals": 18,
+    "binancePair": "SANDUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x67b725d7e342d7B611fa85e859Df9697D9378B2e.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "MANA",
+    "contractAddress": "0x26433c8127d9b4e9B71Eaa15111DF99Ea2EeB2f8",
+    "decimals": 18,
+    "binancePair": "MANAUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x26433c8127d9b4e9B71Eaa15111DF99Ea2EeB2f8.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "TLM",
+    "contractAddress": "0x2222227E22102Fe3322098e4CBfE18cFebD57c95",
+    "decimals": 4,
+    "binancePair": "TLMUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x2222227E22102Fe3322098e4CBfE18cFebD57c95.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "MBOX",
+    "contractAddress": "0x3203c9E46cA618C8C1cE5dC67e7e9D75f5da2377",
+    "decimals": 18,
+    "binancePair": "MBOXUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x3203c9E46cA618C8C1cE5dC67e7e9D75f5da2377.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "ALICE",
+    "contractAddress": "0xAC51066d7bEC65Dc4589368da368b212745d63E8",
+    "decimals": 6,
+    "binancePair": "ALICEUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0xAC51066d7bEC65Dc4589368da368b212745d63E8.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "SHIB",
+    "contractAddress": "0x2859e4544C4bB03966803b044A93563Bd2D0DD4D",
+    "decimals": 18,
+    "binancePair": "SHIBUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x2859e4544C4bB03966803b044A93563Bd2D0DD4D.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "PEPE",
+    "contractAddress": "0x25d887Ce7a35172C62FeBFD67a1856F20FaEbB00",
+    "decimals": 18,
+    "binancePair": "PEPEUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x25d887Ce7a35172C62FeBFD67a1856F20FaEbB00.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "FLOKI",
+    "contractAddress": "0xfb5B838b6cfEEdC2873aB27866079AC55363D37E",
+    "decimals": 9,
+    "binancePair": "FLOKIUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0xfb5B838b6cfEEdC2873aB27866079AC55363D37E.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "BONK",
+    "contractAddress": "0xA697e272a73744b343528C3Bc4702F2565b2F422",
+    "decimals": 5,
+    "binancePair": "BONKUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0xA697e272a73744b343528C3Bc4702F2565b2F422.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "WIF",
+    "contractAddress": "0x2DCE707c47Fd9C0f1833A281F45e3e41Ace2725B",
+    "decimals": 18,
+    "binancePair": "WIFUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x2DCE707c47Fd9C0f1833A281F45e3e41Ace2725B.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "METIS",
+    "contractAddress": "0xe552Fb52a4F19e44ef5A967632DBc320B0820639",
+    "decimals": 18,
+    "binancePair": "METISUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0xe552Fb52a4F19e44ef5A967632DBc320B0820639.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "ZK",
+    "contractAddress": "0xC71B5F631354BE6853eFe9C3Ab6b9590F8302e81",
+    "decimals": 18,
+    "binancePair": "ZKUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0xC71B5F631354BE6853eFe9C3Ab6b9590F8302e81.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "HFT",
+    "contractAddress": "0x44Ec807ce2F4a6F2737A92e985f318d035883e47",
+    "decimals": 18,
+    "binancePair": "HFTUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0x44Ec807ce2F4a6F2737A92e985f318d035883e47.png"
+  },
+  {
+    "chainId": 56,
+    "chainName": "BNB Smart Chain",
+    "symbol": "C98",
+    "contractAddress": "0xaEC945e04baF28b135Fa7c640f624f8D90F1C3a6",
+    "decimals": 18,
+    "binancePair": "C98USDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0xaEC945e04baF28b135Fa7c640f624f8D90F1C3a6.png"
+  }
+]

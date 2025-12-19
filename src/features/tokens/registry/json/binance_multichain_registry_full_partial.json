@@ -1,0 +1,5007 @@
+{
+  "generatedAt": "2025-10-11T08:20:08.491816Z",
+  "note": "500 entries (100 symbols x 5 chains). Use enrichment scripts to fill remaining addresses/decimals; natives and key tokens prefilled.",
+  "tokens": [
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "BTC",
+      "binancePair": "BTCUSDT",
+      "contractAddress": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c",
+      "decimals": 18,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ETH",
+      "binancePair": "ETHUSDT",
+      "contractAddress": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+      "decimals": 18,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "BNB",
+      "binancePair": "BNBUSDT",
+      "contractAddress": "native",
+      "decimals": 18,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "SOL",
+      "binancePair": "SOLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "XRP",
+      "binancePair": "XRPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ADA",
+      "binancePair": "ADAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "DOGE",
+      "binancePair": "DOGEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "TRX",
+      "binancePair": "TRXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "TON",
+      "binancePair": "TONUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "DOT",
+      "binancePair": "DOTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "AVAX",
+      "binancePair": "AVAXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "MATIC",
+      "binancePair": "MATICUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "BCH",
+      "binancePair": "BCHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "LTC",
+      "binancePair": "LTCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "NEAR",
+      "binancePair": "NEARUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "APT",
+      "binancePair": "APTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "SUI",
+      "binancePair": "SUIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "SEI",
+      "binancePair": "SEIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ATOM",
+      "binancePair": "ATOMUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ICP",
+      "binancePair": "ICPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "UNI",
+      "binancePair": "UNIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "AAVE",
+      "binancePair": "AAVEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "LDO",
+      "binancePair": "LDOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "SNX",
+      "binancePair": "SNXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "MKR",
+      "binancePair": "MKRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "CRV",
+      "binancePair": "CRVUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "CVX",
+      "binancePair": "CVXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "COMP",
+      "binancePair": "COMPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "1INCH",
+      "binancePair": "1INCHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "DYDX",
+      "binancePair": "DYDXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "GMX",
+      "binancePair": "GMXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "CAKE",
+      "binancePair": "CAKEUSDT",
+      "contractAddress": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
+      "decimals": 18,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "RUNE",
+      "binancePair": "RUNEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "INJ",
+      "binancePair": "INJUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "XVS",
+      "binancePair": "XVSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "SFP",
+      "binancePair": "SFPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "TWT",
+      "binancePair": "TWTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "YFI",
+      "binancePair": "YFIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "BAL",
+      "binancePair": "BALUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "KNC",
+      "binancePair": "KNCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "LINK",
+      "binancePair": "LINKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "PYTH",
+      "binancePair": "PYTHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "API3",
+      "binancePair": "API3USDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "BAND",
+      "binancePair": "BANDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "UMA",
+      "binancePair": "UMAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ENS",
+      "binancePair": "ENSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "STORJ",
+      "binancePair": "STORJUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "AR",
+      "binancePair": "ARUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "FIL",
+      "binancePair": "FILUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "RNDR",
+      "binancePair": "RNDRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "GRT",
+      "binancePair": "GRTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "OCEAN",
+      "binancePair": "OCEANUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "FET",
+      "binancePair": "FETUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "TAO",
+      "binancePair": "TAOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "AKT",
+      "binancePair": "AKTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "PAAL",
+      "binancePair": "PAALUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "IQ",
+      "binancePair": "IQUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "NFP",
+      "binancePair": "NFPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "PIXEL",
+      "binancePair": "PIXELUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "TIA",
+      "binancePair": "TIAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "USDT",
+      "binancePair": "USDTUSDT",
+      "contractAddress": "0x55d398326f99059fF775485246999027B3197955",
+      "decimals": 18,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "USDC",
+      "binancePair": "USDCUSDT",
+      "contractAddress": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+      "decimals": 18,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "DAI",
+      "binancePair": "DAIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "FDUSD",
+      "binancePair": "FDUSDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "TUSD",
+      "binancePair": "TUSDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "EUR",
+      "binancePair": "EURUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "TRY",
+      "binancePair": "TRYUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "BRL",
+      "binancePair": "BRLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ARS",
+      "binancePair": "ARSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "AXS",
+      "binancePair": "AXSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "SLP",
+      "binancePair": "SLPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "SAND",
+      "binancePair": "SANDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "MANA",
+      "binancePair": "MANAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "TLM",
+      "binancePair": "TLMUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "GALA",
+      "binancePair": "GALAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "MBOX",
+      "binancePair": "MBOXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "IMX",
+      "binancePair": "IMXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ILV",
+      "binancePair": "ILVUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ALICE",
+      "binancePair": "ALICEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "SHIB",
+      "binancePair": "SHIBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "PEPE",
+      "binancePair": "PEPEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "FLOKI",
+      "binancePair": "FLOKIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "BONK",
+      "binancePair": "BONKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "WIF",
+      "binancePair": "WIFUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ARB",
+      "binancePair": "ARBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "OP",
+      "binancePair": "OPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "METIS",
+      "binancePair": "METISUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "SKL",
+      "binancePair": "SKLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "LRC",
+      "binancePair": "LRCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ZRX",
+      "binancePair": "ZRXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ZKS",
+      "binancePair": "ZKSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ZK",
+      "binancePair": "ZKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "OPUL",
+      "binancePair": "OPULUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "HFT",
+      "binancePair": "HFTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "CHZ",
+      "binancePair": "CHZUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "HOT",
+      "binancePair": "HOTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "CELR",
+      "binancePair": "CELRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "CFX",
+      "binancePair": "CFXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "C98",
+      "binancePair": "C98USDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 56,
+      "chainName": "BNB Smart Chain",
+      "symbol": "ALGO",
+      "binancePair": "ALGOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "BTC",
+      "binancePair": "BTCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ETH",
+      "binancePair": "ETHUSDT",
+      "contractAddress": "native",
+      "decimals": 18,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "BNB",
+      "binancePair": "BNBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "SOL",
+      "binancePair": "SOLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "XRP",
+      "binancePair": "XRPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ADA",
+      "binancePair": "ADAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "DOGE",
+      "binancePair": "DOGEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "TRX",
+      "binancePair": "TRXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "TON",
+      "binancePair": "TONUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "DOT",
+      "binancePair": "DOTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "AVAX",
+      "binancePair": "AVAXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "MATIC",
+      "binancePair": "MATICUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "BCH",
+      "binancePair": "BCHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "LTC",
+      "binancePair": "LTCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "NEAR",
+      "binancePair": "NEARUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "APT",
+      "binancePair": "APTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "SUI",
+      "binancePair": "SUIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "SEI",
+      "binancePair": "SEIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ATOM",
+      "binancePair": "ATOMUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ICP",
+      "binancePair": "ICPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "UNI",
+      "binancePair": "UNIUSDT",
+      "contractAddress": "0x1f9840a85d5aF5bF1D1762F925bDaDdC4201F984",
+      "decimals": 18,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "AAVE",
+      "binancePair": "AAVEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "LDO",
+      "binancePair": "LDOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "SNX",
+      "binancePair": "SNXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "MKR",
+      "binancePair": "MKRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "CRV",
+      "binancePair": "CRVUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "CVX",
+      "binancePair": "CVXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "COMP",
+      "binancePair": "COMPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "1INCH",
+      "binancePair": "1INCHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "DYDX",
+      "binancePair": "DYDXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "GMX",
+      "binancePair": "GMXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "CAKE",
+      "binancePair": "CAKEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "RUNE",
+      "binancePair": "RUNEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "INJ",
+      "binancePair": "INJUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "XVS",
+      "binancePair": "XVSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "SFP",
+      "binancePair": "SFPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "TWT",
+      "binancePair": "TWTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "YFI",
+      "binancePair": "YFIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "BAL",
+      "binancePair": "BALUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "KNC",
+      "binancePair": "KNCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "LINK",
+      "binancePair": "LINKUSDT",
+      "contractAddress": "0x514910771AF9Ca656af840dff83E8264EcF986CA",
+      "decimals": 18,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "PYTH",
+      "binancePair": "PYTHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "API3",
+      "binancePair": "API3USDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "BAND",
+      "binancePair": "BANDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "UMA",
+      "binancePair": "UMAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ENS",
+      "binancePair": "ENSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "STORJ",
+      "binancePair": "STORJUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "AR",
+      "binancePair": "ARUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "FIL",
+      "binancePair": "FILUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "RNDR",
+      "binancePair": "RNDRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "GRT",
+      "binancePair": "GRTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "OCEAN",
+      "binancePair": "OCEANUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "FET",
+      "binancePair": "FETUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "TAO",
+      "binancePair": "TAOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "AKT",
+      "binancePair": "AKTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "PAAL",
+      "binancePair": "PAALUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "IQ",
+      "binancePair": "IQUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "NFP",
+      "binancePair": "NFPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "PIXEL",
+      "binancePair": "PIXELUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "TIA",
+      "binancePair": "TIAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "USDT",
+      "binancePair": "USDTUSDT",
+      "contractAddress": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      "decimals": 6,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "USDC",
+      "binancePair": "USDCUSDT",
+      "contractAddress": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "decimals": 6,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "DAI",
+      "binancePair": "DAIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "FDUSD",
+      "binancePair": "FDUSDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "TUSD",
+      "binancePair": "TUSDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "EUR",
+      "binancePair": "EURUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "TRY",
+      "binancePair": "TRYUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "BRL",
+      "binancePair": "BRLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ARS",
+      "binancePair": "ARSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "AXS",
+      "binancePair": "AXSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "SLP",
+      "binancePair": "SLPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "SAND",
+      "binancePair": "SANDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "MANA",
+      "binancePair": "MANAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "TLM",
+      "binancePair": "TLMUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "GALA",
+      "binancePair": "GALAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "MBOX",
+      "binancePair": "MBOXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "IMX",
+      "binancePair": "IMXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ILV",
+      "binancePair": "ILVUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ALICE",
+      "binancePair": "ALICEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "SHIB",
+      "binancePair": "SHIBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "PEPE",
+      "binancePair": "PEPEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "FLOKI",
+      "binancePair": "FLOKIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "BONK",
+      "binancePair": "BONKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "WIF",
+      "binancePair": "WIFUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ARB",
+      "binancePair": "ARBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "OP",
+      "binancePair": "OPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "METIS",
+      "binancePair": "METISUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "SKL",
+      "binancePair": "SKLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "LRC",
+      "binancePair": "LRCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ZRX",
+      "binancePair": "ZRXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ZKS",
+      "binancePair": "ZKSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ZK",
+      "binancePair": "ZKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "OPUL",
+      "binancePair": "OPULUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "HFT",
+      "binancePair": "HFTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "CHZ",
+      "binancePair": "CHZUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "HOT",
+      "binancePair": "HOTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "CELR",
+      "binancePair": "CELRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "CFX",
+      "binancePair": "CFXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "C98",
+      "binancePair": "C98USDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 1,
+      "chainName": "Ethereum",
+      "symbol": "ALGO",
+      "binancePair": "ALGOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "BTC",
+      "binancePair": "BTCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ETH",
+      "binancePair": "ETHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "BNB",
+      "binancePair": "BNBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "SOL",
+      "binancePair": "SOLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "XRP",
+      "binancePair": "XRPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ADA",
+      "binancePair": "ADAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "DOGE",
+      "binancePair": "DOGEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "TRX",
+      "binancePair": "TRXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "TON",
+      "binancePair": "TONUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "DOT",
+      "binancePair": "DOTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "AVAX",
+      "binancePair": "AVAXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "MATIC",
+      "binancePair": "MATICUSDT",
+      "contractAddress": "native",
+      "decimals": 18,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "BCH",
+      "binancePair": "BCHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "LTC",
+      "binancePair": "LTCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "NEAR",
+      "binancePair": "NEARUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "APT",
+      "binancePair": "APTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "SUI",
+      "binancePair": "SUIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "SEI",
+      "binancePair": "SEIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ATOM",
+      "binancePair": "ATOMUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ICP",
+      "binancePair": "ICPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "UNI",
+      "binancePair": "UNIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "AAVE",
+      "binancePair": "AAVEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "LDO",
+      "binancePair": "LDOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "SNX",
+      "binancePair": "SNXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "MKR",
+      "binancePair": "MKRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "CRV",
+      "binancePair": "CRVUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "CVX",
+      "binancePair": "CVXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "COMP",
+      "binancePair": "COMPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "1INCH",
+      "binancePair": "1INCHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "DYDX",
+      "binancePair": "DYDXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "GMX",
+      "binancePair": "GMXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "CAKE",
+      "binancePair": "CAKEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "RUNE",
+      "binancePair": "RUNEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "INJ",
+      "binancePair": "INJUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "XVS",
+      "binancePair": "XVSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "SFP",
+      "binancePair": "SFPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "TWT",
+      "binancePair": "TWTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "YFI",
+      "binancePair": "YFIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "BAL",
+      "binancePair": "BALUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "KNC",
+      "binancePair": "KNCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "LINK",
+      "binancePair": "LINKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "PYTH",
+      "binancePair": "PYTHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "API3",
+      "binancePair": "API3USDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "BAND",
+      "binancePair": "BANDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "UMA",
+      "binancePair": "UMAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ENS",
+      "binancePair": "ENSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "STORJ",
+      "binancePair": "STORJUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "AR",
+      "binancePair": "ARUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "FIL",
+      "binancePair": "FILUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "RNDR",
+      "binancePair": "RNDRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "GRT",
+      "binancePair": "GRTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "OCEAN",
+      "binancePair": "OCEANUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "FET",
+      "binancePair": "FETUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "TAO",
+      "binancePair": "TAOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "AKT",
+      "binancePair": "AKTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "PAAL",
+      "binancePair": "PAALUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "IQ",
+      "binancePair": "IQUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "NFP",
+      "binancePair": "NFPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "PIXEL",
+      "binancePair": "PIXELUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "TIA",
+      "binancePair": "TIAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "USDT",
+      "binancePair": "USDTUSDT",
+      "contractAddress": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+      "decimals": 6,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "USDC",
+      "binancePair": "USDCUSDT",
+      "contractAddress": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+      "decimals": 6,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "DAI",
+      "binancePair": "DAIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "FDUSD",
+      "binancePair": "FDUSDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "TUSD",
+      "binancePair": "TUSDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "EUR",
+      "binancePair": "EURUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "TRY",
+      "binancePair": "TRYUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "BRL",
+      "binancePair": "BRLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ARS",
+      "binancePair": "ARSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "AXS",
+      "binancePair": "AXSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "SLP",
+      "binancePair": "SLPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "SAND",
+      "binancePair": "SANDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "MANA",
+      "binancePair": "MANAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "TLM",
+      "binancePair": "TLMUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "GALA",
+      "binancePair": "GALAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "MBOX",
+      "binancePair": "MBOXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "IMX",
+      "binancePair": "IMXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ILV",
+      "binancePair": "ILVUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ALICE",
+      "binancePair": "ALICEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "SHIB",
+      "binancePair": "SHIBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "PEPE",
+      "binancePair": "PEPEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "FLOKI",
+      "binancePair": "FLOKIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "BONK",
+      "binancePair": "BONKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "WIF",
+      "binancePair": "WIFUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ARB",
+      "binancePair": "ARBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "OP",
+      "binancePair": "OPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "METIS",
+      "binancePair": "METISUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "SKL",
+      "binancePair": "SKLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "LRC",
+      "binancePair": "LRCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ZRX",
+      "binancePair": "ZRXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ZKS",
+      "binancePair": "ZKSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ZK",
+      "binancePair": "ZKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "OPUL",
+      "binancePair": "OPULUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "HFT",
+      "binancePair": "HFTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "CHZ",
+      "binancePair": "CHZUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "HOT",
+      "binancePair": "HOTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "CELR",
+      "binancePair": "CELRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "CFX",
+      "binancePair": "CFXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "C98",
+      "binancePair": "C98USDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": 137,
+      "chainName": "Polygon",
+      "symbol": "ALGO",
+      "binancePair": "ALGOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "BTC",
+      "binancePair": "BTCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ETH",
+      "binancePair": "ETHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "BNB",
+      "binancePair": "BNBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "SOL",
+      "binancePair": "SOLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "XRP",
+      "binancePair": "XRPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ADA",
+      "binancePair": "ADAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "DOGE",
+      "binancePair": "DOGEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "TRX",
+      "binancePair": "TRXUSDT",
+      "contractAddress": "native",
+      "decimals": 6,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "TON",
+      "binancePair": "TONUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "DOT",
+      "binancePair": "DOTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "AVAX",
+      "binancePair": "AVAXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "MATIC",
+      "binancePair": "MATICUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "BCH",
+      "binancePair": "BCHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "LTC",
+      "binancePair": "LTCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "NEAR",
+      "binancePair": "NEARUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "APT",
+      "binancePair": "APTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "SUI",
+      "binancePair": "SUIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "SEI",
+      "binancePair": "SEIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ATOM",
+      "binancePair": "ATOMUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ICP",
+      "binancePair": "ICPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "UNI",
+      "binancePair": "UNIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "AAVE",
+      "binancePair": "AAVEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "LDO",
+      "binancePair": "LDOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "SNX",
+      "binancePair": "SNXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "MKR",
+      "binancePair": "MKRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "CRV",
+      "binancePair": "CRVUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "CVX",
+      "binancePair": "CVXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "COMP",
+      "binancePair": "COMPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "1INCH",
+      "binancePair": "1INCHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "DYDX",
+      "binancePair": "DYDXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "GMX",
+      "binancePair": "GMXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "CAKE",
+      "binancePair": "CAKEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "RUNE",
+      "binancePair": "RUNEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "INJ",
+      "binancePair": "INJUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "XVS",
+      "binancePair": "XVSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "SFP",
+      "binancePair": "SFPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "TWT",
+      "binancePair": "TWTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "YFI",
+      "binancePair": "YFIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "BAL",
+      "binancePair": "BALUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "KNC",
+      "binancePair": "KNCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "LINK",
+      "binancePair": "LINKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "PYTH",
+      "binancePair": "PYTHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "API3",
+      "binancePair": "API3USDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "BAND",
+      "binancePair": "BANDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "UMA",
+      "binancePair": "UMAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ENS",
+      "binancePair": "ENSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "STORJ",
+      "binancePair": "STORJUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "AR",
+      "binancePair": "ARUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "FIL",
+      "binancePair": "FILUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "RNDR",
+      "binancePair": "RNDRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "GRT",
+      "binancePair": "GRTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "OCEAN",
+      "binancePair": "OCEANUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "FET",
+      "binancePair": "FETUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "TAO",
+      "binancePair": "TAOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "AKT",
+      "binancePair": "AKTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "PAAL",
+      "binancePair": "PAALUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "IQ",
+      "binancePair": "IQUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "NFP",
+      "binancePair": "NFPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "PIXEL",
+      "binancePair": "PIXELUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "TIA",
+      "binancePair": "TIAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "USDT",
+      "binancePair": "USDTUSDT",
+      "contractAddress": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+      "decimals": 6,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "USDC",
+      "binancePair": "USDCUSDT",
+      "contractAddress": "TEkxiTehnzSmSe2XqrBj4w32RUN966rdz8",
+      "decimals": 6,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "DAI",
+      "binancePair": "DAIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "FDUSD",
+      "binancePair": "FDUSDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "TUSD",
+      "binancePair": "TUSDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "EUR",
+      "binancePair": "EURUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "TRY",
+      "binancePair": "TRYUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "BRL",
+      "binancePair": "BRLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ARS",
+      "binancePair": "ARSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "AXS",
+      "binancePair": "AXSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "SLP",
+      "binancePair": "SLPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "SAND",
+      "binancePair": "SANDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "MANA",
+      "binancePair": "MANAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "TLM",
+      "binancePair": "TLMUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "GALA",
+      "binancePair": "GALAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "MBOX",
+      "binancePair": "MBOXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "IMX",
+      "binancePair": "IMXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ILV",
+      "binancePair": "ILVUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ALICE",
+      "binancePair": "ALICEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "SHIB",
+      "binancePair": "SHIBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "PEPE",
+      "binancePair": "PEPEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "FLOKI",
+      "binancePair": "FLOKIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "BONK",
+      "binancePair": "BONKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "WIF",
+      "binancePair": "WIFUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ARB",
+      "binancePair": "ARBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "OP",
+      "binancePair": "OPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "METIS",
+      "binancePair": "METISUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "SKL",
+      "binancePair": "SKLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "LRC",
+      "binancePair": "LRCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ZRX",
+      "binancePair": "ZRXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ZKS",
+      "binancePair": "ZKSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ZK",
+      "binancePair": "ZKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "OPUL",
+      "binancePair": "OPULUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "HFT",
+      "binancePair": "HFTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "CHZ",
+      "binancePair": "CHZUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "HOT",
+      "binancePair": "HOTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "CELR",
+      "binancePair": "CELRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "CFX",
+      "binancePair": "CFXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "C98",
+      "binancePair": "C98USDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "tron",
+      "chainName": "Tron",
+      "symbol": "ALGO",
+      "binancePair": "ALGOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "BTC",
+      "binancePair": "BTCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ETH",
+      "binancePair": "ETHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "BNB",
+      "binancePair": "BNBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "SOL",
+      "binancePair": "SOLUSDT",
+      "contractAddress": "native",
+      "decimals": 9,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "XRP",
+      "binancePair": "XRPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ADA",
+      "binancePair": "ADAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "DOGE",
+      "binancePair": "DOGEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "TRX",
+      "binancePair": "TRXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "TON",
+      "binancePair": "TONUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "DOT",
+      "binancePair": "DOTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "AVAX",
+      "binancePair": "AVAXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "MATIC",
+      "binancePair": "MATICUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "BCH",
+      "binancePair": "BCHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "LTC",
+      "binancePair": "LTCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "NEAR",
+      "binancePair": "NEARUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "APT",
+      "binancePair": "APTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "SUI",
+      "binancePair": "SUIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "SEI",
+      "binancePair": "SEIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ATOM",
+      "binancePair": "ATOMUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ICP",
+      "binancePair": "ICPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "UNI",
+      "binancePair": "UNIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "AAVE",
+      "binancePair": "AAVEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "LDO",
+      "binancePair": "LDOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "SNX",
+      "binancePair": "SNXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "MKR",
+      "binancePair": "MKRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "CRV",
+      "binancePair": "CRVUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "CVX",
+      "binancePair": "CVXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "COMP",
+      "binancePair": "COMPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "1INCH",
+      "binancePair": "1INCHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "DYDX",
+      "binancePair": "DYDXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "GMX",
+      "binancePair": "GMXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "CAKE",
+      "binancePair": "CAKEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "RUNE",
+      "binancePair": "RUNEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "INJ",
+      "binancePair": "INJUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "XVS",
+      "binancePair": "XVSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "SFP",
+      "binancePair": "SFPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "TWT",
+      "binancePair": "TWTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "YFI",
+      "binancePair": "YFIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "BAL",
+      "binancePair": "BALUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "KNC",
+      "binancePair": "KNCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "LINK",
+      "binancePair": "LINKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "PYTH",
+      "binancePair": "PYTHUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "API3",
+      "binancePair": "API3USDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "BAND",
+      "binancePair": "BANDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "UMA",
+      "binancePair": "UMAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ENS",
+      "binancePair": "ENSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "STORJ",
+      "binancePair": "STORJUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "AR",
+      "binancePair": "ARUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "FIL",
+      "binancePair": "FILUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "RNDR",
+      "binancePair": "RNDRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "GRT",
+      "binancePair": "GRTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "OCEAN",
+      "binancePair": "OCEANUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "FET",
+      "binancePair": "FETUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "TAO",
+      "binancePair": "TAOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "AKT",
+      "binancePair": "AKTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "PAAL",
+      "binancePair": "PAALUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "IQ",
+      "binancePair": "IQUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "NFP",
+      "binancePair": "NFPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "PIXEL",
+      "binancePair": "PIXELUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "TIA",
+      "binancePair": "TIAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "USDT",
+      "binancePair": "USDTUSDT",
+      "contractAddress": "Es9vMFrzaCERZ8S4wEGj5H1ZiZsaAJ2bGdtzQowBPi8G",
+      "decimals": 6,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "USDC",
+      "binancePair": "USDCUSDT",
+      "contractAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "decimals": 6,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "DAI",
+      "binancePair": "DAIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "FDUSD",
+      "binancePair": "FDUSDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "TUSD",
+      "binancePair": "TUSDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "EUR",
+      "binancePair": "EURUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "TRY",
+      "binancePair": "TRYUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "BRL",
+      "binancePair": "BRLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ARS",
+      "binancePair": "ARSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "AXS",
+      "binancePair": "AXSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "SLP",
+      "binancePair": "SLPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "SAND",
+      "binancePair": "SANDUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "MANA",
+      "binancePair": "MANAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "TLM",
+      "binancePair": "TLMUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "GALA",
+      "binancePair": "GALAUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "MBOX",
+      "binancePair": "MBOXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "IMX",
+      "binancePair": "IMXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ILV",
+      "binancePair": "ILVUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ALICE",
+      "binancePair": "ALICEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "SHIB",
+      "binancePair": "SHIBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "PEPE",
+      "binancePair": "PEPEUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "FLOKI",
+      "binancePair": "FLOKIUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "BONK",
+      "binancePair": "BONKUSDT",
+      "contractAddress": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+      "decimals": 5,
+      "dexScreener": null,
+      "metadataStatus": "known"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "WIF",
+      "binancePair": "WIFUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ARB",
+      "binancePair": "ARBUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "OP",
+      "binancePair": "OPUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "METIS",
+      "binancePair": "METISUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "SKL",
+      "binancePair": "SKLUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "LRC",
+      "binancePair": "LRCUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ZRX",
+      "binancePair": "ZRXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ZKS",
+      "binancePair": "ZKSUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ZK",
+      "binancePair": "ZKUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "OPUL",
+      "binancePair": "OPULUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "HFT",
+      "binancePair": "HFTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "CHZ",
+      "binancePair": "CHZUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "HOT",
+      "binancePair": "HOTUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "CELR",
+      "binancePair": "CELRUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "CFX",
+      "binancePair": "CFXUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "C98",
+      "binancePair": "C98USDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    },
+    {
+      "chainId": "solana",
+      "chainName": "Solana",
+      "symbol": "ALGO",
+      "binancePair": "ALGOUSDT",
+      "contractAddress": null,
+      "decimals": null,
+      "dexScreener": null,
+      "metadataStatus": "todo"
+    }
+  ]
+}

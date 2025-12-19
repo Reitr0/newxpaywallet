@@ -1,0 +1,614 @@
+[
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "BTC",
+    "contractAddress": "9n4nbM75f5Ui33ZbPYXn59EwSgE8CGsHtAeTH5YFeJ9E",
+    "decimals": 6,
+    "binancePair": "BTCUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/9n4nbM75f5Ui33ZbPYXn59EwSgE8CGsHtAeTH5YFeJ9E/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "ETH",
+    "contractAddress": "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+    "decimals": 8,
+    "binancePair": "ETHUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "BNB",
+    "contractAddress": "EjFGGJSyp9UDS8aqafET5LX49nsG326MeNezYzpiwgpQ",
+    "decimals": 0,
+    "binancePair": "BNBUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EjFGGJSyp9UDS8aqafET5LX49nsG326MeNezYzpiwgpQ/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "XRP",
+    "contractAddress": "Ga2AXHpfAF6mv2ekZwcsJFqu7wB4NV331qNH7fW9Nst8",
+    "decimals": 6,
+    "binancePair": "XRPUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Ga2AXHpfAF6mv2ekZwcsJFqu7wB4NV331qNH7fW9Nst8/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "TRX",
+    "contractAddress": "7yia2o7CrQDdAAvGRBtXp6L6mGqToEXjjUFm4VfioVjF",
+    "decimals": 0,
+    "binancePair": "TRXUSDT",
+    "logo": "https://raw.githubusercontent.com/Travon-0/crypto/main/ll.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "TON",
+    "contractAddress": "5Kts7TQFVrBseq9GokZ71o2gBiAmQNQc1ykdVZtH1JhS",
+    "decimals": 9,
+    "binancePair": "TONUSDT",
+    "logo": "https://raw.githubusercontent.com/unimintco/token-logos/main/TON/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "DOT",
+    "contractAddress": "4tfNrjsyMR35Jbvua7RM2n2zsrvWBfPsuqovGxcL2DHB",
+    "decimals": 9,
+    "binancePair": "DOTUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/4tfNrjsyMR35Jbvua7RM2n2zsrvWBfPsuqovGxcL2DHB/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "AVAX",
+    "contractAddress": "AUrMpCDYYcPuHhyNX8gEEqbmDPFUpBpHrNW3vPeCFn5Z",
+    "decimals": 9,
+    "binancePair": "AVAXUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/12559/small/coin-round-red.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "MATIC",
+    "contractAddress": "7kBQ5dnNg1StV58LzPF9B1BXWioSEPmEnuAPEHJ8qu5G",
+    "decimals": 9,
+    "binancePair": "MATICUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/7kBQ5dnNg1StV58LzPF9B1BXWioSEPmEnuAPEHJ8qu5G/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "LTC",
+    "contractAddress": "GoQjhy3tBcXRWdNfvyh6MPhiQAkNdrAyCJdqWJ3WuUpW",
+    "decimals": 9,
+    "binancePair": "LTCUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/GoQjhy3tBcXRWdNfvyh6MPhiQAkNdrAyCJdqWJ3WuUpW/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "NEAR",
+    "contractAddress": "6KC8AU1Tm39sVvmwBkXBzW82XtHaRgSZqufQET9YipHY",
+    "decimals": 0,
+    "binancePair": "NEARUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/6KC8AU1Tm39sVvmwBkXBzW82XtHaRgSZqufQET9YipHY/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "APT",
+    "contractAddress": "APTtJyaRX5yGTsJU522N4VYWg3vCvSb65eam5GrPT5Rt",
+    "decimals": 6,
+    "binancePair": "APTUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/APTtJyaRX5yGTsJU522N4VYWg3vCvSb65eam5GrPT5Rt/logo.svg"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "SUI",
+    "contractAddress": "4JJKbNqaoKmCXKdh4Nj7eqdPXGqBjZtae2jQqZDqDinM",
+    "decimals": 9,
+    "binancePair": "SUIUSDT",
+    "logo": "https://raw.githubusercontent.com/colinchen4/SUICrypto/main/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "SEI",
+    "contractAddress": "CRkwd2QedqDi5u6W2w6jeAViAUd1pR4AXs2aKvh7GW7M",
+    "decimals": 6,
+    "binancePair": "SEIUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/CRkwd2QedqDi5u6W2w6jeAViAUd1pR4AXs2aKvh7GW7M/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "ATOM",
+    "contractAddress": "Bp7aKzRUjusE887totYfwLNYXkiPEWKiAE863sTFRKh4",
+    "decimals": 0,
+    "binancePair": "ATOMUSDT",
+    "logo": "https://raw.githubusercontent.com/thenerdparadigm/crypto/main/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "UNI",
+    "contractAddress": "8FU95xFJhUUkyyCLU13HSzDLs7oC4QZdXQHL6SCeab36",
+    "decimals": 8,
+    "binancePair": "UNIUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/8FU95xFJhUUkyyCLU13HSzDLs7oC4QZdXQHL6SCeab36/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "AAVE",
+    "contractAddress": "3vAs4D1WE6Na4tCgt4BApgFfENbm8WY7q4cSPD1yM4Cg",
+    "decimals": 8,
+    "binancePair": "AAVEUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/3vAs4D1WE6Na4tCgt4BApgFfENbm8WY7q4cSPD1yM4Cg/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "LDO",
+    "contractAddress": "HZRCwxP2Vq9PCpPXooayhJ2bxTpo5xfpQrwB1svh332p",
+    "decimals": 8,
+    "binancePair": "LDOUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/HZRCwxP2Vq9PCpPXooayhJ2bxTpo5xfpQrwB1svh332p/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "SNX",
+    "contractAddress": "8cTNUtcV2ueC3royJ642uRnvTxorJAWLZc58gxAo7y56",
+    "decimals": 8,
+    "binancePair": "SNXUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/8cTNUtcV2ueC3royJ642uRnvTxorJAWLZc58gxAo7y56/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "CRV",
+    "contractAddress": "7gjNiPun3AzEazTZoFEjZgcBMeuaXdpjHq2raZTmTrfs",
+    "decimals": 8,
+    "binancePair": "CRVUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/7gjNiPun3AzEazTZoFEjZgcBMeuaXdpjHq2raZTmTrfs/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "CVX",
+    "contractAddress": "BLvmrccP4g1B6SpiVvmQrLUDya1nZ4B2D1nm9jzKF7sz",
+    "decimals": 8,
+    "binancePair": "CVXUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/BLvmrccP4g1B6SpiVvmQrLUDya1nZ4B2D1nm9jzKF7sz/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "COMP",
+    "contractAddress": "AwEauVaTMQRB71WeDnwf1DWSBxaMKjEPuxyLr1uixFom",
+    "decimals": 8,
+    "binancePair": "COMPUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/AwEauVaTMQRB71WeDnwf1DWSBxaMKjEPuxyLr1uixFom/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "1INCH",
+    "contractAddress": "AjkPkq3nsyDe1yKcbyZT7N4aK4Evv9om9tzhQD3wsRC",
+    "decimals": 8,
+    "binancePair": "1INCHUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/AjkPkq3nsyDe1yKcbyZT7N4aK4Evv9om9tzhQD3wsRC/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "DYDX",
+    "contractAddress": "4Hx6Bj56eGyw8EJrrheM6LBQAvVYRikYCWsALeTrwyRU",
+    "decimals": 8,
+    "binancePair": "DYDXUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/4Hx6Bj56eGyw8EJrrheM6LBQAvVYRikYCWsALeTrwyRU/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "CAKE",
+    "contractAddress": "J8LKx7pr9Zxh9nMhhT7X3EBmj5RzuhFrHKyJAe2F2i9S",
+    "decimals": 8,
+    "binancePair": "CAKEUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/J8LKx7pr9Zxh9nMhhT7X3EBmj5RzuhFrHKyJAe2F2i9S/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "RUNE",
+    "contractAddress": "Brs4S2ehJmxkWsqo6u673ZeNY8HUx2sqnpxAMC4uu2N4",
+    "decimals": 9,
+    "binancePair": "RUNEUSDT",
+    "logo": "https://raw.githubusercontent.com/runestone74/runecoin/main/R%20grey%20flat%20logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "TWT",
+    "contractAddress": "HZNpqL7RT9gxf9eWoWsWzC5DfjzQ41XTQgEA7p3VzaaD",
+    "decimals": 8,
+    "binancePair": "TWTUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/HZNpqL7RT9gxf9eWoWsWzC5DfjzQ41XTQgEA7p3VzaaD/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "YFI",
+    "contractAddress": "BXZX2JRJFjvKazM1ibeDFxgAngKExb74MRXzXKvgikxX",
+    "decimals": 8,
+    "binancePair": "YFIUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/BXZX2JRJFjvKazM1ibeDFxgAngKExb74MRXzXKvgikxX/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "BAL",
+    "contractAddress": "6vXX83QA2vSR1LMVbBKCoezqQyW8yma25WFujQwhc1gn",
+    "decimals": 9,
+    "binancePair": "BALUSDT",
+    "logo": "https://raw.githubusercontent.com/FullMoonMiningCo/logos/main/bal-logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "KNC",
+    "contractAddress": "9xo19RejvwWRPAfGDJ93EoNGxEwmUtZNoMfcSjfKqouq",
+    "decimals": 0,
+    "binancePair": "KNCUSDT",
+    "logo": "https://raw.githubusercontent.com/alfredodirksen130/Crypto/main/Final.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "LINK",
+    "contractAddress": "2wpTofQ8SkACrkZWrZDjXPitYa8AwWgX8AfxdeBRRVLX",
+    "decimals": 8,
+    "binancePair": "LINKUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/2wpTofQ8SkACrkZWrZDjXPitYa8AwWgX8AfxdeBRRVLX/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "BAND",
+    "contractAddress": "86vhTivj5ubLUe9ehUpH78EFATmXfbYxSd3iexqGLb7w",
+    "decimals": 9,
+    "binancePair": "BANDUSDT",
+    "logo": "https://raw.githubusercontent.com/FullMoonMiningCo/logos/main/band-logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "ENS",
+    "contractAddress": "CLQsDGoGibdNPnVCFp8BAsN2unvyvb41Jd5USYwAnzAg",
+    "decimals": 8,
+    "binancePair": "ENSUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/CLQsDGoGibdNPnVCFp8BAsN2unvyvb41Jd5USYwAnzAg/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "AR",
+    "contractAddress": "2aeGdKy65j6t7di7annbckcJsTSg4EkpZnAcBbVCDRed",
+    "decimals": 0,
+    "binancePair": "ARUSDT",
+    "logo": "https://alaanft.000webhostapp.com/logowhale.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "GRT",
+    "contractAddress": "HGsLG4PnZ28L8A4R5nPqKgZd86zUUdmfnkTRnuFJ5dAX",
+    "decimals": 8,
+    "binancePair": "GRTUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/HGsLG4PnZ28L8A4R5nPqKgZd86zUUdmfnkTRnuFJ5dAX/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "OCEAN",
+    "contractAddress": "ANjyHtneJY7ntKwgd9F5Xy2ui3zzn6NYyGEXQzaVzQnK",
+    "decimals": 6,
+    "binancePair": "OCEANUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/ANjyHtneJY7ntKwgd9F5Xy2ui3zzn6NYyGEXQzaVzQnK/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "AKT",
+    "contractAddress": "AYb1hhPDFxGADUGKbCfe7qUvyHct3ucqvkmCS65y2HtA",
+    "decimals": 9,
+    "binancePair": "AKTUSDT",
+    "logo": "https://cdn.jsdelivr.net/gh/pobegov/ak-token/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "PIXEL",
+    "contractAddress": "4tVnbp4KY8Ur6A9YQtZfs43r91LkFhdfAjot8wxw3uCF",
+    "decimals": 0,
+    "binancePair": "PIXELUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/4tVnbp4KY8Ur6A9YQtZfs43r91LkFhdfAjot8wxw3uCF/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "TIA",
+    "contractAddress": "7iFfsz6qLZezfMUJGc4Laq8N2H5KipFFk6CvEE8ayQiE",
+    "decimals": 9,
+    "binancePair": "TIAUSDT",
+    "logo": "https://tokina.io/logo512.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "USDT",
+    "contractAddress": "Es9vMFrzaCERZ8S4wEGj5H1ZiZsaAJ2bGdtzQowBPi8G",
+    "decimals": 6,
+    "binancePair": "USDTUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB/logo.svg"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "USDC",
+    "contractAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "decimals": 6,
+    "binancePair": "USDCUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "DAI",
+    "contractAddress": "EjmyN6qEC1Tf1JxiG1ae7UTJhUxSwk1TCWNWqxWV4J6o",
+    "decimals": 8,
+    "binancePair": "DAIUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EjmyN6qEC1Tf1JxiG1ae7UTJhUxSwk1TCWNWqxWV4J6o/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "TUSD",
+    "contractAddress": "AoTKABCgrfjMXDo7Rtbcgcphi3XCJRjJ74Vpyc3ENMor",
+    "decimals": 0,
+    "binancePair": "TUSDUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/AoTKABCgrfjMXDo7Rtbcgcphi3XCJRjJ74Vpyc3ENMor/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "EUR",
+    "contractAddress": "Hd4TfdGjSwtqSBntCCPtF3fKiMHMHUN3mbCmzP8i2asi",
+    "decimals": 2,
+    "binancePair": "EURUSDT",
+    "logo": "https://raw.githubusercontent.com/xBlackrock/EUR_Token/main/Logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "ARS",
+    "contractAddress": "9aj5LDmjjwBXk5ijfoyQej3X6waV1rnk7QN4KVqjX8wH",
+    "decimals": 9,
+    "binancePair": "ARSUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/9aj5LDmjjwBXk5ijfoyQej3X6waV1rnk7QN4KVqjX8wH/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "AXS",
+    "contractAddress": "HysWcbHiYY9888pHbaqhwLYZQeZrcQMXKQWRqS7zcPK5",
+    "decimals": 8,
+    "binancePair": "AXSUSDT",
+    "logo": "https://img-v1.raydium.io/icon/HysWcbHiYY9888pHbaqhwLYZQeZrcQMXKQWRqS7zcPK5.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "SLP",
+    "contractAddress": "4hpngEp1v3CXpeKB81Gw4sv7YvwUVRKvY3SGag9ND8Q4",
+    "decimals": 8,
+    "binancePair": "SLPUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/4hpngEp1v3CXpeKB81Gw4sv7YvwUVRKvY3SGag9ND8Q4/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "SAND",
+    "contractAddress": "49c7WuCZkQgc3M4qH8WuEUNXfgwupZf1xqWkDQ7gjRGt",
+    "decimals": 8,
+    "binancePair": "SANDUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/49c7WuCZkQgc3M4qH8WuEUNXfgwupZf1xqWkDQ7gjRGt/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "MANA",
+    "contractAddress": "7dgHoN8wBZCc5wbnQ2C47TDnBMAxG4Q5L3KjP67z8kNi",
+    "decimals": 8,
+    "binancePair": "MANAUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/7dgHoN8wBZCc5wbnQ2C47TDnBMAxG4Q5L3KjP67z8kNi/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "GALA",
+    "contractAddress": "3TtdsuQQcuXLfPcUS745giYccyWedeSPCNtBcRfkZGuB",
+    "decimals": 8,
+    "binancePair": "GALAUSDT",
+    "logo": "https://raw.githubusercontent.com/Nasino1/ga/main/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "MBOX",
+    "contractAddress": "EHSSivVbRsuXymnSSvF4ctNgGs6J1Km7dNpyw4Xrmvcw",
+    "decimals": 0,
+    "binancePair": "MBOXUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EHSSivVbRsuXymnSSvF4ctNgGs6J1Km7dNpyw4Xrmvcw/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "ILV",
+    "contractAddress": "8UJbtpsEubDVkY53rk7d61hNYKkvouicczB2XmuwiG4g",
+    "decimals": 8,
+    "binancePair": "ILVUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/8UJbtpsEubDVkY53rk7d61hNYKkvouicczB2XmuwiG4g/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "ALICE",
+    "contractAddress": "9ARQsBfAn65q522cEqSJuse3cLhA31jgWDBGQHeiq7Mg",
+    "decimals": 8,
+    "binancePair": "ALICEUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/9ARQsBfAn65q522cEqSJuse3cLhA31jgWDBGQHeiq7Mg/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "SHIB",
+    "contractAddress": "CiKu4eHsVrc1eueVQeHn7qhXTcVu95gSQmBpX4utjL9z",
+    "decimals": 8,
+    "binancePair": "SHIBUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/CiKu4eHsVrc1eueVQeHn7qhXTcVu95gSQmBpX4utjL9z/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "PEPE",
+    "contractAddress": "6JxHWpKwZjcnxjE9DZtaCEaoVNgpJzuBmrGQ6hmJ7DuM",
+    "decimals": 9,
+    "binancePair": "PEPEUSDT",
+    "logo": "https://cdn.jsdelivr.net/gh/matthew-github-123/pepetoken/frog.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "FLOKI",
+    "contractAddress": "Fkbimv9CBGZANAqRJZQ732xEZ5EA4GidjeNRKiYoDY5y",
+    "decimals": 9,
+    "binancePair": "FLOKIUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Fkbimv9CBGZANAqRJZQ732xEZ5EA4GidjeNRKiYoDY5y/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "BONK",
+    "contractAddress": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "decimals": 5,
+    "binancePair": "BONKUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/6dhTynDkYsVM7cbF7TKfC9DWB636TcEM935fq7JzL2ES/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "WIF",
+    "contractAddress": "Coq3LbB52jzCxk5W8SJTyK3SB83sYTKEjs2JmHaoSGxS",
+    "decimals": 9,
+    "binancePair": "WIFUSDT",
+    "logo": "https://raw.githubusercontent.com/FullMoonMiningCo/logos/main/wif-logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "ARB",
+    "contractAddress": "6qLB8HrouHjQPSAypBfDetAjF1uZJKQjtG7WfpT9Sz5k",
+    "decimals": 0,
+    "binancePair": "ARBUSDT",
+    "logo": "https://raw.githubusercontent.com/svb1995/crypto/main/Thank.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "OP",
+    "contractAddress": "66EvNhcyyYLBtpLZhCF8pddqzVhKLrVincYiiQw8pCaT",
+    "decimals": 4,
+    "binancePair": "OPUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/66EvNhcyyYLBtpLZhCF8pddqzVhKLrVincYiiQw8pCaT/One.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "SKL",
+    "contractAddress": "3nEUJDbbCPEh7ePCwxgEXq8fXXqStjrCrZmJ1rUyCPSB",
+    "decimals": 8,
+    "binancePair": "SKLUSDT",
+    "logo": "https://raw.githubusercontent.com/skylrfinance1/skylr/main/assets/mainnet/3nEUJDbbCPEh7ePCwxgEXq8fXXqStjrCrZmJ1rUyCPSB/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "LRC",
+    "contractAddress": "HCTVFTzHL21a1dPzKxAUeWwqbE8QMUyvgChFDL4XYoi1",
+    "decimals": 8,
+    "binancePair": "LRCUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/HCTVFTzHL21a1dPzKxAUeWwqbE8QMUyvgChFDL4XYoi1/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "ZRX",
+    "contractAddress": "GJa1VeEYLTRoHbaeqcxfzHmjGCGtZGF3CUqxv9znZZAY",
+    "decimals": 8,
+    "binancePair": "ZRXUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/GJa1VeEYLTRoHbaeqcxfzHmjGCGtZGF3CUqxv9znZZAY/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "HFT",
+    "contractAddress": "8E46KTad6wrB1TdFnozAjX8BLvL6pnFaADqGL3KFMtX",
+    "decimals": 5,
+    "binancePair": "HFTUSDT",
+    "logo": "https://raw.githubusercontent.com/Karfearsw/HeatFeet-Token/main/hft.jpg"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "CHZ",
+    "contractAddress": "5TtSKAamFq88grN1QGrEaZ1AjjyciqnCya1aiMhAgFvG",
+    "decimals": 8,
+    "binancePair": "CHZUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/5TtSKAamFq88grN1QGrEaZ1AjjyciqnCya1aiMhAgFvG/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "HOT",
+    "contractAddress": "CEKW3UCXwVb7SPjASeNhzHAenyzYGrNwxGMNzXHRz8k6",
+    "decimals": 4,
+    "binancePair": "HOTUSDT",
+    "logo": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/CEKW3UCXwVb7SPjASeNhzHAenyzYGrNwxGMNzXHRz8k6/logo.png"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "C98",
+    "contractAddress": "C98A4nkJXhpVZNAZdHUA95RpTF3T4whtQubL3YobiUX9",
+    "decimals": 6,
+    "binancePair": "C98USDT",
+    "logo": "https://coin98.s3.ap-southeast-1.amazonaws.com/Coin/c98-512.svg"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "Solana",
+    "symbol": "ALGO",
+    "contractAddress": "HtKKipqmgxMQJUob9XCgZBG6zSCZx4nA433ZfDuLyUTg",
+    "decimals": 9,
+    "binancePair": "ALGOUSDT",
+    "logo": "https://raw.githubusercontent.com/unimintco/token-logos/main/ALGO/logo.png"
+  }
+]

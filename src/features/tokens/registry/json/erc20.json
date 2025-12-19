@@ -1,0 +1,542 @@
+[
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "BTC",
+    "contractAddress": "0xD629eb00dEced2a080B7EC630eF6aC117e614f1b",
+    "decimals": 18,
+    "binancePair": "BTCUSDT",
+    "logo": "https://raw.githubusercontent.com/ubeswap/default-token-list/master/assets/asset_WBTC.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "SOL",
+    "contractAddress": "0xD31a59c85aE9D8edEFeC411D448f90841571b89c",
+    "decimals": 9,
+    "binancePair": "SOLUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/22876/thumb/SOL_wh_small.png?1644224316"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "MATIC",
+    "contractAddress": "0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0",
+    "decimals": 18,
+    "binancePair": "MATICUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "UNI",
+    "contractAddress": "0x1f9840a85d5aF5bF1D1762F925bDaDdC4201F984",
+    "decimals": 18,
+    "binancePair": "UNIUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "AAVE",
+    "contractAddress": "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+    "decimals": 18,
+    "binancePair": "AAVEUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "LDO",
+    "contractAddress": "0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32",
+    "decimals": 18,
+    "binancePair": "LDOUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/13573/thumb/Lido_DAO.png?1609873644"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "SNX",
+    "contractAddress": "0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F",
+    "decimals": 18,
+    "binancePair": "SNXUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets//logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "MKR",
+    "contractAddress": "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2",
+    "decimals": 18,
+    "binancePair": "MKRUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "CRV",
+    "contractAddress": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+    "decimals": 18,
+    "binancePair": "CRVUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xD533a949740bb3306d119CC777fa900bA034cd52/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "CVX",
+    "contractAddress": "0x4e3FBD56CD56c3e72c1403e103b45Db9da5B9D2B",
+    "decimals": 18,
+    "binancePair": "CVXUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x4e3FBD56CD56c3e72c1403e103b45Db9da5B9D2B/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "COMP",
+    "contractAddress": "0xc00e94Cb662C3520282E6f5717214004A7f26888",
+    "decimals": 18,
+    "binancePair": "COMPUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xc00e94Cb662C3520282E6f5717214004A7f26888/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "1INCH",
+    "contractAddress": "0x111111111117dC0aa78b770fA6A738034120C302",
+    "decimals": 18,
+    "binancePair": "1INCHUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x111111111117dC0aa78b770fA6A738034120C302/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "DYDX",
+    "contractAddress": "0x92D6C1e31e14520e676a687F0a93788B716BEff5",
+    "decimals": 18,
+    "binancePair": "DYDXUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/17500/thumb/hjnIm9bV.jpg?1628009360"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "GMX",
+    "contractAddress": "0xfc5A1A6EB076a2C7aD06eD22C90d7E710E35ad0a",
+    "decimals": 18,
+    "binancePair": "GMXUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/18323/large/arbit.png?1631532468"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "CAKE",
+    "contractAddress": "0x152649eA73beAb28c5b49B26eb48f7EAD6d4c898",
+    "decimals": 18,
+    "binancePair": "CAKEUSDT",
+    "logo": "https://coin-images.coingecko.com/coins/images/12632/large/pancakeswap-cake-logo_%281%29.png?1696512440"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "INJ",
+    "contractAddress": "0xe28b3B32B6c345A34Ff64674606124Dd5Aceca30",
+    "decimals": 18,
+    "binancePair": "INJUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xe28b3B32B6c345A34Ff64674606124Dd5Aceca30/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "YFI",
+    "contractAddress": "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e",
+    "decimals": 18,
+    "binancePair": "YFIUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "BAL",
+    "contractAddress": "0xba100000625a3754423978a60c9317c58a424e3D",
+    "decimals": 18,
+    "binancePair": "BALUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xba100000625a3754423978a60c9317c58a424e3D/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "KNC",
+    "contractAddress": "0xdd974D5C2e2928deA5F71b9825b8b646686BD200",
+    "decimals": 18,
+    "binancePair": "KNCUSDT",
+    "logo": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdd974D5C2e2928deA5F71b9825b8b646686BD200/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "LINK",
+    "contractAddress": "0x514910771AF9Ca656af840dff83E8264EcF986CA",
+    "decimals": 18,
+    "binancePair": "LINKUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "API3",
+    "contractAddress": "0x0b38210ea11411557c13457D4dA7dC6ea731B88a",
+    "decimals": 18,
+    "binancePair": "API3USDT",
+    "logo": "https://assets.coingecko.com/coins/images/13256/thumb/api3.jpg?1606751424"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "BAND",
+    "contractAddress": "0xBA11D00c5f74255f56a5E366F4F77f5A186d7f55",
+    "decimals": 18,
+    "binancePair": "BANDUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xBA11D00c5f74255f56a5E366F4F77f5A186d7f55/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "UMA",
+    "contractAddress": "0x04Fa0d235C4abf4BcF4787aF4CF447DE572eF828",
+    "decimals": 18,
+    "binancePair": "UMAUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x04Fa0d235C4abf4BcF4787aF4CF447DE572eF828/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "ENS",
+    "contractAddress": "0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72",
+    "decimals": 18,
+    "binancePair": "ENSUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "STORJ",
+    "contractAddress": "0xB64ef51C888972c908CFacf59B47C1AfBC0Ab8aC",
+    "decimals": 8,
+    "binancePair": "STORJUSDT",
+    "logo": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xB64ef51C888972c908CFacf59B47C1AfBC0Ab8aC/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "RNDR",
+    "contractAddress": "0x6De037ef9aD2725EB40118Bb1702EBb27e4Aeb24",
+    "decimals": 18,
+    "binancePair": "RNDRUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/11636/thumb/rndr.png?1638840934"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "GRT",
+    "contractAddress": "0xc944E90C64B2c07662A292be6244BDf05Cda44a7",
+    "decimals": 18,
+    "binancePair": "GRTUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xc944E90C64B2c07662A292be6244BDf05Cda44a7/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "OCEAN",
+    "contractAddress": "0x967da4048cD07aB37855c090aAF366e4ce1b9F48",
+    "decimals": 18,
+    "binancePair": "OCEANUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x967da4048cD07aB37855c090aAF366e4ce1b9F48/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "FET",
+    "contractAddress": "0xaea46A60368A7bD060eec7DF8CBa43b7EF41Ad85",
+    "decimals": 18,
+    "binancePair": "FETUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/5681/thumb/Fetch.jpg?1572098136"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "USDT",
+    "contractAddress": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "decimals": 6,
+    "binancePair": "USDTUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "USDC",
+    "contractAddress": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "decimals": 6,
+    "binancePair": "USDCUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "DAI",
+    "contractAddress": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+    "decimals": 18,
+    "binancePair": "DAIUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "FDUSD",
+    "contractAddress": "0xc5f0f7b66764f6ec8c8dff7ba683102295e16409",
+    "decimals": 18,
+    "binancePair": "FDUSDUSDT",
+    "logo": "https://tokens.pancakeswap.finance/images/0xc5f0f7b66764F6ec8C8Dff7BA683102295E16409.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "TUSD",
+    "contractAddress": "0x0000000000085d4780B73119b644AE5ecd22b376",
+    "decimals": 18,
+    "binancePair": "TUSDUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0000000000085d4780B73119b644AE5ecd22b376/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "AXS",
+    "contractAddress": "0xBB0E17EF65F82Ab018d8EDd776e8DD940327B28b",
+    "decimals": 18,
+    "binancePair": "AXSUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/13029/thumb/axie_infinity_logo.png?1604471082"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "SLP",
+    "contractAddress": "0xCC8Fa225D80b9c7D42F96e9570156c65D6cAAa25",
+    "decimals": 0,
+    "binancePair": "SLPUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/10366/thumb/SLP.png?1578640057"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "SAND",
+    "contractAddress": "0x3845badAde8e6dFF049820680d1F14bD3903a5d0",
+    "decimals": 18,
+    "binancePair": "SANDUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x3845badAde8e6dFF049820680d1F14bD3903a5d0/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "MANA",
+    "contractAddress": "0x0F5D2fB29fb7d3CFeE444a200298f468908cC942",
+    "decimals": 18,
+    "binancePair": "MANAUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0F5D2fB29fb7d3CFeE444a200298f468908cC942/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "TLM",
+    "contractAddress": "0x888888848B652B3E3a0f34c96E00EEC0F3a23F72",
+    "decimals": 4,
+    "binancePair": "TLMUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/14676/thumb/kY-C4o7RThfWrDQsLCAG4q4clZhBDDfJQVhWUEKxXAzyQYMj4Jmq1zmFwpRqxhAJFPOa0AsW_PTSshoPuMnXNwq3rU7Imp15QimXTjlXMx0nC088mt1rIwRs75GnLLugWjSllxgzvQ9YrP4tBgclK4_rb17hjnusGj_c0u2fx0AvVokjSNB-v2poTj0xT9BZRCbzRE3-lF1.jpg?1617700061"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "GALA",
+    "contractAddress": "0xd1d2Eb1B1e90B638588728b4130137D262C87cae",
+    "decimals": 8,
+    "binancePair": "GALAUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xd1d2Eb1B1e90B638588728b4130137D262C87cae/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "IMX",
+    "contractAddress": "0xF57e7e7C23978C3cAEC3C3548E3D615c346e79fF",
+    "decimals": 18,
+    "binancePair": "IMXUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/17233/thumb/imx.png?1636691817"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "ILV",
+    "contractAddress": "0x767FE9EDC9E0dF98E07454847909b5E959D7ca0E",
+    "decimals": 18,
+    "binancePair": "ILVUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x767FE9EDC9E0dF98E07454847909b5E959D7ca0E/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "ALICE",
+    "contractAddress": "0xAC51066d7bEC65Dc4589368da368b212745d63E8",
+    "decimals": 6,
+    "binancePair": "ALICEUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/14375/thumb/alice_logo.jpg?1615782968"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "SHIB",
+    "contractAddress": "0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE",
+    "decimals": 18,
+    "binancePair": "SHIBUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "PEPE",
+    "contractAddress": "0x6982508145454Ce325dDbE47a25d4ec3d2311933",
+    "decimals": 18,
+    "binancePair": "PEPEUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/29850/large/pepe-token.jpeg?1682922725"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "FLOKI",
+    "contractAddress": "0xcf0C122c6b73ff809C693DB761e7BaeBe62b6a2E",
+    "decimals": 9,
+    "binancePair": "FLOKIUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xcf0C122c6b73ff809C693DB761e7BaeBe62b6a2E/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "BONK",
+    "contractAddress": "0xBbE97f3522101e5B6976cBf77376047097BA837F",
+    "decimals": 5,
+    "binancePair": "BONKUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/28600/standard/bonk.jpg?1696527587"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "WIF",
+    "contractAddress": "0x97Fadb3D000b953360FD011e173F12cDDB5d70Fa",
+    "decimals": 6,
+    "binancePair": "WIFUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg?1702499428"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "ARB",
+    "contractAddress": "0xB50721BCf8d664c30412Cfbc6cf7a15145234ad1",
+    "decimals": 18,
+    "binancePair": "ARBUSDT",
+    "logo": "https://arbitrum.foundation/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "OP",
+    "contractAddress": "0x4200000000000000000000000000000000000042",
+    "decimals": 18,
+    "binancePair": "OPUSDT",
+    "logo": "https://ethereum-optimism.github.io/data/OP/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "METIS",
+    "contractAddress": "0x9E32b13ce7f2E80A01932B42553652E053D6ed8e",
+    "decimals": 18,
+    "binancePair": "METISUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x9E32b13ce7f2E80A01932B42553652E053D6ed8e/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "SKL",
+    "contractAddress": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+    "decimals": 18,
+    "binancePair": "SKLUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "LRC",
+    "contractAddress": "0xBBbbCA6A901c926F240b89EacB641d8Aec7AEafD",
+    "decimals": 18,
+    "binancePair": "LRCUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xBBbbCA6A901c926F240b89EacB641d8Aec7AEafD/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "ZRX",
+    "contractAddress": "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
+    "decimals": 18,
+    "binancePair": "ZRXUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xE41d2489571d322189246DaFA5ebDe1F4699F498/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "ZK",
+    "contractAddress": "0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E",
+    "decimals": 18,
+    "binancePair": "ZKUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/38043/large/ZKTokenBlack.png?17186145029"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "HFT",
+    "contractAddress": "0xb3999F658C0391d94A37f7FF328F3feC942BcADC",
+    "decimals": 18,
+    "binancePair": "HFTUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/26136/large/hashflow-icon-cmc.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "CHZ",
+    "contractAddress": "0x3506424F91fD33084466F402d5D97f05F8e3b4AF",
+    "decimals": 18,
+    "binancePair": "CHZUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/8834/thumb/Chiliz.png?1561970540"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "HOT",
+    "contractAddress": "0x6c6EE5e31d828De241282B9606C8e98Ea48526E2",
+    "decimals": 18,
+    "binancePair": "HOTUSDT",
+    "logo": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x6c6EE5e31d828De241282B9606C8e98Ea48526E2/logo.png"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "CELR",
+    "contractAddress": "0x4F9254C83EB525f9FCf346490bbb3ed28a81C667",
+    "decimals": 18,
+    "binancePair": "CELRUSDT",
+    "logo": "https://assets.coingecko.com/coins/images/4379/thumb/Celr.png?1554705437"
+  },
+  {
+    "chainId": 1,
+    "chainName": "Ethereum",
+    "symbol": "C98",
+    "contractAddress": "0xAE12C5930881c53715B369ceC7606B70d8EB229f",
+    "decimals": 18,
+    "binancePair": "C98USDT",
+    "logo": "https://assets.coingecko.com/coins/images/17117/thumb/logo.png?1626412904"
+  }
+]

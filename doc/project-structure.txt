@@ -1,0 +1,103 @@
+apps/mobile/
+├─ app/                       # App shell & navigation
+│  ├─ App.tsx
+│  ├─ providers/              # Theme, QueryClient, ErrorBoundary, SafeArea
+│  ├─ navigation/
+│  │  ├─ RootNavigator.tsx
+│  │  └─ types.ts
+│  └─ screens/                # Screen composition only (no business logic)
+│     ├─ HomeScreen/
+│     ├─ WalletScreen/
+│     ├─ WalletSendScreen/
+│     ├─ ReceiveScreen/
+│     ├─ SwapScreen/
+│     ├─ SettingsScreen/
+│     └─ components/          # view-only, scoped to a screen
+│
+├─ entities/                  # Domain models (pure TS), no RN imports
+│  ├─ wallet/
+│  │  ├─ types.ts             # Wallet, Account, Chain, Asset, Balance, Tx
+│  │  ├─ value-objects.ts     # Address, Amount, Fiat, Slippage, ChainId
+│  │  └─ errors.ts
+│  ├─ price/
+│  ├─ swap/
+│  └─ user/
+│
+├─ features/                  # Reusable vertical slices (UI + state + app use-cases)
+│  ├─ wallet-list/
+│  │  ├─ model/               # valtio store/use cases
+│  │  │  ├─ wallet.store.ts
+│  │  │  └─ wallet.usecases.ts
+│  │  └─ ui/
+│  │     ├─ WalletRow.tsx
+│  │     └─ WalletList.tsx
+│  ├─ send/
+│  │  ├─ model/ (preflight, fee estimation, tx build, confirm)
+│  │  └─ ui/
+│  ├─ swap/
+│  ├─ receive/
+│  ├─ connect-dapp/           # Injected providers, WC session UX
+│  └─ settings/
+│
+├─ processes/                 # Cross-screen flows (onboarding, restore, KYC)
+│  ├─ onboarding/
+│  └─ backup-restore/
+│
+├─ shared/
+│  ├─ ui/                     # Design system: M3 components, tokens, primitives
+│  │  ├─ atoms/               # Lowest level visual elements
+│  │  ├─ molecules/           # Input, ListItem, AssetIcon, Avatar
+│  │  └─ primitives/          # Button, Text, Icon, Sheet, Dialog, Picker
+│  ├─ lib/
+│  │  ├─ valtio/              # snapshot helpers, derived selectors
+│  │  ├─ form/                # zod schemas, react-hook-form adapters
+│  │  ├─ i18n/
+│  │  ├─ time/                # dayjs utils
+│  │  └─ fp/                  # small functional helpers
+│  ├─ config/
+│  │  ├─ chains.ts            # CAIP-like ids, rpc urls, explorers
+│  │  ├─ env.ts               # runtime env bridge
+│  │  └─ security.ts          # passcode/biometric policy
+│  ├─ styles/                 # tokens, theme, nativewind setup
+│  └─ types/
+│
+├─ services/                  # Infrastructure & adapters (no React)
+│  ├─ crypto/                 # key mgmt, signing, BIP/BLS utils
+│  │  ├─ keystore/            # secure storage + encryption envelope
+│  │  ├─ bip39.ts, bip32.ts
+│  │  └─ utils.ts
+│  ├─ chains/                 # polymorphic chain adapters (ports/adapters)
+│  │  ├─ core/
+│  │  │  ├─ ChainPort.ts      # interface: balanceOf, buildTx, estimateFee, sendTx
+│  │  │  └─ TokenPort.ts
+│  │  ├─ evm/
+│  │  │  ├─ EvmAdapter.ts     # implements ChainPort via ethers
+│  │  │  └─ erc20.ts
+│  │  ├─ solana/
+│  │  │  └─ SolanaAdapter.ts  # @solana/web3.js
+│  │  └─ bitcoin/
+│  │     └─ BitcoinAdapter.ts # bitcoinjs-lib
+│  ├─ price/
+│  │  ├─ PricePort.ts
+│  │  ├─ DexscreenerProvider.ts
+│  │  ├─ BinanceProvider.ts
+│  │  └─ CoinGeckoProvider.ts
+│  ├─ swap/
+│  │  ├─ EvmOneInch.ts
+│  │  └─ SolanaJupiter.ts
+│  ├─ walletconnect/
+│  ├─ storage/                # mmkv/secure-store abstractions
+│  ├─ http/                   # fetch wrapper, retry, rate-limit
+│  └─ telemetry/              # analytics, crash reports
+│
+├─ app-state/                 # Global domain stores that multiple features use
+│  ├─ session.store.ts        # auth, lock state, biometrics
+│  ├─ chains.store.ts         # current chain/network, rpc health
+│  ├─ price.store.ts
+│  └─ settings.store.ts
+│
+├─ tests/
+│  ├─ unit/
+│  ├─ integration/            # adapters with mocked RPC
+│  └─ e2e/                    # Detox
+└─ package.json
