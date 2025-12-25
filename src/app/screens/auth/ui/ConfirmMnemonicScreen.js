@@ -131,14 +131,6 @@ export default function ConfirmMnemonicScreen({ navigation, route }) {
               authStore.markAcceptedTos?.();
               authStore.unlock?.();
               authStore.setAuthenticated(true);
-
-              // Navigate to main app
-              navigation.dispatch(
-                CommonActions.reset({
-                  index: 0,
-                  routes: [{ name: 'MainTabs' }], // Change to your home route name if different
-                })
-              );
             } catch (err) {
               console.error('Wallet init failed:', err);
               setError(
