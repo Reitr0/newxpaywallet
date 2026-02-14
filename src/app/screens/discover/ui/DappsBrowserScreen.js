@@ -21,7 +21,7 @@ import {
   toHexChainId,
 } from '@features/dapps/service/dappBrowserConfig';
 import { makeDappRpcRouter } from '@features/dapps/service/dappRpcRouter';
-import { jsEmit, jsResolve } from '@features/dapps/service/injectionHelpers';
+import { jsEmit, jsResolve, jsSyncState } from '@features/dapps/service/injectionHelpers';
 import { confirmDialog, setConfirmSheetRef } from '@features/dapps/service/confirmDialog';
 import DappConfirmSheet from '@src/app/screens/discover/components/DappConfirmSheet';
 import { snackbarStore } from '@src/shared/ui/store/snackbarStore';
@@ -41,8 +41,15 @@ export default function DappsBrowserScreen({ route }) {
   });
 
   /* Active wallet info */
-  const getActiveAddress = useCallback(() => s.activeAddress, [s.activeAddress]);
-  const getActiveChainId = useCallback(() => s.activeChainId || 1, [s.activeChainId]);
+  const getActiveAddress = useCallback(() => {
+    // Always sync wallet state when requested
+    dappBrowserStore.syncWalletState();
+    return s.activeAddress;
+  }, [s.activeAddress]);
+  
+  const getActiveChainId = useCallback(() => {
+    return s.activeChainId || 1;
+  }, [s.activeChainId]);
 
   const routeRpc = makeDappRpcRouter({
     walletStore,
@@ -125,19 +132,140 @@ export default function DappsBrowserScreen({ route }) {
   const onLoadEnd = useCallback(() => {
     dappBrowserStore.setLoading(false);
     setTimeout(() => dappBrowserStore.setProgress(0), 150);
-  }, []);
+    
+    // CRITICAL: Re-sync state after page load
+    const addr = getActiveAddress();
+    const chainId = getActiveChainId();
+    
+    if (addr && chainId) {
+      const hexChainId = toHexChainId(chainId);
+      
+      console.log('[DApp Browser] Page loaded, re-syncing state:', { addr, chainId: hexChainId });
+      
+      // Re-inject state after page load with multiple attempts
+      const syncAttempts = [500, 1000, 2000, 3000]; // Try multiple times
+      
+      syncAttempts.forEach((delay) => {
+        setTimeout(() => {
+          console.log(`[DApp Browser] Sync attempt at ${delay}ms`);
+          
+          // 1. Sync state
+          webref.current?.injectJavaScript(jsSyncState({
+            selectedAddress: addr,
+            chainId: hexChainId
+          }));
+          
+          // 2. Re-emit events
+          setTimeout(() => {
+            webref.current?.injectJavaScript(jsEmit('accountsChanged', [addr]));
+            webref.current?.injectJavaScript(jsEmit('chainChanged', hexChainId));
+            webref.current?.injectJavaScript(jsEmit('connect', { chainId: hexChainId }));
+            
+            // 3. Force provider to be "ready"
+            webref.current?.injectJavaScript(`
+              (function() {
+                try {
+                  if (window.ethereum) {
+                    window.ethereum.selectedAddress = '${addr}';
+                    window.ethereum.chainId = '${hexChainId}';
+                    window.ethereum._isReady = true;
+                    window.ethereum._initialized = true;
+                    console.log('[VP Provider] Force ready:', window.ethereum.selectedAddress, window.ethereum.chainId);
+                  }
+                } catch(e) {
+                  console.warn('[VP Provider] Force ready failed:', e);
+                }
+              })();
+            `);
+          }, 200);
+        }, delay);
+      });
+    }
+  }, [getActiveAddress, getActiveChainId]);
 
   /* Lifecycle */
   useEffect(() => {
+    // CRITICAL: Set URL first before syncing wallet state
     dappBrowserStore.setInitialUrl(initialUrl);
+    
+    // THEN sync wallet state (so BSC detection works)
+    dappBrowserStore.syncWalletState();
+    
     const addr = getActiveAddress();
     const chainId = getActiveChainId();
 
-    if (addr) webref.current?.injectJavaScript(jsEmit('accountsChanged', [addr]));
-    if (chainId) webref.current?.injectJavaScript(jsEmit('chainChanged', toHexChainId(chainId)));
+    console.log('[DApp Browser] Initializing with wallet:', { addr, chainId, url: initialUrl });
+
+    // CRITICAL: Auto-grant permission for trusted sites
+    if (addr && s.shouldAutoConnect?.()) {
+      const origin = dappBrowserStore.getOrigin(initialUrl);
+      console.log('[DApp Browser] Auto-granting permission for:', origin);
+      dappBrowserStore.sitePermissions.set(origin, {
+        connected: true,
+        address: addr
+      });
+    }
+
+    // CRITICAL: Sync provider state first, then emit events
+    if (addr && chainId) {
+      const hexChainId = toHexChainId(chainId);
+      
+      console.log('[DApp Browser] Using chain:', { chainId, hexChainId, addr });
+      
+      // 1. Sync provider internal state
+      const stateScript = jsSyncState({
+        selectedAddress: addr,
+        chainId: hexChainId
+      });
+      console.log('[DApp Browser] Syncing provider state:', stateScript);
+      webref.current?.injectJavaScript(stateScript);
+      
+      // 2. Then emit events (with delay to ensure state is synced)
+      setTimeout(() => {
+        const accountScript = jsEmit('accountsChanged', [addr]);
+        const chainScript = jsEmit('chainChanged', hexChainId);
+        
+        console.log('[DApp Browser] Injecting accountsChanged:', accountScript);
+        console.log('[DApp Browser] Injecting chainChanged:', chainScript);
+        
+        webref.current?.injectJavaScript(accountScript);
+        webref.current?.injectJavaScript(chainScript);
+        
+        // 3. Emit connect event
+        const connectScript = jsEmit('connect', { chainId: hexChainId });
+        console.log('[DApp Browser] Injecting connect event:', connectScript);
+        webref.current?.injectJavaScript(connectScript);
+      }, 500);
+    }
 
     if (initialUrl === HOME_BASE) goHome();
-  }, [getActiveAddress, getActiveChainId, goHome, initialUrl, s.activeAddress, s.activeChainId]);
+  }, [getActiveAddress, getActiveChainId, goHome, initialUrl, s.shouldAutoConnect]);
+
+  // Watch for wallet store changes and sync
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const prevAddress = s.activeAddress;
+      dappBrowserStore.syncWalletState();
+      
+      // If address changed, notify DApp
+      if (s.activeAddress !== prevAddress && s.activeAddress) {
+        console.log('[DApp Browser] Address changed, notifying DApp:', s.activeAddress);
+        
+        // Sync state first
+        webref.current?.injectJavaScript(jsSyncState({
+          selectedAddress: s.activeAddress,
+          chainId: s.activeChainHex
+        }));
+        
+        // Then emit event
+        setTimeout(() => {
+          webref.current?.injectJavaScript(jsEmit('accountsChanged', [s.activeAddress]));
+        }, 100);
+      }
+    }, 3000); // Check every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [s.activeAddress, s.activeChainHex]);
 
   useEffect(() => {
     setConfirmSheetRef(confirmRef.current);
@@ -230,6 +358,7 @@ export default function DappsBrowserScreen({ route }) {
           webref.current = r;
         }}
         source={{ uri: initialUrl }}
+        injectedJavaScriptBeforeContentLoaded={INJECTED_PROVIDER}
         injectedJavaScript={INJECTED_PROVIDER}
         onMessage={onMessage}
         onNavigationStateChange={onNavChange}

@@ -8,6 +8,8 @@ import bep20 from '@src/features/tokens/registry/json/bep20.json';
 import polygon from '@src/features/tokens/registry/json/polygon.json';
 import solanaL from '@src/features/tokens/registry/json/solona.json';
 import trc20 from '@src/features/tokens/registry/json/trc20.json';
+import stockSolana from '@src/features/tokens/registry/json/stock-solana.json';
+import forexSolana from '@src/features/tokens/registry/json/forex-solana.json';
 
 /* ------------------------------- helpers -------------------------------- */
 
@@ -70,7 +72,11 @@ function normalizeToken(t = {}, chainKey) {
     address,                 // null for native (rare in registry)
     decimals,
     name: t.name || t.label || symbol || '',
-    logo: t.logo || t.logoUrl || null,
+    label: t.label || null,  // Keep original label for Solana X tokens
+    logo: t.logo || t.logoUrl || t.logoURI || null,
+    type: t.type || 'token', // 'token' | 'stock' | 'forex'
+    tag: t.tag || null,      // Keep original tag for Solana X tokens
+    chainName: t.chainName || null, // Keep original chainName
     isToken: true
   };
 }
@@ -91,7 +97,11 @@ const DEFAULTS_BY_CHAIN = {
   '1':      (erc20   || []).map(x => normalizeToken(x, '1')),
   '56':     (bep20   || []).map(x => normalizeToken(x, '56')),
   '137':    (polygon || []).map(x => normalizeToken(x, '137')),
-  'solana': (solanaL || []).map(x => normalizeToken(x, 'solana')),
+  'solana': [
+    ...(solanaL || []).map(x => normalizeToken(x, 'solana')),
+    ...(stockSolana || []).map(x => normalizeToken(x, 'solana')),
+    ...(forexSolana || []).map(x => normalizeToken(x, 'solana')),
+  ],
   'tron':   (trc20   || []).map(x => normalizeToken(x, 'tron')),
 };
 

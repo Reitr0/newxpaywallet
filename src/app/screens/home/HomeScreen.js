@@ -47,7 +47,7 @@ function QuickAction({ icon, label, active, onPress }) {
 export default function HomeScreen({ navigation }) {
   const { t } = useTranslation();
   const { portfolio } = useSnapshot(walletStore);
-  const [tab, setTab] = useState('crypto');
+  const [tab, setTab] = useState('assets');
   const { list: wallets, totalUsd, refresh, refreshing } = useWallet();
 
   useEffect(() => {
@@ -64,8 +64,10 @@ export default function HomeScreen({ navigation }) {
       receive: t('home.actions.receive', 'Receive'),
       fund: t('home.actions.fund', 'Fund'),
       sell: t('home.actions.sell', 'Sell'),
-      cryptoTab: t('home.tabs.crypto', 'Crypto'),
-      nftsTab: t('home.tabs.nfts', 'NFTs'),
+      assetsTab: t('home.tabs.assets', 'Assets'),
+      stockTab: t('home.tabs.stock', 'Stock'),
+      forexTab: t('home.tabs.forex', 'Forex'),
+      rwaTab: t('home.tabs.rwa', 'RWA-T'),
       manageCrypto: t('home.actions.manageCrypto', 'Manage'),
       refreshing: t('home.refreshing', 'Refreshing…'),
     }),
@@ -75,6 +77,34 @@ export default function HomeScreen({ navigation }) {
   const onRowPress = (item) => {
     navigation.navigate('WalletDetailScreen', { assetId: item.id });
   };
+
+  // Filter wallets based on tab
+  const filteredWallets = useMemo(() => {
+    console.log('====== HomeScreen Filter Debug ======');
+    console.log('Current tab:', tab);
+    console.log('Total wallets:', wallets.length);
+    console.log('Wallets with type property:', wallets.filter(w => w.type).map(w => ({symbol: w.symbol, type: w.type, chain: w.chain})));
+    
+    if (tab === 'stock') {
+      const stockWallets = wallets.filter(w => w.type === 'stock');
+      console.log('Stock wallets found:', stockWallets.length, stockWallets.map(w => w.symbol));
+      return stockWallets;
+    }
+    if (tab === 'forex') {
+      const forexWallets = wallets.filter(w => w.type === 'forex');
+      console.log('Forex wallets found:', forexWallets.length, forexWallets.map(w => w.symbol));
+      return forexWallets;
+    }
+        if (tab === 'rwa') {
+      const rwaWallets = wallets.filter(w => w.type === 'rwa');
+      console.log('RWA wallets found:', rwaWallets.length, rwaWallets.map(w => w.symbol));
+      return rwaWallets;
+    }
+    // 'assets' tab shows regular tokens (not stock/forex)
+    const assetWallets = wallets.filter(w => !w.type || w.type === 'token');
+    console.log('Asset wallets found:', assetWallets.length);
+    return assetWallets;
+  }, [wallets, tab]);
 
   return (
     <View className="flex-1 bg-app">
@@ -111,7 +141,7 @@ export default function HomeScreen({ navigation }) {
           label={labels.receive}
           onPress={() => navigation.navigate('WalletsScreen', { action: 'RECEIVE' })}
         />
-        <QuickAction
+        {/* <QuickAction
           icon="lightning-bolt"
           label={labels.fund}
           active
@@ -121,22 +151,38 @@ export default function HomeScreen({ navigation }) {
           icon="bank-outline"
           label={labels.sell}
           onPress={() => navigation.navigate('WalletsScreen', { action: 'SELL' })}
-        />
+        /> */}
       </View>
 
       {/* Tabs */}
       <View className="flex-row gap-8 px-4 mt-8">
-        <VPressable onPress={() => setTab('crypto')} accessibilityRole="tab">
-          <VText className="text-title text-lg font-semibold">{labels.cryptoTab}</VText>
-          {tab === 'crypto' ? (
+        <VPressable onPress={() => setTab('assets')} accessibilityRole="tab">
+          <VText className="text-title text-lg font-semibold">{labels.assetsTab}</VText>
+          {tab === 'assets' ? (
             <View className="h-1 rounded-full bg-title mt-2" />
           ) : (
             <View className="h-1 mt-2" />
           )}
         </VPressable>
-        <VPressable onPress={() => setTab('nfts')} accessibilityRole="tab">
-          <VText className="text-title text-lg font-semibold">{labels.nftsTab}</VText>
-          {tab === 'nfts' ? (
+        <VPressable onPress={() => setTab('stock')} accessibilityRole="tab">
+          <VText className="text-title text-lg font-semibold">{labels.stockTab}</VText>
+          {tab === 'stock' ? (
+            <View className="h-1 rounded-full bg-title mt-2" />
+          ) : (
+            <View className="h-1 mt-2" />
+          )}
+        </VPressable>
+        <VPressable onPress={() => setTab('forex')} accessibilityRole="tab">
+          <VText className="text-title text-lg font-semibold">{labels.forexTab}</VText>
+          {tab === 'forex' ? (
+            <View className="h-1 rounded-full bg-title mt-2" />
+          ) : (
+            <View className="h-1 mt-2" />
+          )}
+        </VPressable>
+        <VPressable onPress={() => setTab('rwa')} accessibilityRole="tab">
+          <VText className="text-title text-lg font-semibold">{labels.rwaTab}</VText>
+          {tab === 'rwa' ? (
             <View className="h-1 rounded-full bg-title mt-2" />
           ) : (
             <View className="h-1 mt-2" />
@@ -163,7 +209,7 @@ export default function HomeScreen({ navigation }) {
       {/* Wallet list */}
       <View className="flex-1 px-4 mt-2">
         <VFlatList
-          data={tab === 'crypto' ? wallets : []}
+          data={filteredWallets}
           estimatedItemSize={76}
           keyExtractor={(it) => it.id}
           refreshControl={

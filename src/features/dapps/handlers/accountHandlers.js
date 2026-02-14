@@ -4,9 +4,40 @@ export const accountHandlers = (ctx) => ({
    * eth_accounts
    */
   async eth_accounts() {
-    const { sitePermissions, origin } = ctx;
+    const { sitePermissions, origin, activeAddr } = ctx;
+    
+    console.log('[Account Handler] eth_accounts called', { origin, activeAddr });
+    
     const perm = sitePermissions.get(origin);
-    if (perm?.connected && perm?.address) return [perm.address];
+    console.log('[Account Handler] Current permission:', perm);
+    
+    // If site has permission, return address
+    if (perm?.connected && perm?.address) {
+      console.log('[Account Handler] ✅ eth_accounts returning connected address:', perm.address);
+      return [perm.address];
+    }
+    
+    // For auto-connect sites, return address immediately
+    try {
+      const host = new URL(origin).hostname;
+      const shouldAutoConnect = host.includes('solxdapp') || 
+                               host.includes('pancake') || 
+                               host.includes('uniswap') ||
+                               host.includes('bsc');
+      
+      console.log('[Account Handler] Auto-connect check:', { host, shouldAutoConnect, activeAddr });
+      
+      if (shouldAutoConnect && activeAddr) {
+        console.log('[Account Handler] ✅ eth_accounts auto-returning address for trusted site:', activeAddr);
+        // Auto-grant permission
+        sitePermissions.set(origin, { connected: true, address: activeAddr });
+        return [activeAddr];
+      }
+    } catch (e) {
+      console.warn('[Account Handler] Failed to parse origin:', e);
+    }
+    
+    console.log('[Account Handler] ⚠️ eth_accounts returning empty (not connected)');
     return [];
   },
 
@@ -23,13 +54,24 @@ export const accountHandlers = (ctx) => ({
       toHexChainId,
       webref,
       jsEmit,
+      jsSyncState,
       t, // ✅ i18n translator passed from context
     } = ctx;
 
     if (!activeAddr) throw new Error(t('errors.noActiveWallet', 'No active wallet'));
 
     const existing = sitePermissions.get(origin);
-    if (existing?.connected && existing?.address) return [existing.address];
+    if (existing?.connected && existing?.address) {
+      // Already connected, just sync state and return
+      const hex = toHexChainId(chainId);
+      if (webref?.current && jsSyncState) {
+        webref.current.injectJavaScript(jsSyncState({
+          selectedAddress: activeAddr,
+          chainId: hex
+        }));
+      }
+      return [existing.address];
+    }
 
     const ok = await confirmDialog(
       t('dapp.connectWalletTitle', 'Connect Wallet'),
@@ -47,8 +89,22 @@ export const accountHandlers = (ctx) => ({
     sitePermissions.set(origin, { connected: true, address: activeAddr });
 
     const hex = toHexChainId(chainId);
-    webref.current?.injectJavaScript(jsEmit('accountsChanged', [activeAddr]));
-    webref.current?.injectJavaScript(jsEmit('connect', { chainId: hex }));
+    
+    // CRITICAL: Sync state first, then emit events
+    if (webref?.current) {
+      if (jsSyncState) {
+        webref.current.injectJavaScript(jsSyncState({
+          selectedAddress: activeAddr,
+          chainId: hex
+        }));
+      }
+      
+      // Then emit events with delay
+      setTimeout(() => {
+        webref.current?.injectJavaScript(jsEmit('accountsChanged', [activeAddr]));
+        webref.current?.injectJavaScript(jsEmit('connect', { chainId: hex }));
+      }, 200);
+    }
 
     return [activeAddr];
   },

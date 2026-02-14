@@ -1,0 +1,58 @@
+[
+  {
+    "chainId": "solana",
+    "chainName": "SOLANA X",
+    "symbol": "AMZN",
+    "name": "Amazon.com Inc",
+    "id": "amzn",
+    "chain": "SOLANA",
+    "chainType": "SOLANA",
+    "decimals": 6,
+    "contractAddress": "E29pZ9m3UgjfCcbsm75o92DRJFEzSCHdJMg7RatGXMxE",
+    "logoURI": "https://images.icon-icons.com/91/PNG/512/amazon_16438.png",
+    "type": "stock",
+    "label": "Amazon Stock"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "SOLANA X",
+    "symbol": "GOOG",
+    "name": "Alphabet Inc Class C",
+    "id": "goog",
+    "chain": "SOLANA",
+    "chainType": "SOLANA",
+    "decimals": 6,
+    "contractAddress": "5r1q11V283MoqGHG6YJoyajBAjdQk1YypS4xQx6waT34",
+    "logoURI": "https://s3-symbol-logo.tradingview.com/alphabet--600.png",
+    "type": "stock",
+    "label": "Alphabet Stock"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "SOLANA X",
+    "symbol": "TSLA",
+    "name": "Tesla Motors Inc",
+    "id": "tsla",
+    "chain": "SOLANA",
+    "chainType": "SOLANA",
+    "decimals": 6,
+    "contractAddress": "Dvk7VTh5NN4qwNux3YCdMfPsULWVopXCSG8uwNbYaqN9",
+    "logoURI": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/1200px-Tesla_Motors.svg.png",
+    "type": "stock",
+    "label": "Tesla Stock"
+  },
+  {
+    "chainId": "solana",
+    "chainName": "SOLANA X",
+    "symbol": "AAPL",
+    "name": "Apple Inc",
+    "id": "aapl",
+    "chain": "SOLANA",
+    "chainType": "SOLANA",
+    "decimals": 6,
+    "contractAddress": "8xWdpHtw4jmDwHK5pMtN2gzwPaR89tNbGaMHNNpjnTR3",
+    "logoURI": "https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?201609051049",
+    "type": "stock",
+    "label": "Apple Stock"
+  }
+]

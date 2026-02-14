@@ -37,11 +37,21 @@ export const dappBrowserStore = proxy({
 
   /* -------- allowlist -------- */
   AUTO_CONNECT_HOSTS,
+  
+  // Check if current site should auto-connect
+  shouldAutoConnect() {
+    return this.AUTO_CONNECT_HOSTS.has(this.host) || 
+           this.host.includes('solxdapp') ||
+           this.host.includes('pancake') ||
+           this.host.includes('uniswap') ||
+           this.url.includes('solxdapp') ||
+           this.url.includes('Solxdapp');
+  },
 
   /* -------- wallet mirror (reactive) -------- */
-  activeAddress: walletStore.getWalletAddressByChain('ethereum'),      // lowercase string
-  activeChainId: null,      // number (e.g., 1, 56)
-  activeChainHex: null,     // hex string (e.g., '0x1')
+  activeAddress: null,      // will be synced from walletStore
+  activeChainId: 1,         // default to Ethereum mainnet
+  activeChainHex: '0x1',    // hex string (e.g., '0x1')
 
   /* -------- derived helpers -------- */
   getHost,
@@ -50,6 +60,72 @@ export const dappBrowserStore = proxy({
   toHexChainId,
 
   /* ================= actions ================= */
+
+  // CRITICAL: Sync wallet state from walletStore
+  syncWalletState() {
+    try {
+      // For BSC/BEP20 DApps, prioritize BSC address
+      let activeAddress = null;
+      let activeChainId = 56; // BSC mainnet
+      
+      // Check if we're on a BSC-related site
+      const isBscSite = this.host.includes('bsc') || 
+                       this.host.includes('pancake') || 
+                       this.host.includes('binance') ||
+                       this.host.includes('solxdapp') || 
+                       this.host.includes('Solxdapp') || // ✅ ADD THIS
+                       this.url.includes('bsc') ||
+                       this.url.includes('bnb') ||
+                       this.url.includes('solxdapp') ||
+                       this.url.includes('solxdapp');// ✅ ADD THIS
+      
+      console.log('[DApp Browser] Checking BSC site:', { 
+        host: this.host, 
+        url: this.url, 
+        isBscSite 
+      });
+      
+      if (isBscSite) {
+        // Use BSC address for BSC sites
+        activeAddress = walletStore.getWalletAddressByChain('bsc');
+        activeChainId = 56; // BSC mainnet
+        console.log('[DApp Browser] BSC site detected, using BSC wallet:', activeAddress);
+      } else {
+        // Use Ethereum address for other sites
+        activeAddress = walletStore.getWalletAddressByChain('ethereum');
+        activeChainId = 1; // Ethereum mainnet
+        console.log('[DApp Browser] Using Ethereum wallet:', activeAddress);
+      }
+      
+      if (activeAddress && (activeAddress !== this.activeAddress || activeChainId !== this.activeChainId)) {
+        this.activeAddress = activeAddress.toLowerCase();
+        this.activeChainId = activeChainId;
+        this.activeChainHex = toHexChainId(activeChainId);
+        console.log('[DApp Browser] Synced active address:', this.activeAddress, 'Chain:', activeChainId, 'Hex:', this.activeChainHex);
+      }
+      
+      // Fallback to Ethereum if no address found
+      if (!this.activeAddress) {
+        const ethAddress = walletStore.getWalletAddressByChain('ethereum');
+        if (ethAddress) {
+          this.activeAddress = ethAddress.toLowerCase();
+          this.activeChainId = 1;
+          this.activeChainHex = '0x1';
+          console.log('[DApp Browser] Fallback to Ethereum address:', this.activeAddress);
+        }
+      }
+    } catch (e) {
+      console.warn('[DApp Browser] Failed to sync wallet state:', e.message);
+    }
+  },
+
+  // Set active wallet manually (for chain switching)
+  setActiveWallet(address, chainId) {
+    this.activeAddress = address ? address.toLowerCase() : null;
+    this.activeChainId = chainId || 1;
+    this.activeChainHex = toHexChainId(chainId || 1);
+    console.log('[DApp Browser] Set active wallet:', { address: this.activeAddress, chainId: this.activeChainId });
+  },
 
   // init / set url
   setInitialUrl(u) {

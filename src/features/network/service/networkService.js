@@ -140,7 +140,7 @@ export const DEFAULTS_NETWORKS = {
       chainId: 'solana',
       label: 'Solana Mainnet',
       rpc: 'https://solana-mainnet.core.chainstack.com/2ef19b6485a2171959b47e653266c846',
-      explorerTxBase: 'https://explorer.solana.com/tx/',
+      explorerTxBase: 'https://solxscan.io/',
       explorerAddressBase: 'https://explorer.solana.com/address/',
       explorerClusterParam: '',
       logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png',

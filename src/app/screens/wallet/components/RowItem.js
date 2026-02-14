@@ -26,7 +26,7 @@ export function RowWallet({ item, isActive, onPress }) {
     >
       {/* If you have per-chain logos, you can map them here. Fallback is a plain circle. */}
       <View className="w-12 h-9 rounded-full bg-item mr-3 items-center justify-center">
-        <TokenIcon tokenKey={item.id} />
+        <TokenIcon tokenKey={item.iconKey || item.id} symbol={symbol} />
         <VNetworkBadge source={{uri: item.networkLogoUrl}} />
       </View>
       <View className="flex-1">

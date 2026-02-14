@@ -21,7 +21,7 @@ export function HistoryTab({ asset, sheetRef }) {
   const {
     items, loading, refreshing, loadingMore, error,
     onRefresh, loadMore, retry, hasMore
-  } = useAssetHistory({ chain, tokenAddress, pageSize: 20 });
+  } = useAssetHistory({ chain, tokenAddress, pageSize: 50 });
 
   if (loading && items.length === 0) {
     return (
@@ -73,23 +73,6 @@ export function HistoryTab({ asset, sheetRef }) {
       )}
       onRefresh={onRefresh}
       refreshing={refreshing}
-      onEndReachedThreshold={0.3}
-      onEndReached={loadMore}
-      ListFooterComponent={
-        loadingMore ? (
-          <View className="py-3 items-center justify-center">
-            <VSpinner />
-          </View>
-        ) : hasMore ? (
-          <View className="py-3 items-center">
-            <VPressable onPress={loadMore} className="px-4 py-2 bg-item rounded-xl">
-              <VText className="text-2xs text-title">
-                {t('common.loadMore', 'Load more')}
-              </VText>
-            </VPressable>
-          </View>
-        ) : null
-      }
     />
   );
 }

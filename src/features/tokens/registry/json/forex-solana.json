@@ -1,0 +1,16 @@
+[
+  {
+    "chainId": "solana",
+    "chainName": "SOLANA X",
+    "symbol": "CNYUSD",
+    "name": "Chinese Yuan",
+    "id": "cnyusd",
+    "chain": "SOLANA",
+    "chainType": "SOLANA",
+    "decimals": 6,
+    "contractAddress": "4LTu6v4zrVFJDVyok5iK9nAdyX6chDNGumMu6vRwKi42",
+    "logoURI": "https://responsive.fxempire.com/v7/_fx-ui-mfe_/currencies/production/usd-cny.svg",
+    "type": "forex",
+    "label": "Chinese Yuan"
+  }
+]

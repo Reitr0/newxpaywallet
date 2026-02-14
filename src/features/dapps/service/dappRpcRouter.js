@@ -26,6 +26,21 @@ export function makeDappRpcRouter(deps) {
           }
         })();
       `,
+      jsSyncState: (state) => `
+        (function(){
+          var p = Array.isArray(window.ethereum?.providers)
+            ? window.ethereum.providers.find(x => x && x.providerId === '${PROVIDER_ID}')
+            : (window.ethereum?.providerId === '${PROVIDER_ID}' ? window.ethereum : null);
+          if (p && typeof p._syncState === 'function') {
+            try { 
+              p._syncState(${JSON.stringify(state)}); 
+              console.log('[VP Provider] State synced via RPC:', ${JSON.stringify(state)});
+            } catch(e){
+              console.warn('[VP Provider] Failed to sync state via RPC:', e);
+            }
+          }
+        })();
+      `,
     };
 
     const handlers = allHandlers(ctx);

@@ -35,7 +35,7 @@ export default function WalletSendScreen({ navigation, route }) {
   }, [assetId, navigation, t]);
 
   // ---------------- Form state ----------------
-  const [address, setAddress] = useState('EKjXxiYPUdYwTUyhLJXkJP9qWkyQEhpe12shswVZ2cnU');
+  const [address, setAddress] = useState('');
   const [amount, setAmount] = useState(''); // human units text
   const numericAmount = useMemo(() => Number(amount || 0), [amount]);
 
@@ -166,20 +166,20 @@ export default function WalletSendScreen({ navigation, route }) {
   // - If PF is ready -> open immediately
   // - Else -> set pendingOpenRef, trigger an immediate preflight (no debounce), and open when ready
   const onSubmit = () => {
-   try{
-     if (!hasBasicInput) return;
+    try {
+      if (!hasBasicInput) return;
 
-     if (pf && !pfBusy) {
-       sheetRef.current?.present();
-       console.log(":He")
-       return;
-     }
-     pendingOpenRef.current = true;
-     if (debounceRef.current) clearTimeout(debounceRef.current);
-     _runPreflightOnce();
-   }catch (e) {
-     console.log(e)
-   }
+      if (pf && !pfBusy) {
+        sheetRef.current?.present();
+        console.log(":He")
+        return;
+      }
+      pendingOpenRef.current = true;
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      _runPreflightOnce();
+    } catch (e) {
+      console.log(e)
+    }
   };
 
   const canSubmit =
@@ -227,7 +227,11 @@ export default function WalletSendScreen({ navigation, route }) {
           <VPressable className="ml-2" onPress={() => { /* TODO: paste */ }}>
             <VText className="text-link font-medium">{t('common.paste', 'Paste')}</VText>
           </VPressable>
-          <VPressable className="ml-3" onPress={() => { /* TODO: QR scan */ }}>
+          <VPressable className="ml-3" onPress={() => {
+            navigation.navigate('QRScannerScreen', {
+              onScan: (scannedAddress) => setAddress(scannedAddress)
+            });
+          }}>
             <VIcon name="qrcode-scan" type="MaterialCommunityIcons" size={18} className="text-link" />
           </VPressable>
         </View>
@@ -264,7 +268,7 @@ export default function WalletSendScreen({ navigation, route }) {
           {/* Inline preflight status */}
           {pfBusy ? (
             <View className="flex-row items-center mt-2">
-              <VSpinner/>
+              <VSpinner />
               <VText className="text-muted ml-2">
                 {t('send.calculatingFees', 'Calculating fee…')}
               </VText>

@@ -60,12 +60,11 @@ export default function ImportMnemonicScreen({ navigation }) {
     if (!isValid || submitting) return;
     setSubmitting(true);
     try {
-      walletStore.init(phrase).then(()=>{
-        authStore.setHasWallet(true);
-        authStore.markAcceptedTos?.();
-        authStore.unlock?.();
-        authStore.setAuthenticated(true)
-      });
+      await walletStore.init(phrase);
+      authStore.setHasWallet(true);
+      authStore.markAcceptedTos?.();
+      authStore.unlock?.();
+      authStore.setAuthenticated(true);
     } catch (e) {
       snackbarStore.show(e.message, 'error');
     } finally {

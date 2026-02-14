@@ -1,5 +1,5 @@
 // src/app/navigation/AppStack.jsx
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { Suspense, useCallback, useEffect, useRef } from 'react';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import BottomTabs from '@src/app/navigation/BottomTabs';
 import ManageCryptoScreen from '@src/app/screens/token/ManageCryptoScreen';
@@ -19,6 +19,10 @@ import SecurityScreen from '@src/app/screens/setting/ui/SecurityScreen';
 import MarketDetailScreen from '@src/app/screens/trending/ui/MarketDetailScreen';
 import WalletsScreen from '@src/app/screens/wallet/ui/WalletsScreen';
 import WalletTxDetailScreen from '@src/app/screens/wallet/ui/WalletTxDetailScreen';
+import NotificationTestComponent from '@src/debug/NotificationTestComponent';
+
+// Lazy load QRScannerScreen to prevent crash on app start
+const QRScannerScreen = React.lazy(() => import('@src/app/screens/wallet/ui/QRScannerScreen'));
 
 import { authStore, shouldShowLockScreen } from '@src/features/auth/state/authStore';
 
@@ -91,6 +95,14 @@ export default function AppStack() {
         <Stack.Screen name="MarketDetailScreen" component={MarketDetailScreen} />
         <Stack.Screen name="WalletsScreen" component={WalletsScreen} />
         <Stack.Screen name="WalletTxDetailScreen" component={WalletTxDetailScreen} />
+        <Stack.Screen name="NotificationTest" component={NotificationTestComponent} />
+        <Stack.Screen name="QRScannerScreen">
+          {(props) => (
+            <Suspense fallback={null}>
+              <QRScannerScreen {...props} />
+            </Suspense>
+          )}
+        </Stack.Screen>
       </Stack.Navigator>
     </SafeAreaView>
   );

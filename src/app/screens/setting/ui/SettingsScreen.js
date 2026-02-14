@@ -85,6 +85,12 @@ export default function SettingsScreen() {
       {
         title: t('settingsScreen.preferences'),
         data: [
+          // {
+          //   key: 'notificationTest',
+          //   label: '🔔 Test Notifications',
+          //   icon: { name: 'bell', type: 'Feather' },
+          //   onPress: () => nav.navigate('NotificationTest'),
+          // },
           {
             key: 'preferences',
             label: t('settingsScreen.preferences'),
@@ -107,21 +113,21 @@ export default function SettingsScreen() {
             label: t('supportScreen.helpCenter'),
             icon: { name: 'help-circle', type: 'Feather' },
             onPress: async () => {
-              const url = 'https://codecanyon.net/user/godcrypto/portfolio';
+              const url = 'https://metaxpay.io';
               const canOpen = await Linking.canOpenURL(url);
               if (canOpen) await Linking.openURL(url);
             },
           },
-          {
-            key: 'contactSupport',
-            label: t('supportScreen.contactUs'),
-            icon: { name: 'headphones', type: 'Feather' },
-            onPress: async () => {
-              const url = 'https://codecanyon.net/user/godcrypto/portfolio';
-              const canOpen = await Linking.canOpenURL(url);
-              if (canOpen) await Linking.openURL(url);
-            },
-          },
+          // {
+          //   key: 'contactSupport',
+          //   label: t('supportScreen.contactUs'),
+          //   icon: { name: 'headphones', type: 'Feather' },
+          //   onPress: async () => {
+          //     const url = 'https://codecanyon.net/user/godcrypto/portfolio';
+          //     const canOpen = await Linking.canOpenURL(url);
+          //     if (canOpen) await Linking.openURL(url);
+          //   },
+          // },
         ],
       },
     ],

@@ -13,7 +13,7 @@ export const en = {
         'This secret phrase is the master key to your wallet',
       instructions:
         'Tap on all checkboxes to confirm you understand the importance of your secret phrase',
-      checkbox1: 'VCoin does not keep a copy of your secret phrase.',
+      checkbox1: 'XPay does not keep a copy of your secret phrase.',
       checkbox2:
         'Saving this digitally in plain text is NOT recommended. Examples include screenshots, text files, or emailing yourself.',
       checkbox3:
@@ -335,8 +335,12 @@ export const en = {
         swap: 'Swap',
       },
       tabs: {
-        crypto: 'Crypto',
-        nfts: 'NFTs',
+        crypto: 'Assets',
+        nfts: 'Stock',
+        assets: 'Assets',
+        stock: 'Stock',
+        forex: 'Forex',
+        rwa: 'RWA-T',
       },
       refreshing: 'Refreshing…',
     },
@@ -439,7 +443,7 @@ export const en = {
       reject: 'Reject',
     },
     importMnemonicScreen: {
-      title: 'VCoin wallet',
+      title: 'XPay wallet',
       wallet_name: 'Wallet name',
       wallet_name_placeholder: 'Enter your wallet name',
       secret_phrase: 'Secret phrase',
@@ -639,10 +643,10 @@ export const en = {
       rewards: 'Rewards',
       noHistory: 'No staking history available',
       days: 'days',
-      vcoinValidator: 'VCOIN Validator',
+      vcoinValidator: 'XPay Validator',
       lockTime: 'Lock Time',
       fetchHistoryError: 'Failed to fetch staking history.',
-      stakeSuccess: 'Successfully staked {{amount}} VCOIN.',
+      stakeSuccess: 'Successfully staked {{amount}} SLX.',
       stakeError: 'Failed to stake tokens.',
       stakedAmount: 'Staked Amount',
       remaining: 'Remaining',
@@ -669,7 +673,7 @@ export const en = {
         'Failed to initialize the staking contract. Please try again later.',
       fetchHistoryError:
         'Error fetching staking history. Please try again later.',
-      stakeSuccess: 'Successfully staked {{amount}} VCOIN.',
+      stakeSuccess: 'Successfully staked {{amount}} SLX.',
       stakeError: 'Error staking tokens. Please try again later.',
       claimRewardsSuccess: 'Rewards claimed successfully!',
       claimRewardsError: 'Error claiming rewards. Please try again later.',
@@ -792,7 +796,7 @@ export const en = {
       appUpdates: 'App Updates',
       appUpdatesDesc: 'Stay updated with new features',
       marketing: 'Marketing Notifications',
-      marketingDesc: 'Receive offers, tips, and news from VCoin',
+      marketingDesc: 'Receive offers, tips, and news from XPay',
     },
 
     securitySettings: {
@@ -835,14 +839,14 @@ export const en = {
       title: 'About',
       version: 'Version',
       buildNumber: 'Build Number',
-      developedBy: 'Developed by VCoin Team',
+      developedBy: 'Developed by XPay Team',
       poweredBy: 'Powered by Web3 & Open Source',
       community: 'Join Our Community',
       telegram: 'Telegram',
       discord: 'Discord',
       twitter: 'Twitter (X)',
       website: 'Website',
-      copyright: '© {{year}} VCoin. All rights reserved.',
+      copyright: '© {{year}} XPay Wallet. All rights reserved.',
     },
   },
 };

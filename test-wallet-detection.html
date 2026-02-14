@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Detection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .log {
+            max-height: 300px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Wallet Detection Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Provider Detection</h2>
+        <div id="provider-status"></div>
+        <button onclick="checkProvider()">Check Provider</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. Connection Test</h2>
+        <div id="connection-status"></div>
+        <button onclick="connectWallet()">Connect Wallet</button>
+        <button onclick="getAccounts()">Get Accounts</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Chain Detection</h2>
+        <div id="chain-status"></div>
+        <button onclick="getChainId()">Get Chain ID</button>
+        <button onclick="switchToBSC()">Switch to BSC</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Sign Message</h2>
+        <div id="sign-status"></div>
+        <button onclick="signMessage()">Sign Message</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>5. Event Listeners</h2>
+        <div id="events-status"></div>
+        <button onclick="setupListeners()">Setup Listeners</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>📋 Console Log</h2>
+        <div id="console-log" class="log"></div>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <script>
+        // Logging
+        const logDiv = document.getElementById('console-log');
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.textContent = `[${timestamp}] ${message}`;
+            entry.style.color = type === 'error' ? 'red' : type === 'success' ? 'green' : 'black';
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        function clearLog() {
+            logDiv.innerHTML = '';
+        }
+        
+        function setStatus(elementId, message, type) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+        
+        // 1. Provider Detection
+        function checkProvider() {
+            log('Checking provider...');
+            
+            if (!window.ethereum) {
+                setStatus('provider-status', '❌ No ethereum provider found', 'error');
+                log('ERROR: No ethereum provider', 'error');
+                return;
+            }
+            
+            const info = {
+                exists: !!window.ethereum,
+                name: window.ethereum.name,
+                providerId: window.ethereum.providerId,
+                isVCOIN: window.ethereum.isVCOIN,
+                isMetaMask: window.ethereum.isMetaMask,
+                selectedAddress: window.ethereum.selectedAddress,
+                chainId: window.ethereum.chainId,
+                isConnected: window.ethereum.isConnected?.(),
+                methods: {
+                    request: typeof window.ethereum.request,
+                    send: typeof window.ethereum.send,
+                    on: typeof window.ethereum.on,
+                    enable: typeof window.ethereum.enable
+                }
+            };
+            
+            setStatus('provider-status', `✅ Provider found: ${info.name}`, 'success');
+            log(`Provider: ${JSON.stringify(info, null, 2)}`, 'success');
+        }
+        
+        // 2. Connection
+        async function connectWallet() {
+            log('Connecting wallet...');
+            try {
+                const accounts = await window.ethereum.request({ 
+                    method: 'eth_requestAccounts' 
+                });
+                setStatus('connection-status', `✅ Connected: ${accounts[0]}`, 'success');
+                log(`Connected: ${accounts[0]}`, 'success');
+            } catch (error) {
+                setStatus('connection-status', `❌ Connection failed: ${error.message}`, 'error');
+                log(`ERROR: ${error.message}`, 'error');
+            }
+        }
+        
+        async function getAccounts() {
+            log('Getting accounts...');
+            try {
+                const accounts = await window.ethereum.request({ 
+                    method: 'eth_accounts' 
+                });
+                if (accounts.length > 0) {
+                    setStatus('connection-status', `✅ Accounts: ${accounts.join(', ')}`, 'success');
+                    log(`Accounts: ${accounts.join(', ')}`, 'success');
+                } else {
+                    setStatus('connection-status', '⚠️ No accounts (not connected)', 'warning');
+                    log('No accounts returned', 'warning');
+                }
+            } catch (error) {
+                setStatus('connection-status', `❌ Failed: ${error.message}`, 'error');
+                log(`ERROR: ${error.message}`, 'error');
+            }
+        }
+        
+        // 3. Chain
+        async function getChainId() {
+            log('Getting chain ID...');
+            try {
+                const chainId = await window.ethereum.request({ 
+                    method: 'eth_chainId' 
+                });
+                const chainNames = {
+                    '0x1': 'Ethereum Mainnet',
+                    '0x38': 'BSC Mainnet',
+                    '0x89': 'Polygon Mainnet'
+                };
+                const chainName = chainNames[chainId] || 'Unknown';
+                setStatus('chain-status', `✅ Chain: ${chainName} (${chainId})`, 'success');
+                log(`Chain ID: ${chainId} (${chainName})`, 'success');
+            } catch (error) {
+                setStatus('chain-status', `❌ Failed: ${error.message}`, 'error');
+                log(`ERROR: ${error.message}`, 'error');
+            }
+        }
+        
+        async function switchToBSC() {
+            log('Switching to BSC...');
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0x38' }]
+                });
+                setStatus('chain-status', '✅ Switched to BSC', 'success');
+                log('Switched to BSC', 'success');
+            } catch (error) {
+                setStatus('chain-status', `❌ Failed: ${error.message}`, 'error');
+                log(`ERROR: ${error.message}`, 'error');
+            }
+        }
+        
+        // 4. Sign
+        async function signMessage() {
+            log('Signing message...');
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                if (accounts.length === 0) {
+                    throw new Error('No accounts connected');
+                }
+                
+                const message = 'Hello from Wallet Detection Test!';
+                const signature = await window.ethereum.request({
+                    method: 'personal_sign',
+                    params: [message, accounts[0]]
+                });
+                
+                setStatus('sign-status', `✅ Signed: ${signature.substring(0, 20)}...`, 'success');
+                log(`Signature: ${signature}`, 'success');
+            } catch (error) {
+                setStatus('sign-status', `❌ Failed: ${error.message}`, 'error');
+                log(`ERROR: ${error.message}`, 'error');
+            }
+        }
+        
+        // 5. Events
+        function setupListeners() {
+            log('Setting up event listeners...');
+            
+            if (!window.ethereum) {
+                setStatus('events-status', '❌ No provider', 'error');
+                return;
+            }
+            
+            window.ethereum.on('accountsChanged', (accounts) => {
+                log(`Event: accountsChanged - ${accounts.join(', ')}`, 'success');
+            });
+            
+            window.ethereum.on('chainChanged', (chainId) => {
+                log(`Event: chainChanged - ${chainId}`, 'success');
+            });
+            
+            window.ethereum.on('connect', (info) => {
+                log(`Event: connect - ${JSON.stringify(info)}`, 'success');
+            });
+            
+            window.ethereum.on('disconnect', (error) => {
+                log(`Event: disconnect - ${error}`, 'error');
+            });
+            
+            setStatus('events-status', '✅ Listeners setup', 'success');
+            log('Event listeners registered', 'success');
+        }
+        
+        // Auto-run on load
+        window.addEventListener('load', () => {
+            log('Page loaded');
+            setTimeout(() => {
+                checkProvider();
+                setupListeners();
+            }, 1000);
+        });
+        
+        // Listen for EIP-6963
+        window.addEventListener('eip6963:announceProvider', (event) => {
+            log(`EIP-6963 provider announced: ${event.detail.info.name}`, 'success');
+        });
+        
+        // Request providers
+        window.dispatchEvent(new Event('eip6963:requestProvider'));
+    </script>
+</body>
+</html>

@@ -40,12 +40,12 @@ export const FAMILY_TO_CHAIN_ID = {
 };
 
 export const CHAIN_TAGS = [
-  { id: 'all',      label: 'All Networks' },
+  { id: 'all', label: 'All Networks' },
   { id: 'ethereum', label: 'Ethereum' },
-  { id: 'bsc',      label: 'BNB Smart Chain' },
-  { id: 'polygon',  label: 'Polygon' },
-  { id: 'solana',   label: 'Solana' },
-  { id: 'tron',     label: 'Tron' },
+  { id: 'bsc', label: 'BNB Smart Chain' },
+  { id: 'polygon', label: 'Polygon' },
+  { id: 'solana', label: 'solana' },
+  { id: 'tron', label: 'Tron' },
 ];
 
 

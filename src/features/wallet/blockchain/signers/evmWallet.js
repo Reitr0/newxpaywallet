@@ -330,8 +330,21 @@ export default class EvmWallet extends BaseWallet {
 
     const fd = await this.provider.getFeeData();
     const gasPrice             = fd.gasPrice             ?? ONE_GWEI * BigInt(15);
-    const maxPriorityFeePerGas = fd.maxPriorityFeePerGas ?? ONE_GWEI * BigInt(2);
-    const maxFeePerGas         = fd.maxFeePerGas         ?? (gasPrice * BigInt(12)) / BigInt(10);
+    let maxPriorityFeePerGas = fd.maxPriorityFeePerGas ?? ONE_GWEI * BigInt(2);
+    let maxFeePerGas         = fd.maxFeePerGas         ?? (gasPrice * BigInt(12)) / BigInt(10);
+
+    // CRITICAL FIX: Ensure maxPriorityFeePerGas <= maxFeePerGas
+    // BSC and some chains return invalid fee data where priority > max
+    if (maxPriorityFeePerGas > maxFeePerGas) {
+      // Option 1: Cap priority fee to maxFee
+      maxPriorityFeePerGas = maxFeePerGas / BigInt(2); // 50% of maxFee
+      
+      // Option 2: If maxFee is too low, increase it
+      if (maxFeePerGas < gasPrice) {
+        maxFeePerGas = gasPrice * BigInt(12) / BigInt(10); // 120% of gasPrice
+        maxPriorityFeePerGas = maxFeePerGas / BigInt(2);
+      }
+    }
 
     const populated = await this._wallet.populateTransaction({
       ...base,

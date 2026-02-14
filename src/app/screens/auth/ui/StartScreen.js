@@ -1,15 +1,22 @@
 // src/pages/home/ui/StartScreen.js
-import React from 'react';
+import React, { useRef } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import { useSnapshot } from 'valtio';
 import VButton from '@src/shared/ui/primitives/VButton';
 import VText from '@src/shared/ui/primitives/VText';
 import VImage from '@src/shared/ui/primitives/VImage';
+import VPressable from '@src/shared/ui/primitives/VPressable';
+import VIcon from '@src/shared/ui/atoms/VIcon';
+import OptionSheet from '@src/app/screens/setting/components/OptionSheet';
+import { localeStore } from '@features/settings/locale/state/localeStore';
 
 export default function StartScreen() {
   const { t } = useTranslation();
   const navigation = useNavigation();
+  const localeSnap = useSnapshot(localeStore);
+  const langSheetRef = useRef(null);
 
   const goAuthThen = (isImport) => {
     navigation.navigate('LockScreen', {
@@ -31,8 +38,32 @@ export default function StartScreen() {
     });
   };
 
+  const onSelectLanguage = async (lng) => {
+    await localeStore.setLanguage(lng);
+    langSheetRef.current?.dismiss?.();
+  };
+
+  const langKey = (localeSnap.language || 'en').split('-')[0];
+
   return (
     <View className="flex-1 bg-app justify-between">
+      {/* Language Selector Button - Top Right */}
+      <View className="absolute top-4 right-4 z-10">
+        <VPressable
+          className="w-12 h-12 rounded-full bg-item items-center justify-center"
+          onPress={() => langSheetRef.current?.present?.()}
+          accessibilityLabel={t('preferences.language', 'Language')}
+          accessibilityRole="button"
+        >
+          <VIcon
+            name="globe"
+            type="Feather"
+            size={22}
+            className="text-title"
+          />
+        </VPressable>
+      </View>
+
       {/* Main Content */}
       <View className="justify-end mt-12 px-6 flex-1 mb-8">
         {/* Cube image */}
@@ -83,6 +114,15 @@ export default function StartScreen() {
           <VText variant="link">{t('startScreen.privacy', 'Privacy Policy')}</VText>.
         </VText>
       </View>
+
+      {/* Language Selection Bottom Sheet */}
+      <OptionSheet
+        title={t('preferences.pickLanguage', 'Choose language')}
+        items={localeStore.languages}
+        selected={langKey}
+        onSelect={onSelectLanguage}
+        sheetRef={langSheetRef}
+      />
     </View>
   );
 }

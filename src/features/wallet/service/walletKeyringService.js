@@ -25,11 +25,11 @@ ed25519.hashes.sha512 = sha512;
 /* ------------------ Derivation paths ------------------ */
 const PATHS = {
   ethereum: "m/44'/60'/0'/0/0",
-  bsc:      "m/44'/60'/0'/0/0",
-  polygon:  "m/44'/60'/0'/0/0",
-  tron:     "m/44'/195'/0'/0/0",
-  solana:   "m/44'/501'/0'/0'",
-  bitcoin:  "m/84'/0'/0'/0/0", // BIP84 bech32 (P2WPKH)
+  bsc: "m/44'/60'/0'/0/0",
+  polygon: "m/44'/60'/0'/0/0",
+  tron: "m/44'/195'/0'/0/0",
+  solana: "m/44'/501'/0'/0'",
+  bitcoin: "m/84'/0'/0'/0/0", // BIP84 bech32 (P2WPKH)
 };
 
 const chainToLabel = {
@@ -37,7 +37,7 @@ const chainToLabel = {
   bsc: 'Binance Smart Chain',
   polygon: 'Polygon',
   tron: 'Tron',
-  solana: 'Solana',
+  solana: 'solana',
   bitcoin: 'Bitcoin',
 };
 
@@ -93,9 +93,12 @@ export const walletKeyringService = {
   saveMnemonic(mnemonic, { wordCount = 12, locale = 'en' } = {}) {
     try {
       const rec = this.get();
+      // CRITICAL: Normalize mnemonic before saving
+      const normalizedMnemonic = this.normalizeMnemonic(mnemonic);
+
       const saved = keyringDoc.set({
         ...DEFAULT_KEYRING,
-        mnemonic,
+        mnemonic: normalizedMnemonic,
         meta: {
           ...rec.meta,
           createdAt: rec.meta?.createdAt || Date.now(),
@@ -116,6 +119,7 @@ export const walletKeyringService = {
    * Save mnemonic only if not already stored.
    * - If mnemonic exists, return the stored one.
    * - Otherwise, save and return the new mnemonic.
+   * - IMPORTANT: Always normalizes mnemonic for consistency
    */
   ensureMnemonic(mnemonic, { wordCount = 12, locale = 'en' } = {}) {
     try {
@@ -124,13 +128,14 @@ export const walletKeyringService = {
       // Already have a mnemonic saved
       if (rec?.mnemonic && rec.mnemonic.trim().length > 0) {
         log.debug('walletKeyringService.ensureMnemonic: mnemonic already exists');
-        return rec.mnemonic;
+        return this.normalizeMnemonic(rec.mnemonic);
       }
 
-      // Save the new one
+      // Save the new one (normalized)
+      const normalizedMnemonic = this.normalizeMnemonic(mnemonic);
       const saved = keyringDoc.set({
         ...DEFAULT_KEYRING,
-        mnemonic,
+        mnemonic: normalizedMnemonic,
         meta: {
           ...rec.meta,
           createdAt: rec.meta?.createdAt || Date.now(),
@@ -141,11 +146,11 @@ export const walletKeyringService = {
         },
       });
 
-      log.debug('walletKeyringService.ensureMnemonic: mnemonic saved');
+      log.debug('walletKeyringService.ensureMnemonic: normalized mnemonic saved');
       return saved.mnemonic;
     } catch (e) {
       log.warn('walletKeyringService.ensureMnemonic failed', { message: e?.message });
-      return mnemonic;
+      return this.normalizeMnemonic(mnemonic);
     }
   },
   markBackedUp() {
@@ -162,10 +167,23 @@ export const walletKeyringService = {
 
   /* ----------------- Derivation helpers ----------------- */
   /**
+   * Normalize mnemonic phrase for consistent derivation
+   */
+  normalizeMnemonic(mnemonic) {
+    if (!mnemonic) return '';
+    return mnemonic
+      .toLowerCase()
+      .replace(/\u3000/g, ' ')        // full-width spaces -> normal
+      .replace(/\s+/g, ' ')           // collapse whitespace
+      .trim();
+  },
+
+  /**
    * Derive addresses/keys for all supported chains.
    * - If `mnemonic` is provided and none is stored yet, it will be saved first.
    * - If `mnemonic` is omitted/null, it derives from the stored mnemonic.
    * - Throws if neither is available.
+   * - IMPORTANT: Always normalizes mnemonic for consistent address generation
    */
   async deriveAllChains(mnemonic, { wordCount = 12, locale = 'en' } = {}) {
     try {
@@ -174,10 +192,13 @@ export const walletKeyringService = {
       let useMnemonic = rec?.mnemonic?.trim();
 
       if (!useMnemonic && mnemonic && mnemonic.trim().length > 0) {
+        // CRITICAL: Normalize mnemonic before saving to ensure consistency
+        const normalizedMnemonic = this.normalizeMnemonic(mnemonic);
+
         // save the first time
         const saved = keyringDoc.set({
           ...DEFAULT_KEYRING,
-          mnemonic: mnemonic.trim(),
+          mnemonic: normalizedMnemonic,
           meta: {
             ...rec.meta,
             createdAt: rec.meta?.createdAt || Date.now(),
@@ -188,7 +209,10 @@ export const walletKeyringService = {
           },
         });
         useMnemonic = saved.mnemonic;
-        log.debug('walletKeyringService.deriveAllChains: mnemonic saved before derive');
+        log.debug('walletKeyringService.deriveAllChains: normalized mnemonic saved before derive');
+      } else if (useMnemonic) {
+        // Always normalize existing mnemonic for consistency
+        useMnemonic = this.normalizeMnemonic(useMnemonic);
       }
 
       if (!useMnemonic) {
@@ -269,9 +293,9 @@ export const walletKeyringService = {
         this.update({
           meta: { ...rec.meta, lastUnlockAt: Date.now() },
         });
-      } catch {}
+      } catch { }
 
-      return {mnemonic: useMnemonic, out};
+      return { mnemonic: useMnemonic, out };
     } catch (e) {
       log.warn('walletKeyringService.deriveAllChains failed', { message: e?.message });
       throw e;

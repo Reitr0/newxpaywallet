@@ -39,3 +39,26 @@ export const jsEmit = (evt, payload) => {
     })();
   `;
 };
+
+export const jsSyncState = (state) => {
+  const json = JSON.stringify(state ?? {});
+  return `
+    (function(){
+      try {
+        var target = null;
+        if (window.ethereum && Array.isArray(window.ethereum.providers)) {
+          target = window.ethereum.providers.find(p => p && p.providerId === '${PROVIDER_ID}');
+        }
+        if (!target && window.ethereum && window.ethereum.providerId === '${PROVIDER_ID}') {
+          target = window.ethereum;
+        }
+        if (target && typeof target._syncState === 'function') {
+          target._syncState(${json});
+          console.log('[VP Provider] State synced:', ${json});
+        }
+      } catch (e) {
+        console.warn('[VP Provider] Failed to sync state:', e);
+      }
+    })();
+  `;
+};
