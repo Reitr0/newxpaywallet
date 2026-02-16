@@ -16,6 +16,7 @@ export const WALLET_FAMILY = {
   ETHEREUM: 'ethereum',
   BSC: 'bsc',
   POLYGON: 'polygon',
+  SLX: 'slx',
   SOLANA: 'solana',
   TRON: 'tron',
   BITCOIN: 'bitcoin', // alias for btc
@@ -25,6 +26,7 @@ export const CHAIN_ID_TO_FAMILY = {
   1: 'ethereum',
   56: 'bsc',
   137: 'polygon',
+  781234: 'slx',
   solana: 'solana',
   tron: 'tron',
   bitcoin: 'bitcoin',
@@ -34,6 +36,7 @@ export const FAMILY_TO_CHAIN_ID = {
   ethereum: 1,
   bsc: 56,
   polygon: 137,
+  slx: 781234,
   solana: 'solana',
   tron: 'tron',
   bitcoin: 'bitcoin',
@@ -44,6 +47,7 @@ export const CHAIN_TAGS = [
   { id: 'ethereum', label: 'Ethereum' },
   { id: 'bsc', label: 'BNB Smart Chain' },
   { id: 'polygon', label: 'Polygon' },
+  { id: 'slx', label: 'SLX Network' },
   { id: 'solana', label: 'solana' },
   { id: 'tron', label: 'Tron' },
 ];

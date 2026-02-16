@@ -11,6 +11,7 @@ export const DEFAULT_WALLETS = {
   ethereum: [],
   bsc: [],
   polygon: [],
+  slx: [],
   solana: [],
   tron: [],
   bitcoin: [],
@@ -22,7 +23,7 @@ const walletsDoc = db.doc('wallets.v1', { defaults: DEFAULT_WALLETS });
 function uniqUpsert(list = [], item) {
   if (!item) return list;
   const addr = item?.address?.toLowerCase?.();
-  const id   = item?.id;
+  const id = item?.id;
   let updated = false;
 
   const next = (list || []).map((w) => {
@@ -113,6 +114,7 @@ export const walletService = {
       case WALLET_FAMILY.ETHEREUM:
       case WALLET_FAMILY.BSC:
       case WALLET_FAMILY.POLYGON:
+      case WALLET_FAMILY.SLX:
         return walletBuilder.buildEvmWallet({
           privateKey: info.privateKey,
           networkConfig: cfg,
@@ -145,7 +147,7 @@ export const walletService = {
 
   /** Import by mnemonic, persist + build instances, seed per-wallet default tokens */
   async init(mnemonic) {
-    const {mnemonic: savedMnemonic, out: derived} = await walletKeyringService.deriveAllChains(mnemonic);
+    const { mnemonic: savedMnemonic, out: derived } = await walletKeyringService.deriveAllChains(mnemonic);
 
     // 1) Persist addresses/paths
     const saved = walletsDoc.patch((cur) => {

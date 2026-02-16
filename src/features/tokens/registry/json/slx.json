@@ -1,0 +1,15 @@
+[
+    {
+        "chainId": 781234,
+        "chainName": "SLX Network",
+        "symbol": "MEX",
+        "name": "META X",
+        "address": "0x1F68B599E176350b920beFd12ceCAd799AfA47A0",
+        "contractAddress": "0x1F68B599E176350b920beFd12ceCAd799AfA47A0",
+        "decimals": 18,
+        "binancePair": "MEXUSDT",
+        "logo": "https://i.postimg.cc/2yWz40wQ/xusdt2.png",
+        "label": "META X",
+        "type": "token"
+    }
+]

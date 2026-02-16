@@ -27,7 +27,7 @@ export const walletStore = proxy({
       this.status = 'loading';
       this.error = null;
 
-      const { mnemonic : savedMnemonic, saved, instances } = await walletService.init(mnemonic, opts);
+      const { mnemonic: savedMnemonic, saved, instances } = await walletService.init(mnemonic, opts);
 
       // Auto-enable stock and forex tokens (first time only)
       try {
@@ -47,13 +47,13 @@ export const walletStore = proxy({
       for (const chain in saved) {
         if (!Object.prototype.hasOwnProperty.call(saved, chain)) continue;
 
-        const inst  = instances[chain];
+        const inst = instances[chain];
         const metas = saved[chain];                  // wallets on this chain (addresses)
-        
+
         // First seed defaults, then get actual list (which includes stock/forex tokens)
         walletRegistryStore.list(chain); // This seeds defaults
         const tokens = walletRegistryService.list(chain) || []; // Get actual current list
-        
+
         // Debug log for token assembly
         console.log(`==== walletStore.init: Processing chain ${chain} ====`);
         console.log('Tokens from registry:', {
@@ -62,7 +62,7 @@ export const walletStore = proxy({
           forexTokens: tokens.filter(t => t.type === 'forex').length,
           solanaXTokens: tokens.filter(t => t.chainName === 'SOLANA X' || t.tag === 'SOLANA X').length,
           defaultTokens: tokens.filter(t => ['XUSDT', 'JYB', 'SLX', 'BTC', 'ETH', 'DOGE', 'LTC', 'USDC'].includes(t.symbol)).length,
-          examples: tokens.slice(0, 10).map(t => ({symbol: t.symbol, type: t.type, chainName: t.chainName, tag: t.tag})),
+          examples: tokens.slice(0, 10).map(t => ({ symbol: t.symbol, type: t.type, chainName: t.chainName, tag: t.tag })),
         });
         console.log('Wallet addresses (metas):', metas?.length || 0);
 
@@ -100,27 +100,48 @@ export const walletStore = proxy({
                 if (tokenAsset) assembled.push(tokenAsset);
               }
             }
+
+            // Fallback: For SLX chain, always ensure MEX token is present
+            if (chain === 'slx') {
+              const hasMEX = assembled.some(a => a.chain === 'slx' && a.symbol === 'MEX');
+              if (!hasMEX) {
+                console.log('🔧 SLX fallback: Force-injecting MEX token');
+                const mexToken = {
+                  symbol: 'MEX',
+                  address: '0x1F68B599E176350b920beFd12ceCAd799AfA47A0',
+                  contractAddress: '0x1F68B599E176350b920beFd12ceCAd799AfA47A0',
+                  decimals: 18,
+                  label: 'META X',
+                  name: 'META X',
+                  logo: 'https://i.postimg.cc/2yWz40wQ/xusdt2.png',
+                  type: 'token',
+                  chainId: 781234,
+                };
+                const mexAsset = this._toTokenAsset(chain, m?.address, mexToken);
+                if (mexAsset) assembled.push(mexAsset);
+              }
+            }
           }
         }
-        
+
         // Special case: For Solana, ONLY show specific default tokens without wallet address
         // This ensures XUSDT, JYB, SLX, etc. are visible in Assets tab
         if (chain === 'solana' && Array.isArray(tokens)) {
           const defaultTokenSymbols = ['XUSDT', 'JYB', 'SLX', 'BTC', 'ETH', 'DOGE', 'LTC', 'USDC'];
-          
+
           // Only include: 8 default tokens + stock + forex
-          const defaultTokens = tokens.filter(t => 
-            defaultTokenSymbols.includes(t.symbol) || 
-            t.type === 'stock' || 
+          const defaultTokens = tokens.filter(t =>
+            defaultTokenSymbols.includes(t.symbol) ||
+            t.type === 'stock' ||
             t.type === 'forex'
           );
-          
+
           console.log(`Adding ${defaultTokens.length} default Solana tokens (with wallet address for monitoring)`);
-          console.log('Default tokens:', defaultTokens.map(t => ({symbol: t.symbol, type: t.type, tag: t.tag})));
-          
+          console.log('Default tokens:', defaultTokens.map(t => ({ symbol: t.symbol, type: t.type, tag: t.tag })));
+
           // Use first wallet address for all default tokens (for monitoring purposes)
           const mainWalletAddress = metas?.[0]?.address;
-          
+
           for (let t = 0; t < defaultTokens.length; t++) {
             const tokenAsset = this._toTokenAsset(chain, mainWalletAddress, defaultTokens[t]);
             if (tokenAsset) {
@@ -130,15 +151,60 @@ export const walletStore = proxy({
         }
       }
 
+      // ======== Force-inject SLX chain + MEX token if not derived ========
+      if (!saved['slx'] || !Array.isArray(saved['slx']) || saved['slx'].length === 0) {
+        // SLX uses same EVM derivation path as Ethereum, so address is identical
+        const ethAddr = saved['ethereum']?.[0]?.address;
+        if (ethAddr) {
+          console.log('🔧 SLX chain not derived — force-injecting from ETH address:', ethAddr);
+          saved['slx'] = [{ address: ethAddr, path: "m/44'/60'/0'/0/0", tag: 'SLX Network', createdAt: Date.now() }];
+
+          // Build SLX wallet instance if possible
+          try {
+            const ethInfo = Object.values(instances).find(i => i); // grab any EVM instance's private key
+            const slxCfg = networkStore.getConfig('slx');
+            if (slxCfg) {
+              // Build native SLX asset
+              const slxNative = this._toNativeAsset('slx', { address: ethAddr });
+              if (slxNative) {
+                assembled.push(slxNative);
+                console.log('✅ SLX native asset injected');
+              }
+
+              // Build MEX token asset
+              const mexMeta = {
+                symbol: 'MEX',
+                address: '0x1F68B599E176350b920beFd12ceCAd799AfA47A0',
+                contractAddress: '0x1F68B599E176350b920beFd12ceCAd799AfA47A0',
+                decimals: 18,
+                label: 'META X',
+                name: 'META X',
+                logo: 'https://i.postimg.cc/2yWz40wQ/xusdt2.png',
+                type: 'token',
+                chainId: 781234,
+              };
+              const mexAsset = this._toTokenAsset('slx', ethAddr, mexMeta);
+              if (mexAsset) {
+                assembled.push(mexAsset);
+                console.log('✅ MEX token asset injected');
+              }
+            }
+          } catch (e) {
+            console.warn('SLX force-inject instance build failed:', e?.message);
+          }
+        }
+      }
+      // ======== End SLX force-inject ========
+
       // Persist state
       this.data = saved;
       this.instances = instances;
       this.assets = assembled;
-      
+
       // Debug final assembled assets
       console.log('==== walletStore.init: Final assembled assets ====');
       console.log('Total assets:', assembled.length);
-      console.log('Assets with type property:', assembled.filter(a => a.type).map(a => ({symbol: a.symbol, type: a.type, chain: a.chain})));
+      console.log('Assets with type property:', assembled.filter(a => a.type).map(a => ({ symbol: a.symbol, type: a.type, chain: a.chain })));
       console.log('Stock assets:', assembled.filter(a => a.type === 'stock').length);
       console.log('Forex assets:', assembled.filter(a => a.type === 'forex').length);
       this.status = 'ready';
@@ -469,7 +535,7 @@ export const walletStore = proxy({
    * Sign typed data (EIP-712)
    */
   async signTypedDataV4(address, typedJson, chainId) {
-    const chain =  CHAIN_ID_TO_FAMILY[chainId];
+    const chain = CHAIN_ID_TO_FAMILY[chainId];
     const inst = this.instances?.[chain];
     if (!inst) throw new Error(`No wallet instance for chain ${chain}`);
     if (typeof inst.signTypedDataV4 === 'function') {
@@ -492,7 +558,7 @@ export const walletStore = proxy({
   /* ----------------------- Domain mappers (no UI) ----------------------- */
   _priceRowForAsset(a) {
     if (!a?.symbol) return null;
-    
+
     // Special mapping for Solana X tokens to use real asset prices
     const SOLANA_X_PRICE_MAP = {
       'XUSDT': 'USDTUSDT',  // Tether AC -> USDT price
@@ -502,7 +568,7 @@ export const walletStore = proxy({
       'DOGE': 'DOGEUSDT',   // Dogecoin Solana X -> DOGE price
       'USDC': 'USDCUSDT',   // USDC Solana X -> USDC price
     };
-    
+
     // Solana X token contract addresses (lowercase)
     const SOLANA_X_ADDRESSES = [
       'cawhzldxhvvukdyrxpyhstg3y3abnmix4e2ow2ududa4', // XUSDT
@@ -512,22 +578,22 @@ export const walletStore = proxy({
       '7xraejvhjm1qrzpqfdfusu9zqxqvzbkldddpc5c3wfqd', // DOGE
       '4mtty3jfcuyhhhqnojf66bxprehwqcbmdwawqonauqhh', // USDC
     ];
-    
+
     // Check if this is a Solana X token - check multiple possible address fields
     const contractAddr = (
-      a?.tokenAddress || 
-      a?.address || 
-      a?.mint || 
-      a?.contractAddress || 
+      a?.tokenAddress ||
+      a?.address ||
+      a?.mint ||
+      a?.contractAddress ||
       ''
     ).toLowerCase();
-    
+
     const isSolanaXToken = SOLANA_X_ADDRESSES.includes(contractAddr);
-    
+
     // Also check by symbol + chain for Solana X tokens
     const isSolanaChain = a?.chain === 'solana' || a?.chainId === 'solana';
     const isSolanaXBySymbol = isSolanaChain && SOLANA_X_PRICE_MAP[a?.symbol];
-    
+
     let key;
     if ((isSolanaXToken || isSolanaXBySymbol) && SOLANA_X_PRICE_MAP[a.symbol]) {
       // Use mapped price for Solana X tokens
@@ -538,7 +604,7 @@ export const walletStore = proxy({
     } else {
       key = a.symbol + 'USDT';
     }
-    
+
     return tokenPriceStore.prices?.[key] || null;
   },
 
@@ -565,8 +631,8 @@ export const walletStore = proxy({
     const net = networkStore.getConfig(chain);
     if (!net) return null;
 
-    const chainId  = net.chainId;
-    const symbol   = net.symbol || String(chain).toUpperCase();
+    const chainId = net.chainId;
+    const symbol = net.symbol || String(chain).toUpperCase();
     const decimals = Number(net.decimals ?? 18);
 
     const address = String(walletMeta?.address || '');
@@ -589,11 +655,11 @@ export const walletStore = proxy({
     const net = networkStore.getConfig(chain);
     if (!net) return null;
 
-    const chainId     = tokenMeta?.chainId ?? net.chainId;
-    const symbol      = tokenMeta?.symbol;
+    const chainId = tokenMeta?.chainId ?? net.chainId;
+    const symbol = tokenMeta?.symbol;
     // Don't lowercase Solana addresses - they are case-sensitive base58
     const isSolana = chain === 'solana' || chainId === 'solana';
-    const tokenAddr   = isSolana 
+    const tokenAddr = isSolana
       ? String(tokenMeta?.address || tokenMeta?.contractAddress || '')
       : String(tokenMeta?.address || tokenMeta?.contractAddress || '').toLowerCase();
     const walletAddrL = String(walletAddress || '');
@@ -605,7 +671,7 @@ export const walletStore = proxy({
     // For default tokens without wallet address, use 'default' as identifier
     const walletIdentifier = walletAddress || 'default';
     const id = `${String(chainId).toLowerCase()}:${String(symbol).toLowerCase()}:${tokenAddr.toLowerCase()}:${walletIdentifier}`;
-    
+
     // Icon key for tokenIconStore (without wallet identifier)
     const iconKey = `${String(chainId).toLowerCase()}:${String(symbol).toLowerCase()}:${tokenAddr.toLowerCase()}`;
 
@@ -613,10 +679,10 @@ export const walletStore = proxy({
     const solanaXTokens = ['JYB', 'XUSDT', 'SLX', 'BTC', 'ETH', 'DOGE', 'USDC', 'LTC'];
     const stockTokens = ['AMZN', 'GOOG', 'TSLA', 'AAPL'];
     const forexTokens = ['CNYUSD'];
-    
+
     // Check if token already has SOLANA X tag/chainName from metadata
     const hasSOLANAXTag = tokenMeta?.tag === 'SOLANA X' || tokenMeta?.chainName === 'SOLANA X';
-    
+
     // Only specific tokens should have SOLANA X tag
     const isSolanaX = chain === 'solana' && (
       solanaXTokens.includes(symbol.toUpperCase()) ||
@@ -656,15 +722,15 @@ export const walletStore = proxy({
       amount,
       tokenAddress: tokenAddress ? tokenAddress.slice(0, 8) + '...' : 'native',
     });
-    
+
     const wallet = this.getInstance(chain);
     if (!wallet) {
       console.error('❌ [walletStore] No wallet instance for chain:', chain);
       throw new Error('No active wallet selected');
     }
-    
+
     console.log('✅ [walletStore] Wallet instance found, building intent...');
-    
+
     const intent = {
       kind: tokenAddress ? 'tokenTransfer' : 'nativeTransfer',
       to,
@@ -672,9 +738,9 @@ export const walletStore = proxy({
       tokenAddress: tokenAddress || null,
       platformFee: platformFee || null,
     };
-    
+
     console.log('📦 [walletStore] Intent:', intent);
-    
+
     let txid;
     try {
       if (typeof wallet.submit === 'function') {
@@ -694,7 +760,7 @@ export const walletStore = proxy({
         console.error('❌ [walletStore] No send method available on wallet');
         throw new Error('sendTransaction not implemented for this wallet');
       }
-      
+
       console.log('✅ [walletStore] Transaction sent! TxID:', txid?.slice(0, 16) + '...');
     } catch (sendError) {
       console.error('❌ [walletStore] Transaction failed:', sendError);
@@ -705,14 +771,14 @@ export const walletStore = proxy({
     try {
       console.log('🔔 [walletStore] Triggering outgoing notification...');
       const { transactionMonitorService } = await import('@features/notifications/service/transactionMonitorService');
-      
+
       // Find the asset to get symbol
-      const asset = this.assets.find(a => 
-        a.chain === chain && 
+      const asset = this.assets.find(a =>
+        a.chain === chain &&
         (tokenAddress ? a.tokenAddress?.toLowerCase() === tokenAddress.toLowerCase() : !a.isToken)
       );
       const symbol = asset?.symbol || 'TOKEN';
-      
+
       console.log('🔔 [walletStore] Notification details:', {
         type: 'outgoing',
         amount: String(amount),
@@ -721,7 +787,7 @@ export const walletStore = proxy({
         txHash: txid.slice(0, 8) + '...',
         chain,
       });
-      
+
       await transactionMonitorService.notifyTransaction({
         type: 'outgoing',
         amount: String(amount),
@@ -730,7 +796,7 @@ export const walletStore = proxy({
         txHash: txid,
         chain,
       });
-      
+
       console.log('✅ [walletStore] Outgoing notification sent successfully');
     } catch (notifError) {
       // Don't fail the transaction if notification fails
@@ -843,7 +909,7 @@ export const walletStore = proxy({
         address: addr,
         tokenAddress,
         limit,
-        chain : toMoralisChain(chain)
+        chain: toMoralisChain(chain)
       });
 
       // Instance should already normalize, but ensure a stable shape here.

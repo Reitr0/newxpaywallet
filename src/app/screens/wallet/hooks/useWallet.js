@@ -37,7 +37,7 @@ function enrichAsset(asset, priceRow) {
 // ----------------------------------------------------
 // Default chain priority: BTC > ETH > BSC > POLY > SOL > TRON
 // ----------------------------------------------------
-const CHAIN_PRIORITY = ['bitcoin', 'ethereum', 'bsc', 'polygon', 'solana', 'tron'];
+const CHAIN_PRIORITY = ['bitcoin', 'ethereum', 'bsc', 'polygon', 'slx', 'solana', 'tron'];
 
 function getChainPriority(chain) {
   const c = String(chain || '').toLowerCase();
@@ -65,7 +65,7 @@ export default function useWallet(assetId, options = {}) {
         'DOGE': 'DOGEUSDT',   // Dogecoin Solana X -> DOGE price
         'USDC': 'USDCUSDT',   // USDC Solana X -> USDC price
       };
-      
+
       // Solana X token contract addresses (lowercase)
       const SOLANA_X_ADDRESSES = [
         'cawhzldxhvvukdyrxpyhstg3y3abnmix4e2ow2ududa4', // XUSDT
@@ -75,22 +75,22 @@ export default function useWallet(assetId, options = {}) {
         '7xraejvhjm1qrzpqfdfusu9zqxqvzbkldddpc5c3wfqd', // DOGE
         '4mtty3jfcuyhhhqnojf66bxprehwqcbmdwawqonauqhh', // USDC
       ];
-      
+
       // Check if this is a Solana X token - check multiple possible address fields
       const contractAddr = (
-        a?.tokenAddress || 
-        a?.address || 
-        a?.mint || 
-        a?.contractAddress || 
+        a?.tokenAddress ||
+        a?.address ||
+        a?.mint ||
+        a?.contractAddress ||
         ''
       ).toLowerCase();
-      
+
       const isSolanaXToken = SOLANA_X_ADDRESSES.includes(contractAddr);
-      
+
       // Also check by symbol + chain for Solana X tokens
       const isSolanaChain = a?.chain === 'solana' || a?.chainId === 'solana';
       const isSolanaXBySymbol = isSolanaChain && SOLANA_X_PRICE_MAP[a?.symbol];
-      
+
       let key;
       if ((isSolanaXToken || isSolanaXBySymbol) && SOLANA_X_PRICE_MAP[a?.symbol]) {
         // Use mapped price for Solana X tokens
@@ -101,9 +101,9 @@ export default function useWallet(assetId, options = {}) {
       } else {
         key = a?.symbol + 'USDT';
       }
-      
+
       const priceRow = key ? prices?.[key] : undefined;
-      
+
       // Debug log for XUSDT
       if (a?.symbol === 'XUSDT') {
         console.log('[useWallet] XUSDT debug:', {
@@ -118,7 +118,7 @@ export default function useWallet(assetId, options = {}) {
           allPriceKeys: Object.keys(prices || {}).slice(0, 10),
         });
       }
-      
+
       return enrichAsset(a, priceRow);
     });
 

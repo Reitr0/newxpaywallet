@@ -4,6 +4,7 @@ import log from '@src/shared/infra/log/logService';
 import stockSolana from '@src/features/tokens/registry/json/stock-solana.json';
 import forexSolana from '@src/features/tokens/registry/json/forex-solana.json';
 import solanaTokens from '@src/features/tokens/registry/json/solona.json';
+import slxTokens from '@src/features/tokens/registry/json/slx.json';
 
 /**
  * Token metadata shape (per chain):
@@ -17,7 +18,7 @@ const DEFAULT_TOKENS_EMPTY = [];
  * ------------------------------------------------------------------ */
 const DEFAULT_TOKEN_CATALOG = {
   1: [
-    { chainId: 1,  symbol: 'USDT', address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', decimals: 6,  label: 'Tether USD' },
+    { chainId: 1, symbol: 'USDT', address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', decimals: 6, label: 'Tether USD' },
   ],
 };
 
@@ -29,21 +30,23 @@ let _DEFAULTS_BY_CHAIN = null;
 
 function getDefaultsByChain() {
   if (_DEFAULTS_BY_CHAIN) return _DEFAULTS_BY_CHAIN;
-  
+
   _DEFAULTS_BY_CHAIN = {
     '1': (DEFAULT_TOKEN_CATALOG[1] || []).map(t => normalizeToken(t, '1')),
     '56': (DEFAULT_TOKEN_CATALOG[56] || []).map(t => normalizeToken(t, '56')),
     '137': (DEFAULT_TOKEN_CATALOG[137] || []).map(t => normalizeToken(t, '137')),
+    '781234': (slxTokens || []).map(t => normalizeToken(t, '781234')),
     'ethereum': (DEFAULT_TOKEN_CATALOG[1] || []).map(t => normalizeToken(t, 'ethereum')),
     'bsc': (DEFAULT_TOKEN_CATALOG[56] || []).map(t => normalizeToken(t, 'bsc')),
     'polygon': (DEFAULT_TOKEN_CATALOG[137] || []).map(t => normalizeToken(t, 'polygon')),
+    'slx': (slxTokens || []).map(t => normalizeToken(t, 'slx')),
     'solana': [
       ...(solanaTokens || []).map(t => normalizeToken(t, 'solana')),
       ...(stockSolana || []).map(t => normalizeToken(t, 'solana')),
       ...(forexSolana || []).map(t => normalizeToken(t, 'solana')),
     ],
   };
-  
+
   return _DEFAULTS_BY_CHAIN;
 }
 
@@ -57,6 +60,7 @@ const CHAIN_NAME_TO_ID = {
   binance: 56,
   polygon: 137,
   matic: 137,
+  slx: 781234,
 };
 
 function toChainKey(chain) {
@@ -112,7 +116,7 @@ function uniqAppend(list, tokenMeta) {
   const addr = tokenMeta?.address;
   if (!addr) return list || [];
   const exists = (list || []).some((t) => sameAddr(t?.address, addr));
-  return exists ? (list || []) : [ ...(list || []), tokenMeta ];
+  return exists ? (list || []) : [...(list || []), tokenMeta];
 }
 
 /* ------------------------------------------------------------------
@@ -228,11 +232,11 @@ export const walletRegistryService = {
       const ck = toChainKey(chain);
       const current = this.list(chain);
       const defaults = this.getDefaultsForChain(chain);
-      
+
       console.log(`🌱 seedDefaults(${ck}): Starting...`);
       console.log(`   Current tokens: ${current.length}`);
       console.log(`   Available defaults: ${defaults.length}`);
-      
+
       if (ck === 'solana' && current.length > 0) {
         console.log(`   Current token symbols:`, current.map(t => t.symbol).join(', '));
       }
@@ -240,15 +244,15 @@ export const walletRegistryService = {
       if (ck === 'solana') {
         // Check if we have all default tokens
         const defaultTokenSymbols = ['XUSDT', 'JYB', 'SLX', 'BTC', 'ETH', 'DOGE', 'LTC', 'USDC'];
-        const hasAllDefaults = defaultTokenSymbols.every(symbol => 
+        const hasAllDefaults = defaultTokenSymbols.every(symbol =>
           current.some(t => t.symbol === symbol)
         );
-        
+
         const hasStock = current.some(t => t.type === 'stock');
         const hasForex = current.some(t => t.type === 'forex');
-        
+
         console.log(`   📊 Current state: hasAllDefaults=${hasAllDefaults}, hasStock=${hasStock}, hasForex=${hasForex}`);
-        
+
         // If missing any defaults, reload all
         if (!hasAllDefaults || !hasStock || !hasForex) {
           console.log('   🔄 Missing tokens, reloading all defaults...');
@@ -263,12 +267,24 @@ export const walletRegistryService = {
           console.log(`   ✅ Reloaded ${merged.length} tokens total`);
           return merged;
         }
-        
+
         console.log(`   ✅ Solana tokens already complete: ${current.length} tokens`);
         return current;
       }
-      
+
       // For other chains, use original logic
+      // For SLX chain, always ensure MEX default token is present
+      if (ck === 'slx') {
+        const hasMEX = current.some(t => t.symbol === 'MEX');
+        if (!hasMEX && defaults.length > 0) {
+          console.log('   🔄 SLX missing MEX token, seeding defaults...');
+          const merged = this.upsertMany(chain, defaults);
+          console.log(`   ✅ SLX seeded ${merged.length} tokens`);
+          return merged;
+        }
+        if (current.length > 0) return current;
+      }
+
       if (current.length > 0) return current;
       if (!defaults.length) return current;
       const merged = this.upsertMany(chain, defaults);

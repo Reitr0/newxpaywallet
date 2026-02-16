@@ -14,20 +14,20 @@ import { bitcoinProvider } from '@features/wallet/blockchain/providers/bitcoinPr
 async function buildBitcoinWallet({ privateKey, network, networkConfig, index = 0 }) {
   return new BtcWallet({
     // signing/UTXO deps
-    getNode:              (i) => { return {privateKey : privateKey}},
-    utxoProvider:         bitcoinProvider.listUnspent,
-    feeRateProvider:      bitcoinProvider.feeRateProvider,
-    broadcaster:          bitcoinProvider.broadcaster,
-    rawTxProvider:        bitcoinProvider.fetchRawTxHex,
-    txHistoryProvider:    bitcoinProvider.txHistoryProvider,
-    network:              network, // 'mainnet' | 'testnet' | 'signet'
-    chainId:              networkConfig.chainId,
-    label:                networkConfig.label,
-    symbol:               networkConfig.symbol,
-    decimals:             networkConfig.decimals,
-    explorerBaseUrl:      networkConfig.explorerTxBase,
-    explorerAddressBase:  networkConfig.explorerAddressBase,
-    networkLogoUrl:       networkConfig.logoUrl,
+    getNode: (i) => { return { privateKey: privateKey } },
+    utxoProvider: bitcoinProvider.listUnspent,
+    feeRateProvider: bitcoinProvider.feeRateProvider,
+    broadcaster: bitcoinProvider.broadcaster,
+    rawTxProvider: bitcoinProvider.fetchRawTxHex,
+    txHistoryProvider: bitcoinProvider.txHistoryProvider,
+    network: network, // 'mainnet' | 'testnet' | 'signet'
+    chainId: networkConfig.chainId,
+    label: networkConfig.label,
+    symbol: networkConfig.symbol,
+    decimals: networkConfig.decimals,
+    explorerBaseUrl: networkConfig.explorerTxBase,
+    explorerAddressBase: networkConfig.explorerAddressBase,
+    networkLogoUrl: networkConfig.logoUrl,
   });
 }
 
@@ -35,13 +35,14 @@ async function buildBitcoinWallet({ privateKey, network, networkConfig, index = 
  * EVM builder (per-chain: ethereum | bsc | polygon)
  * ----------------------------------- */
 const EVM_NATIVE = {
-  ethereum: { symbol: 'ETH',   decimals: 18 },
-  bsc:      { symbol: 'BNB',   decimals: 18 },
-  polygon:  { symbol: 'POL', decimals: 18 },
+  ethereum: { symbol: 'ETH', decimals: 18 },
+  bsc: { symbol: 'BNB', decimals: 18 },
+  polygon: { symbol: 'POL', decimals: 18 },
+  slx: { symbol: 'SLX', decimals: 18 },
 };
 
 
-async function buildEvmWallet({privateKey, networkConfig, family = 'ethereum', index = 0 }) {
+async function buildEvmWallet({ privateKey, networkConfig, family = 'ethereum', index = 0 }) {
   const native = EVM_NATIVE[family] || EVM_NATIVE.ethereum;
   return new EvmWallet({
     rpcUrl: networkConfig.rpc,
@@ -61,28 +62,28 @@ async function buildEvmWallet({privateKey, networkConfig, family = 'ethereum', i
 }
 
 /** Build a single EVM token wallet for the given EVM family */
-async function buildEvmTokenWallet({privateKey, networkConfig, family = 'ethereum', index = 0, token}) {
+async function buildEvmTokenWallet({ privateKey, networkConfig, family = 'ethereum', index = 0, token }) {
   const native = EVM_NATIVE[family] || EVM_NATIVE.ethereum;
   const deps = {
-    rpcUrl:              networkConfig.rpc,
-    getPrivateKey:       (i) => {return privateKey},
-    chainId:             networkConfig.chainId,
-    label:               networkConfig.label,
-    explorerBaseUrl:     networkConfig.explorerTxBase,
+    rpcUrl: networkConfig.rpc,
+    getPrivateKey: (i) => { return privateKey },
+    chainId: networkConfig.chainId,
+    label: networkConfig.label,
+    explorerBaseUrl: networkConfig.explorerTxBase,
     explorerAddressBase: networkConfig.explorerAddressBase,
-    symbol:              native.symbol,
-    decimals:            native.decimals,
-    networkLogoUrl:      networkConfig.logoUrl,
+    symbol: native.symbol,
+    decimals: native.decimals,
+    networkLogoUrl: networkConfig.logoUrl,
     token: {
-      address:  token.address,
-      symbol:   token.symbol,
+      address: token.address,
+      symbol: token.symbol,
       decimals: token.decimals,
-      label:    token.label ?? token.symbol,
+      label: token.label ?? token.symbol,
     },
   };
   const wallet = new EvmWallet(deps);
   return {
-    key:   `${networkConfig.chainId}:${(token.symbol || 'TOKEN')}:${token.address}`.toLowerCase(),
+    key: `${networkConfig.chainId}:${(token.symbol || 'TOKEN')}:${token.address}`.toLowerCase(),
     label: `${networkConfig.label} / ${token.label || token.symbol}`,
     wallet,
     index,
@@ -92,45 +93,45 @@ async function buildEvmTokenWallet({privateKey, networkConfig, family = 'ethereu
 /* -----------------------------------
  * Solana builder (native + SPL tokens)
  * ----------------------------------- */
-async function buildSolanaWallet({privateKey, networkConfig, index = 0}) {
-  const deps =  {
-    rpcUrl:               networkConfig.rpc,
-    txHistoryProvider:    solProvider.txHistoryProvider(networkConfig.rpc),
-    getEd25519Seed:       (i) => {return privateKey},
-    chainId:              networkConfig.chainId,
-    label:                networkConfig.label,
-    explorerBaseUrl:      (networkConfig.explorerTxBase || '') + (networkConfig.explorerClusterParam || ''),
-    explorerAddressBase:  (networkConfig.explorerAddressBase || '') + (networkConfig.explorerClusterParam || ''),
-    networkLogoUrl:       networkConfig.logoUrl,
-    symbol:               networkConfig.symbol,
-    decimals:             networkConfig.decimals,
+async function buildSolanaWallet({ privateKey, networkConfig, index = 0 }) {
+  const deps = {
+    rpcUrl: networkConfig.rpc,
+    txHistoryProvider: solProvider.txHistoryProvider(networkConfig.rpc),
+    getEd25519Seed: (i) => { return privateKey },
+    chainId: networkConfig.chainId,
+    label: networkConfig.label,
+    explorerBaseUrl: (networkConfig.explorerTxBase || '') + (networkConfig.explorerClusterParam || ''),
+    explorerAddressBase: (networkConfig.explorerAddressBase || '') + (networkConfig.explorerClusterParam || ''),
+    networkLogoUrl: networkConfig.logoUrl,
+    symbol: networkConfig.symbol,
+    decimals: networkConfig.decimals,
   };
   return new SolWallet(deps);
 }
 
 /** Single Solana token wallet */
-async function buildSolanaTokenWallet({privateKey, networkConfig, index = 0, token}) {
+async function buildSolanaTokenWallet({ privateKey, networkConfig, index = 0, token }) {
   const deps = {
-    rpcUrl:               networkConfig.rpc,
-    txHistoryProvider:    solProvider.txHistoryProvider(networkConfig.rpc),
-    getEd25519Seed:       (i) => {return privateKey},
-    chainId:              networkConfig.chainId,
-    label:                networkConfig.label,
-    explorerBaseUrl:      (networkConfig.explorerTxBase || '') + (networkConfig.explorerClusterParam || ''),
-    explorerAddressBase:  (networkConfig.explorerAddressBase || '') + (networkConfig.explorerClusterParam || ''),
-    symbol:               networkConfig.symbol,
-    decimals:             networkConfig.decimals,
-    networkLogoUrl:       networkConfig.logoUrl,
+    rpcUrl: networkConfig.rpc,
+    txHistoryProvider: solProvider.txHistoryProvider(networkConfig.rpc),
+    getEd25519Seed: (i) => { return privateKey },
+    chainId: networkConfig.chainId,
+    label: networkConfig.label,
+    explorerBaseUrl: (networkConfig.explorerTxBase || '') + (networkConfig.explorerClusterParam || ''),
+    explorerAddressBase: (networkConfig.explorerAddressBase || '') + (networkConfig.explorerClusterParam || ''),
+    symbol: networkConfig.symbol,
+    decimals: networkConfig.decimals,
+    networkLogoUrl: networkConfig.logoUrl,
     token: {
-      address:  token.address, // SPL mint
-      symbol:   token.symbol,
+      address: token.address, // SPL mint
+      symbol: token.symbol,
       decimals: token.decimals,
-      label:    token.label ?? token.symbol,
+      label: token.label ?? token.symbol,
     },
   };
   const wallet = new SolWallet(deps);
   return {
-    key:   `${networkConfig.chainId}:${(token.symbol || 'TOKEN')}:${token.address}`.toLowerCase(),
+    key: `${networkConfig.chainId}:${(token.symbol || 'TOKEN')}:${token.address}`.toLowerCase(),
     label: `${networkConfig.label} / ${token.label || token.symbol}`,
     wallet,
     index,
@@ -140,47 +141,47 @@ async function buildSolanaTokenWallet({privateKey, networkConfig, index = 0, tok
 /* -----------------------------------
  * Tron builder (native + TRC20 tokens)
  * ----------------------------------- */
-async function buildTronWallet({privateKey, networkConfig, index = 0}) {
+async function buildTronWallet({ privateKey, networkConfig, index = 0 }) {
 
   const tronDeps = {
-    fullHost:             networkConfig.rpc,
-    txHistoryProvider:    tronProvider.txHistoryProvider(),
-    getPrivateKey:        (i) =>{return privateKey},
-    chainId:              networkConfig.chainId,
-    label:                networkConfig.label,
-    explorerBaseUrl:      networkConfig.explorerTxBase,
-    explorerAddressBase:  networkConfig.explorerAddressBase,
-    networkLogoUrl:       networkConfig.logoUrl,
-    symbol:               networkConfig.symbol,
-    decimals:             networkConfig.decimals,
+    fullHost: networkConfig.rpc,
+    txHistoryProvider: tronProvider.txHistoryProvider(),
+    getPrivateKey: (i) => { return privateKey },
+    chainId: networkConfig.chainId,
+    label: networkConfig.label,
+    explorerBaseUrl: networkConfig.explorerTxBase,
+    explorerAddressBase: networkConfig.explorerAddressBase,
+    networkLogoUrl: networkConfig.logoUrl,
+    symbol: networkConfig.symbol,
+    decimals: networkConfig.decimals,
   };
 
   return new TronWallet(tronDeps);
 }
 
 /** Single Tron token wallet */
-async function buildTronTokenWallet({privateKey, networkConfig, index = 0, token}) {
+async function buildTronTokenWallet({ privateKey, networkConfig, index = 0, token }) {
   const deps = {
-    fullHost:             networkConfig.rpc,
-    txHistoryProvider:    tronProvider.txHistoryProvider(),
-    getPrivateKey:        (i) =>{return privateKey},
-    chainId:              networkConfig.chainId,
-    label:                networkConfig.label,
-    explorerBaseUrl:      networkConfig.explorerTxBase,
-    explorerAddressBase:  networkConfig.explorerAddressBase,
-    networkLogoUrl:       networkConfig.logoUrl,
-    symbol:               networkConfig.symbol,
-    decimals:             networkConfig.decimals,
+    fullHost: networkConfig.rpc,
+    txHistoryProvider: tronProvider.txHistoryProvider(),
+    getPrivateKey: (i) => { return privateKey },
+    chainId: networkConfig.chainId,
+    label: networkConfig.label,
+    explorerBaseUrl: networkConfig.explorerTxBase,
+    explorerAddressBase: networkConfig.explorerAddressBase,
+    networkLogoUrl: networkConfig.logoUrl,
+    symbol: networkConfig.symbol,
+    decimals: networkConfig.decimals,
     token: {
-      address:  token.address,
-      symbol:   token.symbol,
+      address: token.address,
+      symbol: token.symbol,
       decimals: token.decimals,
-      label:    token.label ?? token.symbol,
+      label: token.label ?? token.symbol,
     },
   };
   const wallet = new TronWallet(deps);
   return {
-    key:   `${networkConfig.chainId}:${(token.symbol || 'TOKEN')}:${token.address}`.toLowerCase(),
+    key: `${networkConfig.chainId}:${(token.symbol || 'TOKEN')}:${token.address}`.toLowerCase(),
     label: `${networkConfig.label} / ${token.label || token.symbol}`,
     wallet,
     index,

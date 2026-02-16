@@ -10,6 +10,7 @@ import solanaL from '@src/features/tokens/registry/json/solona.json';
 import trc20 from '@src/features/tokens/registry/json/trc20.json';
 import stockSolana from '@src/features/tokens/registry/json/stock-solana.json';
 import forexSolana from '@src/features/tokens/registry/json/forex-solana.json';
+import slxTokens from '@src/features/tokens/registry/json/slx.json';
 
 /* ------------------------------- helpers -------------------------------- */
 
@@ -94,15 +95,16 @@ function dedupeById(list) {
 /* -------------------------- defaults per chain --------------------------- */
 
 const DEFAULTS_BY_CHAIN = {
-  '1':      (erc20   || []).map(x => normalizeToken(x, '1')),
-  '56':     (bep20   || []).map(x => normalizeToken(x, '56')),
-  '137':    (polygon || []).map(x => normalizeToken(x, '137')),
+  '1': (erc20 || []).map(x => normalizeToken(x, '1')),
+  '56': (bep20 || []).map(x => normalizeToken(x, '56')),
+  '137': (polygon || []).map(x => normalizeToken(x, '137')),
+  '781234': (slxTokens || []).map(x => normalizeToken(x, '781234')),
   'solana': [
     ...(solanaL || []).map(x => normalizeToken(x, 'solana')),
     ...(stockSolana || []).map(x => normalizeToken(x, 'solana')),
     ...(forexSolana || []).map(x => normalizeToken(x, 'solana')),
   ],
-  'tron':   (trc20   || []).map(x => normalizeToken(x, 'tron')),
+  'tron': (trc20 || []).map(x => normalizeToken(x, 'tron')),
 };
 
 /* ------------------------------- storage -------------------------------- */
@@ -119,7 +121,7 @@ function chainDoc(chainId) {
       // Normalize user entries first
       const userNorm = user.map(t => normalizeToken(t, chainKey));
       // Merge defaults (base) + user (override). Dedup by id (user wins).
-      return dedupeById([ ...(defaults || []), ...userNorm ]);
+      return dedupeById([...(defaults || []), ...userNorm]);
     },
 
     // Persist ONLY user-managed entries; defaults live in code.
