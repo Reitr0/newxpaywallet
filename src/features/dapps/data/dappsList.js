@@ -58,6 +58,13 @@ export const FEATURED = [
     icon: 'https://assets.coingecko.com/coins/images/35341/standard/pump.png',
   },
   {
+    id: 'slxdex',
+    title: 'SLX DEX',
+    subtitle: 'Decentralized exchange on SLX Network.',
+    url: 'https://slxdex.com/',
+    icon: 'https://i.ibb.co/GC5VBgq/SLX-COIN-241209.png',
+  },
+  {
     id: 'metamask-test',
     title: 'E2E Test Dapp',
     subtitle: 'For wallet integration testing.',
@@ -81,6 +88,13 @@ export const DEX = [
     subtitle: 'The flippening is coming. Stack $CAKE.',
     url: 'https://pancakeswap.finance/',
     icon: 'https://assets.coingecko.com/coins/images/12632/standard/pancakeswap-cake-logo.png',
+  },
+  {
+    id: 'slxdex',
+    title: 'SLX DEX',
+    subtitle: 'Decentralized exchange on SLX Network.',
+    url: 'https://slxdex.com/',
+    icon: 'https://i.ibb.co/GC5VBgq/SLX-COIN-241209.png',
   },
   {
     id: 'fluid',

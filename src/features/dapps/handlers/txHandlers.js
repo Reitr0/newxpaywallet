@@ -30,6 +30,7 @@ function normalizeDappTx(dappTx) {
 
   // common fields
   const req = {
+    from: t.from ?? undefined,
     to: t.to ?? undefined,
     data: isNil(t.data) ? undefined : t.data,
     value: toWeiValue(t.value),
@@ -71,16 +72,17 @@ export const txHandlers = (ctx) => ({
     }
 
     // Optional: quick human preview
-    const toLabel = tx.to || '(contract)';
+    const toLabel = tx.to || (ctx.t ? ctx.t('dappConfirm.contract') : '(contract)');
     const amountEth = (() => {
       try {
         return tx.value ? formatEther(toWeiValue(tx.value)) : '0';
       } catch { return '0'; }
     })();
 
+    const t = ctx.t || ((k, fb) => fb || k);
     const ok = await confirmDialog(
-      'Send transaction',
-      `From: ${tx.from}\nTo: ${toLabel}\nAmount: ${amountEth} ETH`
+      t('dappConfirm.sendTransaction', 'Send transaction'),
+      `${t('dappConfirm.from', 'From')}: ${tx.from}\n${t('dappConfirm.to', 'To')}: ${toLabel}\n${t('dappConfirm.amount', 'Amount')}: ${amountEth} ETH`
     );
     if (!ok) throw new Error('User rejected');
 
@@ -96,15 +98,22 @@ export const txHandlers = (ctx) => ({
   },
 
   async eth_estimateGas(params) {
-    const { walletStore, chainId } = ctx;
+    const { walletStore, chainId, activeAddr } = ctx;
     const normalized = normalizeDappTx(params?.[0] || {});
+    // Ensure from address is set so RPC doesn't use zero address
+    if (!normalized.from && activeAddr) {
+      normalized.from = activeAddr;
+    }
     const gas = await walletStore.estimateGas(normalized, chainId);
     return '0x' + BigInt(gas ?? 0).toString(16);
   },
 
   async eth_call(params) {
-    const { walletStore, chainId } = ctx;
+    const { walletStore, chainId, activeAddr } = ctx;
     const normalized = normalizeDappTx(params?.[0] || {});
+    if (!normalized.from && activeAddr) {
+      normalized.from = activeAddr;
+    }
     return await walletStore.call(normalized, chainId);
   },
 });

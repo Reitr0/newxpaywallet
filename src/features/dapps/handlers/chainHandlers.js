@@ -7,6 +7,7 @@ const SUPPORTED_CHAINS = {
   '0x1': { name: 'Ethereum Mainnet', family: 'ethereum' },
   '0x38': { name: 'BSC Mainnet', family: 'bsc' },
   '0x89': { name: 'Polygon Mainnet', family: 'polygon' },
+  '0xbebb2': { name: 'SLX Network', family: 'slx' },
 };
 
 export const chainHandlers = (ctx) => ({
@@ -39,24 +40,29 @@ export const chainHandlers = (ctx) => ({
 
     const targetNum = parseInt(targetHex, 16);
     const chainInfo = SUPPORTED_CHAINS[targetHex];
-    
+
     if (!chainInfo) {
       throw new Error(`Chain ${targetHex} not supported. Supported chains: ${Object.keys(SUPPORTED_CHAINS).join(', ')}`);
     }
 
-    // 🧠 Ask user for confirmation
-    const ok = await confirmDialog(
-      t?.('dapp.switchNetworkTitle', 'Switch Network'),
-      t?.('dapp.switchNetworkMessage', {
-        defaultValue: 'Allow this site to switch your network to {{chainName}}?',
-        chainName: chainInfo.name,
-      }),
-      {
-        variant: 'switch',
-        confirmText: t?.('common.switch', 'Switch'),
-        cancelText: t?.('common.cancel', 'Cancel'),
-      }
-    );
+    // 🧠 Auto-approve for trusted DEX sites (slxdex.com)
+    const origin = ctx.origin || '';
+    const isTrustedDex = origin.includes('slxdex');
+    let ok = isTrustedDex;
+    if (!ok) {
+      ok = await confirmDialog(
+        t?.('dapp.switchNetworkTitle', 'Switch Network'),
+        t?.('dapp.switchNetworkMessage', {
+          defaultValue: 'Allow this site to switch your network to {{chainName}}?',
+          chainName: chainInfo.name,
+        }),
+        {
+          variant: 'switch',
+          confirmText: t?.('common.switch', 'Switch'),
+          cancelText: t?.('common.cancel', 'Cancel'),
+        }
+      );
+    }
 
     if (!ok) throw new Error(t?.('errors.userRejected', 'User rejected'));
 
@@ -83,7 +89,7 @@ export const chainHandlers = (ctx) => ({
           chainId: targetHex
         }));
       }
-      
+
       // Then emit chain changed event
       setTimeout(() => {
         webref.current?.injectJavaScript(`
@@ -115,7 +121,7 @@ export const chainHandlers = (ctx) => ({
   async wallet_addEthereumChain(params) {
     const { confirmDialog, t } = ctx;
     const chainData = params?.[0];
-    
+
     if (!chainData?.chainId) {
       throw new Error('Missing chainId in chain data');
     }

@@ -243,7 +243,7 @@ export const walletRegistryService = {
       // For solana chain, always ensure we have all defaults (including stock/forex)
       if (ck === 'solana') {
         // Check if we have all default tokens
-        const defaultTokenSymbols = ['XUSDT', 'JYB', 'SLX', 'BTC', 'ETH', 'DOGE', 'LTC', 'USDC'];
+        const defaultTokenSymbols = ['XUSDT', 'JYB'];
         const hasAllDefaults = defaultTokenSymbols.every(symbol =>
           current.some(t => t.symbol === symbol)
         );
@@ -273,11 +273,14 @@ export const walletRegistryService = {
       }
 
       // For other chains, use original logic
-      // For SLX chain, always ensure MEX default token is present
+      // For SLX chain, ensure ALL default tokens are present (MEX, USDT, etc.)
       if (ck === 'slx') {
-        const hasMEX = current.some(t => t.symbol === 'MEX');
-        if (!hasMEX && defaults.length > 0) {
-          console.log('   🔄 SLX missing MEX token, seeding defaults...');
+        const defaultSymbols = defaults.map(t => t.symbol);
+        const hasAllDefaults = defaultSymbols.every(sym =>
+          current.some(t => t.symbol === sym)
+        );
+        if (!hasAllDefaults && defaults.length > 0) {
+          console.log(`   🔄 SLX missing tokens (need: ${defaultSymbols.join(',')}), seeding defaults...`);
           const merged = this.upsertMany(chain, defaults);
           console.log(`   ✅ SLX seeded ${merged.length} tokens`);
           return merged;

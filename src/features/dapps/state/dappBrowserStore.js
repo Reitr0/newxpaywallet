@@ -37,15 +37,17 @@ export const dappBrowserStore = proxy({
 
   /* -------- allowlist -------- */
   AUTO_CONNECT_HOSTS,
-  
+
   // Check if current site should auto-connect
   shouldAutoConnect() {
-    return this.AUTO_CONNECT_HOSTS.has(this.host) || 
-           this.host.includes('solxdapp') ||
-           this.host.includes('pancake') ||
-           this.host.includes('uniswap') ||
-           this.url.includes('solxdapp') ||
-           this.url.includes('Solxdapp');
+    return this.AUTO_CONNECT_HOSTS.has(this.host) ||
+      this.host.includes('solxdapp') ||
+      this.host.includes('pancake') ||
+      this.host.includes('uniswap') ||
+      this.host.includes('slxdex') ||
+      this.url.includes('solxdapp') ||
+      this.url.includes('Solxdapp') ||
+      this.url.includes('slxdex');
   },
 
   /* -------- wallet mirror (reactive) -------- */
@@ -64,46 +66,52 @@ export const dappBrowserStore = proxy({
   // CRITICAL: Sync wallet state from walletStore
   syncWalletState() {
     try {
-      // For BSC/BEP20 DApps, prioritize BSC address
       let activeAddress = null;
-      let activeChainId = 56; // BSC mainnet
-      
+      let activeChainId = 1;
+
+      // Check if we're on a SLX-related site (slxdex.com)
+      const isSlxSite = this.host.includes('slxdex') ||
+        this.url.includes('slxdex');
+
       // Check if we're on a BSC-related site
-      const isBscSite = this.host.includes('bsc') || 
-                       this.host.includes('pancake') || 
-                       this.host.includes('binance') ||
-                       this.host.includes('solxdapp') || 
-                       this.host.includes('Solxdapp') || // ✅ ADD THIS
-                       this.url.includes('bsc') ||
-                       this.url.includes('bnb') ||
-                       this.url.includes('solxdapp') ||
-                       this.url.includes('solxdapp');// ✅ ADD THIS
-      
-      console.log('[DApp Browser] Checking BSC site:', { 
-        host: this.host, 
-        url: this.url, 
-        isBscSite 
+      const isBscSite = this.host.includes('bsc') ||
+        this.host.includes('pancake') ||
+        this.host.includes('binance') ||
+        this.host.includes('solxdapp') ||
+        this.host.includes('Solxdapp') ||
+        this.url.includes('bsc') ||
+        this.url.includes('bnb') ||
+        this.url.includes('solxdapp');
+
+      console.log('[DApp Browser] Site detection:', {
+        host: this.host,
+        url: this.url,
+        isSlxSite,
+        isBscSite
       });
-      
-      if (isBscSite) {
-        // Use BSC address for BSC sites
+
+      if (isSlxSite) {
+        // Use SLX address for SLX DEX (same as ETH address, SLX is EVM)
+        activeAddress = walletStore.getWalletAddressByChain('slx') || walletStore.getWalletAddressByChain('ethereum');
+        activeChainId = 781234; // SLX Network
+        console.log('[DApp Browser] SLX site detected, using SLX wallet:', activeAddress, 'chainId:', activeChainId);
+      } else if (isBscSite) {
         activeAddress = walletStore.getWalletAddressByChain('bsc');
         activeChainId = 56; // BSC mainnet
         console.log('[DApp Browser] BSC site detected, using BSC wallet:', activeAddress);
       } else {
-        // Use Ethereum address for other sites
         activeAddress = walletStore.getWalletAddressByChain('ethereum');
         activeChainId = 1; // Ethereum mainnet
         console.log('[DApp Browser] Using Ethereum wallet:', activeAddress);
       }
-      
+
       if (activeAddress && (activeAddress !== this.activeAddress || activeChainId !== this.activeChainId)) {
         this.activeAddress = activeAddress.toLowerCase();
         this.activeChainId = activeChainId;
         this.activeChainHex = toHexChainId(activeChainId);
         console.log('[DApp Browser] Synced active address:', this.activeAddress, 'Chain:', activeChainId, 'Hex:', this.activeChainHex);
       }
-      
+
       // Fallback to Ethereum if no address found
       if (!this.activeAddress) {
         const ethAddress = walletStore.getWalletAddressByChain('ethereum');

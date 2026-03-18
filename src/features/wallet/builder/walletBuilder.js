@@ -7,6 +7,7 @@ import { makeRpcSolTxHistoryProvider, solProvider } from '@features/wallet/block
 import createTronTxProvider, { tronProvider } from '@features/wallet/blockchain/providers/tronProvider';
 import { evmProvider } from '@features/wallet/blockchain/providers/evmProvider';
 import { bitcoinProvider } from '@features/wallet/blockchain/providers/bitcoinProvider';
+import { slxProvider } from '@features/wallet/blockchain/providers/slxProvider';
 
 /* -----------------------------------
  * Bitcoin builder
@@ -44,10 +45,19 @@ const EVM_NATIVE = {
 
 async function buildEvmWallet({ privateKey, networkConfig, family = 'ethereum', index = 0 }) {
   const native = EVM_NATIVE[family] || EVM_NATIVE.ethereum;
+  // SLX uses its own explorer API for tx history (Moralis doesn't support custom chains)
+  const historyProvider = family === 'slx'
+    ? slxProvider.txHistoryProvider()
+    : evmProvider.txHistoryProvider();
+  // SLX RPC returns blocks with hash=null which ethers.js rejects,
+  // so we use a patched provider that fixes that
+  const provider = family === 'slx'
+    ? evmProvider.slxJsonRpcProvider(networkConfig.rpc)
+    : evmProvider.jsonRpcProvider(networkConfig.rpc);
   return new EvmWallet({
     rpcUrl: networkConfig.rpc,
-    provider: evmProvider.jsonRpcProvider(networkConfig.rpc),
-    txHistoryProvider: evmProvider.txHistoryProvider(),
+    provider,
+    txHistoryProvider: historyProvider,
     getPrivateKey: (i) => {
       return privateKey
     },

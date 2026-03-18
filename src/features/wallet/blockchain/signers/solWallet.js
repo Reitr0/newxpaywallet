@@ -275,7 +275,7 @@ export default class SolWallet extends BaseWallet {
     try {
       mintPk = new PublicKey(mintAddress);
     } catch (e) {
-      console.warn('[SolWallet] Invalid mint address for balance:', mint, e.message);
+      console.log('[SolWallet] Invalid mint address for balance:', mint, e.message);
       return { total: '0', decimals: 0, symbol: 'SPL' };
     }
 
@@ -650,7 +650,7 @@ export default class SolWallet extends BaseWallet {
           // If platform fee receiver doesn't have rent-exempt balance,
           // skip the platform fee to avoid transaction failure
           if (pfReceiverBalance < Number(MIN_RENT_EXEMPT_BALANCE)) {
-            console.warn('[SolWallet] Platform fee receiver has insufficient balance for rent, skipping platform fee');
+            console.log('[SolWallet] Platform fee receiver has insufficient balance for rent, skipping platform fee');
             // Don't add platform fee instruction - skip it
           } else {
             ixns.push(SystemProgram.transfer({
@@ -660,7 +660,7 @@ export default class SolWallet extends BaseWallet {
             }));
           }
         } catch (e) {
-          console.warn('[SolWallet] Failed to check platform fee receiver balance, skipping platform fee:', e.message);
+          console.log('[SolWallet] Failed to check platform fee receiver balance, skipping platform fee:', e.message);
           // Skip platform fee on error
         }
       }
@@ -843,7 +843,7 @@ export default class SolWallet extends BaseWallet {
       
       console.log('⚠️ [SolWallet] Solscan API returned empty, falling back to RPC...');
     } catch (solscanError) {
-      console.warn('⚠️ [SolWallet] Solscan API failed, falling back to RPC:', solscanError.message);
+      console.log('⚠️ [SolWallet] Solscan API failed, falling back to RPC:', solscanError.message);
     }
     
     // Fallback to RPC method
@@ -885,7 +885,7 @@ export default class SolWallet extends BaseWallet {
         console.log('📦 [SolWallet] Found token accounts:', tokenAccounts.value.length);
         
         if (tokenAccounts.value.length === 0) {
-          console.warn('⚠️ [SolWallet] No token accounts found for this mint');
+          console.log('⚠️ [SolWallet] No token accounts found for this mint');
           return { items: [], cursor: undefined };
         }
         
@@ -899,7 +899,7 @@ export default class SolWallet extends BaseWallet {
             console.log('  ✅ Found', accountSigs.length, 'signatures');
             return accountSigs;
           } catch (err) {
-            console.warn('  ⚠️ Failed to fetch signatures:', err.message);
+            console.log('  ⚠️ Failed to fetch signatures:', err.message);
             return [];
           }
         });
@@ -1566,7 +1566,7 @@ export default class SolWallet extends BaseWallet {
       
       return { items, cursor: nextCursor };
     } catch (error) {
-      console.error('❌ [SolWallet] Solscan API error:', error.message);
+      console.log('❌ [SolWallet] Solscan API error:', error.message);
       // Return null to trigger RPC fallback
       return null;
     }

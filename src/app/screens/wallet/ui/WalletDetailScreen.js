@@ -39,13 +39,13 @@ export default function WalletDetailScreen({ navigation, route }) {
   const tag = asset?.tag || '';
   const chain = asset?.chain || asset?.chainId || '';
   const pair = symbol === 'USDT' ? `${symbol}DAI` : `${symbol}USDT`;
-  
+
   // Get token logo from registry
   const tokenLogo = useMemo(() => {
     // First try asset's own logo
     if (asset?.logo) return asset.logo;
     if (asset?.logoUrl) return asset.logoUrl;
-    
+
     // Map chain name to registry chainKey
     const chainKeyMap = {
       'ethereum': '1',
@@ -55,40 +55,41 @@ export default function WalletDetailScreen({ navigation, route }) {
       'bnb': '56',
       'polygon': '137',
       'matic': '137',
+      'slx': '781234',
       'solana': 'solana',
       'sol': 'solana',
       'tron': 'tron',
       'trx': 'tron',
     };
     const chainKey = chainKeyMap[chain?.toLowerCase()] || chain;
-    
+
     // Then lookup from token registry by symbol and chain
     const tokenFromRegistry = tokenRegistryStore.findBySymbol(chainKey, symbol);
     if (tokenFromRegistry?.logo) return tokenFromRegistry.logo;
-    
+
     // Also try with chainId directly
     const chainIdKey = asset?.chainId ? String(asset.chainId) : null;
     if (chainIdKey && chainIdKey !== chainKey) {
       const tokenByChainId = tokenRegistryStore.findBySymbol(chainIdKey, symbol);
       if (tokenByChainId?.logo) return tokenByChainId.logo;
     }
-    
+
     // Fallback to network logo - but only for native tokens, not for ERC20/tokens
     // For tokens, show placeholder instead of chain logo
     if (!asset?.isToken) {
       return asset?.networkLogoUrl || null;
     }
-    
+
     return null;
   }, [asset, chain, symbol]);
-  
+
   // State for chart loading - if chart fails, show token logo instead
   const [chartFailed, setChartFailed] = useState(false);
-  
+
   // Tokens that don't have chart data on Binance/TradingView
   // Include all Solana X custom tokens (they have "Solana X" in label or specific contract addresses)
-  const NO_CHART_TOKENS = ['XUSDT', 'JYB', 'SLX', 'BUSD'];
-  
+  const NO_CHART_TOKENS = ['XUSDT', 'JYB', 'SLX', 'MEX', 'BUSD'];
+
   // Solana X custom token addresses (lowercase for comparison)
   const SOLANA_X_ADDRESSES = [
     'cawhzldxhvvukdyrxpyhstg3y3abnmix4e2ow2ududa4', // XUSDT
@@ -100,17 +101,17 @@ export default function WalletDetailScreen({ navigation, route }) {
     '4mtty3jfcuyhhhqnojf66bxprehwqcbmdwawqonauqhh', // USDC Solana X
     'ddnuh16bnvrzymelhztqgc3ldvmsasoeuuf8zi8xntqrh', // SLX
   ];
-  
+
   const tokenAddressLower = (asset?.tokenAddress || '').toLowerCase();
   const isSolanaXToken = chain === 'solana' && (
-    asset?.label?.includes('Solana X') || 
+    asset?.label?.includes('Solana X') ||
     asset?.tag?.includes('Solana X') ||
     SOLANA_X_ADDRESSES.includes(tokenAddressLower) ||
     NO_CHART_TOKENS.includes(symbol)
   );
   // Show chart only if not Solana X token, not in NO_CHART list, and chart hasn't failed
   const hasChart = !isSolanaXToken && !NO_CHART_TOKENS.includes(symbol) && !chartFailed;
-  
+
   // Callback when chart fails to load (Heroku error, timeout, etc.)
   const handleChartFailed = useCallback(() => {
     setChartFailed(true);
@@ -149,7 +150,7 @@ export default function WalletDetailScreen({ navigation, route }) {
         <VPressable
           className="w-10 p-2"
           accessibilityLabel={t('asset.alerts', 'Alerts')}
-          onPress={() => {}}
+          onPress={() => { }}
         >
           <VIcon type="Feather" name="bell" size={18} className="text-title" />
         </VPressable>
@@ -158,19 +159,19 @@ export default function WalletDetailScreen({ navigation, route }) {
       {/* Chart - only show for tokens with chart data */}
       {hasChart ? (
         <View style={{ height: 200 }}>
-          <ChartWebView 
-            pair={pair} 
-            colorScheme={colorScheme} 
-            tokenLogo={tokenLogo} 
-            tokenSymbol={symbol} 
+          <ChartWebView
+            pair={pair}
+            colorScheme={colorScheme}
+            tokenLogo={tokenLogo}
+            tokenSymbol={symbol}
             onChartFailed={handleChartFailed}
           />
         </View>
       ) : (
         <View style={{ height: 120, alignItems: 'center', justifyContent: 'center' }}>
           {tokenLogo ? (
-            <Image 
-              source={{ uri: tokenLogo }} 
+            <Image
+              source={{ uri: tokenLogo }}
               style={{ width: 64, height: 64, borderRadius: 32 }}
               resizeMode="contain"
             />
@@ -189,59 +190,59 @@ export default function WalletDetailScreen({ navigation, route }) {
             const label = TABS[key];
             const selected = tab === key;
             return (
-            <VPressable key={key} onPress={() => setTab(key)} accessibilityRole="tab">
-          <VText className={selected ? 'text-title font-semibold' : 'text-muted'}>
-            {label}
-          </VText>
-          {selected && <View className="h-0.5 bg-title rounded mt-1" />}
-        </VPressable>
-        );
-        })}
+              <VPressable key={key} onPress={() => setTab(key)} accessibilityRole="tab">
+                <VText className={selected ? 'text-title font-semibold' : 'text-muted'}>
+                  {label}
+                </VText>
+                {selected && <View className="h-0.5 bg-title rounded mt-1" />}
+              </VPressable>
+            );
+          })}
+        </View>
+
+        {tab === 'holdings' && (
+          <View className="px-3 mt-4">
+            {asset ? (
+              <RowWallet item={asset} isActive onPress={() => { }} />
+            ) : (
+              <View className="bg-item border border-border-subtle rounded-2xl p-4">
+                <VText className="text-2xs text-muted">
+                  {t('asset.noActiveWallet', 'No active wallet selected.')}
+                </VText>
+              </View>
+            )}
+          </View>
+        )}
+
+        {tab === 'history' && (
+          <View className="px-3 mt-4">
+            <HistoryTab asset={asset} />
+          </View>
+        )}
+
+        {tab === 'about' && (
+          <View className="px-3 mt-4">
+            <VText className="text-muted text-xs">
+              {t('asset.aboutComingSoon', 'About information coming soon.')}
+            </VText>
+          </View>
+        )}
       </View>
 
-      {tab === 'holdings' && (
-        <View className="px-3 mt-4">
-          {asset ? (
-            <RowWallet item={asset} isActive onPress={() => {}} />
-          ) : (
-            <View className="bg-item border border-border-subtle rounded-2xl p-4">
-              <VText className="text-2xs text-muted">
-                {t('asset.noActiveWallet', 'No active wallet selected.')}
-              </VText>
-            </View>
-          )}
-        </View>
-      )}
-
-      {tab === 'history' && (
-        <View className="px-3 mt-4">
-          <HistoryTab asset={asset} />
-        </View>
-      )}
-
-      {tab === 'about' && (
-        <View className="px-3 mt-4">
-          <VText className="text-muted text-xs">
-            {t('asset.aboutComingSoon', 'About information coming soon.')}
-          </VText>
-        </View>
-      )}
-    </View>
-
-{/* Bottom Actions */}
-  <View className="absolute left-0 right-0 bottom-0 bg-app border-t border-border-subtle">
-    <View className="flex-row px-2 py-2">
-      <Action
-        icon="chevron-up"
-        label={t('home.actions.send', 'Send')}
-        onPress={() => navigation.navigate('WalletSendScreen', { assetId })}
-      />
-      <Action
-        icon="chevron-down"
-        label={t('home.actions.receive', 'Receive')}
-        onPress={() => navigation.navigate('WalletReceiveScreen', { assetId })}
-      />
-      {/* <Action
+      {/* Bottom Actions */}
+      <View className="absolute left-0 right-0 bottom-0 bg-app border-t border-border-subtle">
+        <View className="flex-row px-2 py-2">
+          <Action
+            icon="chevron-up"
+            label={t('home.actions.send', 'Send')}
+            onPress={() => navigation.navigate('WalletSendScreen', { assetId })}
+          />
+          <Action
+            icon="chevron-down"
+            label={t('home.actions.receive', 'Receive')}
+            onPress={() => navigation.navigate('WalletReceiveScreen', { assetId })}
+          />
+          {/* <Action
         icon="swap-horizontal"
         label={t('swapScreen.title', 'Swap')}
         onPress={() => {}}
@@ -256,8 +257,8 @@ export default function WalletDetailScreen({ navigation, route }) {
         label={t('home.actions.sell', 'Sell')}
         onPress={canOpen ? openSell : undefined}
       /> */}
+        </View>
+      </View>
     </View>
-  </View>
-</View>
-);
+  );
 }

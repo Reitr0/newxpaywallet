@@ -24,8 +24,16 @@ export function buildInjectedProviderScript(meta) {
   }
 
   function normalizeError(err) {
-    if (err && typeof err === 'object') return err;
-    return { code: 4001, message: String(err || 'Rejected') };
+    var msg = '';
+    if (err && typeof err === 'object') {
+      msg = err.message || err.reason || JSON.stringify(err);
+    } else {
+      msg = String(err || 'Rejected');
+    }
+    // If message is already short (translated by native), pass through
+    if (msg.length <= 80) return { code: err?.code || 4001, message: msg };
+    // Truncate long messages
+    return { code: err?.code || 4001, message: msg.substring(0, 80) + '...' };
   }
 
   const provider = {
@@ -53,6 +61,54 @@ export function buildInjectedProviderScript(meta) {
     request: function (args) {
       const id = String(_reqId++);
       console.log('[VP Provider] Request:', args, 'ID:', id);
+
+      // Auto-inject 'from' address for tx-like RPC calls
+      var method = args && args.method;
+      if (method === 'eth_estimateGas' || method === 'eth_call' || method === 'eth_sendTransaction') {
+        var params = args.params;
+        if (Array.isArray(params) && params[0] && typeof params[0] === 'object') {
+          if (!params[0].from && provider.selectedAddress) {
+            params[0].from = provider.selectedAddress;
+            console.log('[VP Provider] Injected from:', provider.selectedAddress, 'into', method);
+          }
+        }
+      }
+
+      // Normalize personal_sign / eth_sign params
+      // Ensure order is always: [message, address]
+      if (method === 'personal_sign') {
+        var p = args.params || [];
+        var isEthAddr = function(v) { return /^0x[0-9a-fA-F]{40}$/.test(v); };
+        if (p.length >= 2) {
+          if (isEthAddr(p[0]) && !isEthAddr(p[1])) {
+            // Swap: [address, message] -> [message, address]
+            args.params = [p[1], p[0]];
+            console.log('[VP Provider] personal_sign: swapped params to [msg, addr]');
+          }
+        } else if (p.length === 1 && provider.selectedAddress) {
+          // Only message, add address
+          args.params = [p[0], provider.selectedAddress];
+          console.log('[VP Provider] personal_sign: added address', provider.selectedAddress);
+        }
+        // Ensure address is always present
+        if (args.params && args.params.length >= 2 && !isEthAddr(args.params[1]) && provider.selectedAddress) {
+          args.params[1] = provider.selectedAddress;
+          console.log('[VP Provider] personal_sign: forced address to', provider.selectedAddress);
+        }
+        console.log('[VP Provider] personal_sign final params:', args.params);
+      }
+
+      // eth_sign: ensure [address, messageHash], inject address if needed
+      if (method === 'eth_sign') {
+        var ep = args.params || [];
+        if (ep.length >= 1 && !/^0x[0-9a-fA-F]{40}$/.test(ep[0]) && provider.selectedAddress) {
+          args.params = [provider.selectedAddress, ep[0]];
+          console.log('[VP Provider] eth_sign: injected address', provider.selectedAddress);
+        } else if (ep.length === 1 && provider.selectedAddress) {
+          args.params = [provider.selectedAddress, ep[0]];
+        }
+      }
+
       return new Promise(function (resolve, reject) {
         pending[id] = { resolve, reject };
         const payload = (args && typeof args === 'object') ? args : { method: String(args || '') };

@@ -11,5 +11,18 @@
         "logo": "https://i.postimg.cc/2yWz40wQ/xusdt2.png",
         "label": "META X",
         "type": "token"
+    },
+    {
+        "chainId": 781234,
+        "chainName": "SLX Network",
+        "symbol": "USDT",
+        "name": "TETHER",
+        "address": "0x2b14d8242b186116b6fd628c65d12559e96d522b",
+        "contractAddress": "0x2b14d8242b186116b6fd628c65d12559e96d522b",
+        "decimals": 18,
+        "binancePair": "USDTUSDT",
+        "logo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "label": "TETHER",
+        "type": "token"
     }
 ]

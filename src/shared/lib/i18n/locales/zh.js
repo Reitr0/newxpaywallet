@@ -50,7 +50,7 @@ export const zh = {
       connect: '连接',
       disconnect: '断开连接',
       disconnectAll: '断开全部连接',
-      approve: '批准',
+      approve: '确认',
       ok: '确定',
     },
     internet: {
@@ -557,6 +557,20 @@ export const zh = {
       invalidFromAddress: '无效的发件人地址',
       invalidChain: '不支持或无效的链',
       requestFailed: '请求失败',
+      insufficientFunds: '余额不足',
+      insufficientGas: 'Gas费不足',
+      txReverted: '交易被合约回退',
+      nonceConflict: 'Nonce冲突，请重试',
+      txCancelled: '交易已取消',
+      networkError: '网络错误，请重试',
+      networkTimeout: '网络超时，请重试',
+      invalidAddress: '地址无效',
+      txFailed: '交易失败',
+      preflightFailed: '预检失败',
+      txWouldFail: '交易将失败',
+      signatureFailed: '签名失败，请重新连接钱包',
+      methodNotSupported: '方法不支持',
+      txSuccess: '交易发送成功',
     },
     dappDetailScreen: {
       title: 'DApp 详情',
@@ -568,6 +582,49 @@ export const zh = {
       disconnect: '断开连接',
       connectedAs: '已作为 {{address}} 连接',
     },
+    dappConfirm: {
+      sendTransaction: '发送交易',
+      signMessage: '签署消息',
+      connectToSite: '连接到网站',
+      switchNetwork: '切换网络',
+      confirm: '确认',
+      approve: '确认',
+      cancel: '取消',
+      from: '从',
+      to: '到',
+      amount: '金额',
+      contract: '（合约）',
+    },
+    dapps: {
+    slxdex: {
+      title: 'SLX 去中心交易市场',
+      subtitle: 'Solana X Decentralized exchanger',
+    },
+    solxdapp: {
+      title: 'Solxdapp',
+      subtitle: 'Solana X Foundation DAPP',
+    },
+    rwa: {
+      title: 'RWA-T Global',
+      subtitle: 'Solana X Real World Asset',
+    },
+    solxscan: {
+      title: 'Solxscan',
+      subtitle: 'Solana X Foundation Scan',
+    },
+    uniswap: {
+      subtitle: 'Swap tokens on Ethereum & L2s.',
+    },
+    pancake: {
+      subtitle: 'DEX on BNB Chain.',
+    },
+    raydium: {
+      subtitle: 'AMM + order book on Solana.',
+    },
+    opensea: {
+      subtitle: 'Largest NFT marketplace.',
+    },
+  },
     walletDetailScreen: {
       balance: '余额',
       send: '发送',

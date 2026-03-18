@@ -65,8 +65,23 @@ export class WalletError extends Error {
    * @param {any} [cause]
    */
   constructor(code, msg, cause) {
-    super(msg);
+    super(WalletError.simplify(code, msg));
     this.code = code;
     this.cause = cause;
+  }
+
+  static simplify(code, msg) {
+    const lower = String(msg || '').toLowerCase();
+    // Gas fee check FIRST — "insufficient funds for gas * price" contains both keywords
+    if (lower.includes('gas required exceeds') || lower.includes('out of gas') || lower.includes('intrinsic gas too low') || code === 'GAS_ESTIMATE_FAILED' || (lower.includes('insufficient funds') && lower.includes('gas'))) return 'Insufficient gas fee';
+    if (lower.includes('insufficient funds') || lower.includes('insufficient balance') || code === 'INSUFFICIENT_FUNDS') return 'Insufficient funds';
+    if (lower.includes('execution reverted') || lower.includes('revert')) return 'Transaction reverted by contract';
+    if (lower.includes('nonce too low') || lower.includes('nonce has already')) return 'Nonce conflict. Please try again';
+    if (lower.includes('user rejected') || lower.includes('user denied') || code === 'REJECTED') return 'Transaction cancelled';
+    if (lower.includes('timeout') || code === 'TIMEOUT') return 'Network timeout. Please try again';
+    if (lower.includes('network') || lower.includes('econnrefused') || code === 'NETWORK') return 'Network error. Please try again';
+    if (lower.includes('invalid address') || code === 'INVALID_ADDRESS') return 'Invalid address';
+    if (msg && msg.length > 80) return msg.substring(0, 80) + '...';
+    return msg || 'Unknown error';
   }
 }

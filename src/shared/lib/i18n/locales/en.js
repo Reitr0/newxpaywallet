@@ -592,6 +592,20 @@ export const en = {
       invalidFromAddress: 'Invalid sender address',
       invalidChain: 'Unsupported or invalid chain',
       requestFailed: 'Request failed',
+      insufficientFunds: 'Insufficient funds',
+      insufficientGas: 'Insufficient gas fee',
+      txReverted: 'Transaction reverted by contract',
+      nonceConflict: 'Nonce conflict. Please try again',
+      txCancelled: 'Transaction cancelled',
+      networkError: 'Network error. Please try again',
+      networkTimeout: 'Network timeout. Please try again',
+      invalidAddress: 'Invalid address',
+      txFailed: 'Transaction failed',
+      preflightFailed: 'Preflight failed',
+      txWouldFail: 'Transaction would fail',
+      signatureFailed: 'Signature failed. Try reconnecting wallet',
+      methodNotSupported: 'Method not supported',
+      txSuccess: 'Transaction sent successfully',
     },
     dappDetailScreen: {
       title: 'DApp Details',
@@ -603,6 +617,49 @@ export const en = {
       disconnect: 'Disconnect',
       connectedAs: 'Connected as {{address}}',
     },
+    dappConfirm: {
+      sendTransaction: 'Send Transaction',
+      signMessage: 'Sign Message',
+      connectToSite: 'Connect to Site',
+      switchNetwork: 'Switch Network',
+      confirm: 'Confirm',
+      approve: 'Approve',
+      cancel: 'Cancel',
+      from: 'From',
+      to: 'To',
+      amount: 'Amount',
+      contract: '(contract)',
+    },
+    dapps: {
+    slxdex: {
+      title: 'SLX Decentralized Exchange',
+      subtitle: 'Solana X Decentralized exchanger',
+    },
+    solxdapp: {
+      title: 'Solxdapp',
+      subtitle: 'Solana X Foundation DAPP',
+    },
+    rwa: {
+      title: 'RWA-T Global',
+      subtitle: 'Solana X Real World Asset',
+    },
+    solxscan: {
+      title: 'Solxscan',
+      subtitle: 'Solana X Foundation Scan',
+    },
+    uniswap: {
+      subtitle: 'Swap tokens on Ethereum & L2s.',
+    },
+    pancake: {
+      subtitle: 'DEX on BNB Chain.',
+    },
+    raydium: {
+      subtitle: 'AMM + order book on Solana.',
+    },
+    opensea: {
+      subtitle: 'Largest NFT marketplace.',
+    },
+  },
     walletDetailScreen: {
       balance: 'Balance',
       send: 'Send',

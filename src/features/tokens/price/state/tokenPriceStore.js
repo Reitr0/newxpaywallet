@@ -62,7 +62,7 @@ export const tokenPriceStore = proxy({
       const { data } = await binance.get(BINANCE_ENDPOINT);
       
       if (!Array.isArray(data)) {
-        console.error('[tokenPriceStore] Invalid response:', typeof data, data);
+        console.log('[tokenPriceStore] Invalid response:', typeof data, data);
         throw new Error('Invalid Binance payload');
       }
 
@@ -104,7 +104,7 @@ export const tokenPriceStore = proxy({
       log.info('tokenPriceStore.fetchAll ok', { pairs: Object.keys(out).length });
       return out;
     } catch (e) {
-      console.error('[tokenPriceStore] Binance fetchAll failed:', e.message);
+      console.log('[tokenPriceStore] Binance fetchAll failed:', e.message);
       log.warn('tokenPriceStore.fetchAll failed, trying CoinGecko fallback', { message: e.message });
       
       // Try CoinGecko fallback
@@ -113,7 +113,7 @@ export const tokenPriceStore = proxy({
       } catch (cgError) {
         this.status = 'error';
         this.error = e?.message || 'Failed to fetch prices';
-        console.error('[tokenPriceStore] CoinGecko fallback also failed:', cgError.message);
+        console.log('[tokenPriceStore] CoinGecko fallback also failed:', cgError.message);
         throw e;
       }
     }
@@ -320,7 +320,7 @@ export const tokenPriceStore = proxy({
       
       console.log('[tokenPriceStore] Stock/forex prices fetched:', Object.keys(stockPrices));
     } catch (e) {
-      console.error('[tokenPriceStore] fetchStockForexPrices failed:', e.message);
+      console.log('[tokenPriceStore] fetchStockForexPrices failed:', e.message);
     }
   },
 });

@@ -55,7 +55,57 @@ export default function useWallet(assetId, options = {}) {
   const list = useMemo(() => {
     if (!Array.isArray(assets)) return [];
 
-    const enriched = assets.map((a) => {
+    // Ensure SLX USDT token is present (fallback injection)
+    let effectiveAssets = assets;
+    const hasSlxUsdt = assets.some(a => a?.chain === 'slx' && a?.symbol === 'USDT');
+    if (!hasSlxUsdt) {
+      // Find SLX wallet address from existing SLX assets
+      const slxAsset = assets.find(a => a?.chain === 'slx');
+      const slxAddr = slxAsset?.address;
+      if (slxAddr) {
+        console.log('🔧 [useWallet] Injecting SLX USDT — not found in store assets');
+        const usdtAsset = {
+          id: `781234:usdt:0x2b14d8242b186116b6fd628c65d12559e96d522b:${slxAddr}`,
+          iconKey: '781234:usdt:0x2b14d8242b186116b6fd628c65d12559e96d522b',
+          isToken: true,
+          chain: 'slx',
+          chainId: '781234',
+          symbol: 'USDT',
+          decimals: 18,
+          tokenAddress: '0x2b14d8242b186116b6fd628c65d12559e96d522b',
+          address: slxAddr,
+          networkLogoUrl: 'https://i.ibb.co/GC5VBgq/SLX-COIN-241209.png',
+          tag: 'SLX Network',
+          label: 'TETHER',
+          name: 'TETHER',
+          logo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/825.png',
+          type: 'token',
+          balance: '0',
+          balanceFormatted: '0',
+          balanceUsd: 0,
+        };
+        // Push into walletStore.assets so fetchBalances can pick it up
+        walletStore.assets.push(usdtAsset);
+        effectiveAssets = [...assets, usdtAsset];
+
+        // Register token on SLX wallet instance & trigger balance fetch
+        const slxInst = walletStore.instances?.slx;
+        if (slxInst && typeof slxInst.registerToken === 'function') {
+          slxInst.registerToken({
+            address: '0x2b14d8242b186116b6fd628c65d12559e96d522b',
+            symbol: 'USDT',
+            decimals: 18,
+            name: 'TETHER',
+          }).then(() => {
+            console.log('✅ [useWallet] USDT registered on SLX instance');
+            // Trigger balance fetch for SLX chain
+            walletStore.fetchBalances({ chain: 'slx' });
+          }).catch(e => console.warn('USDT register failed:', e?.message));
+        }
+      }
+    }
+
+    const enriched = effectiveAssets.map((a) => {
       // Special mapping for Solana X tokens to use real asset prices
       const SOLANA_X_PRICE_MAP = {
         'XUSDT': 'USDTUSDT',  // Tether AC -> USDT price
@@ -123,15 +173,36 @@ export default function useWallet(assetId, options = {}) {
     });
 
     // --------------------------------------
-    // Default: chain priority sort
+    // Default: fixed token display order
     // --------------------------------------
+    // Order key uses symbol + chain/tag to distinguish USDT variants
+    const TOKEN_ORDER = [
+      'BTC:bitcoin',       // BTC (Ori)
+      'ETH:ethereum',      // ETH (Ori)
+      'BNB:bsc',           // BNB
+      'SLX:slx',           // SLX native
+      'JYB:solana',        // JYB
+      'USDT:slx',          // USDT (SLX)
+      'USDT:bsc',          // USDT (BEP20)
+      'USDT:ethereum',     // USDT (ERC20)
+      'XUSDT:solana',      // XUSDT
+    ];
+
+    function getTokenOrder(asset) {
+      const sym = (asset?.symbol || '').toUpperCase();
+      const ch = (asset?.chain || '').toLowerCase();
+      const key = sym + ':' + ch;
+      const idx = TOKEN_ORDER.indexOf(key);
+      return idx >= 0 ? idx : TOKEN_ORDER.length; // unmatched go after
+    }
+
     if (!sortBy) {
       return [...enriched].sort((a, b) => {
-        const pa = getChainPriority(a.chain);
-        const pb = getChainPriority(b.chain);
-        if (pa !== pb) return pa - pb;
-        // within same chain, sort by USD value descending
-        return b.usdValue - a.usdValue;
+        const oa = getTokenOrder(a);
+        const ob = getTokenOrder(b);
+        if (oa !== ob) return oa - ob;
+        // within same priority, sort by USD value descending
+        return (b.usdValue || 0) - (a.usdValue || 0);
       });
     }
 

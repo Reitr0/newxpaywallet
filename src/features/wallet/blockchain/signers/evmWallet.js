@@ -225,7 +225,45 @@ export default class EvmWallet extends BaseWallet {
   async sendDappsTransaction(tx) {
     await this.#ensureWallet();
     try {
-      const response = await this._wallet.sendTransaction(tx);
+      // For SLX chain: force legacy tx (type 0) to avoid ethers calling
+      // getBlock('latest') which crashes due to SLX RPC returning hash=null
+      const chainId = this.deps.chainId;
+      const isSLX = chainId === 781234 || chainId === '781234' || chainId === 'slx';
+
+      let txReq = { ...tx };
+      if (isSLX) {
+        // Force legacy type to skip EIP-1559 detection (getBlock call)
+        txReq.type = 0;
+        delete txReq.maxFeePerGas;
+        delete txReq.maxPriorityFeePerGas;
+
+        // Ensure gasPrice is populated so ethers doesn't need to fetch it
+        if (!txReq.gasPrice) {
+          try {
+            const fd = await this.provider.getFeeData();
+            txReq.gasPrice = fd.gasPrice ?? BigInt(1000000000); // 1 gwei fallback
+          } catch {
+            txReq.gasPrice = BigInt(1000000000);
+          }
+        }
+
+        // Ensure gasLimit is populated
+        if (!txReq.gasLimit && !txReq.gas) {
+          try {
+            const est = await this.provider.estimateGas({ ...txReq, from: this._wallet.address });
+            txReq.gasLimit = (BigInt(est) * BigInt(12)) / BigInt(10); // 20% buffer
+          } catch {
+            txReq.gasLimit = BigInt(100000);
+          }
+        } else if (txReq.gas && !txReq.gasLimit) {
+          txReq.gasLimit = BigInt(txReq.gas);
+          delete txReq.gas;
+        }
+
+        console.log('⛽ [SLX DApp] Sending legacy tx: gasPrice=' + txReq.gasPrice + ', gasLimit=' + txReq.gasLimit);
+      }
+
+      const response = await this._wallet.sendTransaction(txReq);
       return response.hash;
     } catch (e) {
       console.log(e)
@@ -310,7 +348,7 @@ export default class EvmWallet extends BaseWallet {
 
     const MIN_NATIVE_GAS = BigInt(21_000);
     const TOKEN_BASELINE = BigInt(65_000);
-    const CALL_BASELINE  = BigInt(100_000);
+    const CALL_BASELINE = BigInt(100_000);
 
     let gasLimit;
     try {
@@ -324,37 +362,58 @@ export default class EvmWallet extends BaseWallet {
     } catch {
       gasLimit =
         kindHint === 'nativeTransfer' ? MIN_NATIVE_GAS :
-          kindHint === 'tokenTransfer'  ? TOKEN_BASELINE  :
+          kindHint === 'tokenTransfer' ? TOKEN_BASELINE :
             CALL_BASELINE;
     }
 
     const fd = await this.provider.getFeeData();
-    const gasPrice             = fd.gasPrice             ?? ONE_GWEI * BigInt(15);
-    let maxPriorityFeePerGas = fd.maxPriorityFeePerGas ?? ONE_GWEI * BigInt(2);
-    let maxFeePerGas         = fd.maxFeePerGas         ?? (gasPrice * BigInt(12)) / BigInt(10);
 
-    // CRITICAL FIX: Ensure maxPriorityFeePerGas <= maxFeePerGas
-    // BSC and some chains return invalid fee data where priority > max
-    if (maxPriorityFeePerGas > maxFeePerGas) {
-      // Option 1: Cap priority fee to maxFee
-      maxPriorityFeePerGas = maxFeePerGas / BigInt(2); // 50% of maxFee
-      
-      // Option 2: If maxFee is too low, increase it
-      if (maxFeePerGas < gasPrice) {
-        maxFeePerGas = gasPrice * BigInt(12) / BigInt(10); // 120% of gasPrice
-        maxPriorityFeePerGas = maxFeePerGas / BigInt(2);
-      }
+    // Detect EIP-1559 by checking baseFeePerGas from latest block.
+    // Chains like SLX expose eth_feeHistory but baseFeePerGas=0 → type-2 txs get stuck.
+    let useEip1559 = false;
+    try {
+      const latestBlock = await this.provider.getBlock('latest');
+      const baseFee = latestBlock?.baseFeePerGas;
+      useEip1559 = baseFee != null && BigInt(baseFee) > BigInt(0);
+    } catch {
+      useEip1559 = false;
     }
 
-    const populated = await this._wallet.populateTransaction({
-      ...base,
-      chainId: chainIdNum,
-      type: 2,
-      gasLimit,
-      maxFeePerGas,
-      maxPriorityFeePerGas,
-    });
+    const gasPrice = fd.gasPrice ?? ONE_GWEI * BigInt(1);
 
+    let txParams;
+    if (useEip1559 && fd.maxFeePerGas != null) {
+      let maxPriorityFeePerGas = fd.maxPriorityFeePerGas ?? ONE_GWEI * BigInt(2);
+      let maxFeePerGas = fd.maxFeePerGas ?? (gasPrice * BigInt(12)) / BigInt(10);
+
+      if (maxPriorityFeePerGas > maxFeePerGas) {
+        maxPriorityFeePerGas = maxFeePerGas / BigInt(2);
+        if (maxFeePerGas < gasPrice) {
+          maxFeePerGas = gasPrice * BigInt(12) / BigInt(10);
+          maxPriorityFeePerGas = maxFeePerGas / BigInt(2);
+        }
+      }
+
+      txParams = {
+        ...base,
+        chainId: chainIdNum,
+        type: 2,
+        gasLimit,
+        maxFeePerGas,
+        maxPriorityFeePerGas,
+      };
+    } else {
+      // Legacy (type 0) — for chains like SLX with baseFeePerGas=0
+      txParams = {
+        ...base,
+        chainId: chainIdNum,
+        type: 0,
+        gasLimit,
+        gasPrice,
+      };
+    }
+
+    const populated = await this._wallet.populateTransaction(txParams);
     const { from: _omit, ...unsigned } = populated;
     return unsigned;
   }
@@ -373,8 +432,8 @@ export default class EvmWallet extends BaseWallet {
 
     let feeBase = ZERO;
     if (pf.percent != null) feeBase += percentOf(amountBase, pf.percent);
-    if (pf.fixed != null)   feeBase += parseUnits(String(pf.fixed), sendDecimals);
-    if (feeBase <= ZERO)    return intent;
+    if (pf.fixed != null) feeBase += parseUnits(String(pf.fixed), sendDecimals);
+    if (feeBase <= ZERO) return intent;
 
     const net = amountBase > feeBase ? amountBase - feeBase : ZERO;
     const newAmount =
@@ -391,7 +450,7 @@ export default class EvmWallet extends BaseWallet {
     await this.#ensureWallet();
     this.#ensureCapabilities(intent);
 
-    const nativeSymbol   = this.deps.symbol;
+    const nativeSymbol = this.deps.symbol;
     const nativeDecimals = this.deps.decimals ?? 18;
 
     // Resolve send-asset context
@@ -401,14 +460,14 @@ export default class EvmWallet extends BaseWallet {
     if (intent.kind === 'tokenTransfer') {
       const meta = await this.#resolveTokenMeta(intent.tokenAddress, { allowLazy: true });
       sendDecimals = meta.decimals;
-      sendSymbol   = meta.symbol;
+      sendSymbol = meta.symbol;
     }
 
     // Amount in base units of the SEND asset
     const amountRawBN =
       intent.kind === 'nativeTransfer' ? etherToWei(intent.amount ?? 0) :
-        intent.kind === 'tokenTransfer'  ? unitToWei(intent.amount ?? 0, sendDecimals) :
-          intent.kind === 'contractCall'   ? BigInt(intent.value ?? 0) : ZERO;
+        intent.kind === 'tokenTransfer' ? unitToWei(intent.amount ?? 0, sendDecimals) :
+          intent.kind === 'contractCall' ? BigInt(intent.value ?? 0) : ZERO;
 
     // tx for estimation
     const txReq = await this.#toTxReq(intent, sendDecimals);
@@ -426,10 +485,10 @@ export default class EvmWallet extends BaseWallet {
     // fees
     const fd = await this.provider.getFeeData();
     const is1559 = !!fd.maxFeePerGas || !!fd.maxPriorityFeePerGas;
-    const maxFeePerGasBN         = BigInt(fd.maxFeePerGas ?? fd.gasPrice ?? ZERO);
+    const maxFeePerGasBN = BigInt(fd.maxFeePerGas ?? fd.gasPrice ?? ZERO);
     const maxPriorityFeePerGasBN = BigInt(fd.maxPriorityFeePerGas ?? ZERO);
 
-    const feeWeiBN        = maxFeePerGasBN * gasLimitBN;
+    const feeWeiBN = maxFeePerGasBN * gasLimitBN;
     const networkFeeHuman = weiToEth(feeWeiBN); // fee always in native
 
     // platform fee (send-asset units)
@@ -438,7 +497,7 @@ export default class EvmWallet extends BaseWallet {
       || intent.applyPlatformFeeByReducingAmount === true;
 
     const totalAmountSendBN = amountRawBN;
-    const actualReceiveBN   = willReduceAmount
+    const actualReceiveBN = willReduceAmount
       ? (amountRawBN > platformFeeRawBN ? amountRawBN - platformFeeRawBN : ZERO)
       : amountRawBN;
 
@@ -463,8 +522,8 @@ export default class EvmWallet extends BaseWallet {
       // token context (if any) — purely informational
       token: intent.kind === 'tokenTransfer'
         ? {
-          address:  String(intent.tokenAddress),
-          symbol:   sendSymbol,
+          address: String(intent.tokenAddress),
+          symbol: sendSymbol,
           decimals: String(sendDecimals),
         }
         : null,
@@ -476,7 +535,7 @@ export default class EvmWallet extends BaseWallet {
 
       // totals in SEND-asset (human)
       totalAmountSend: weiToUnit(totalAmountSendBN, sendDecimals),
-      actualReceive:   weiToUnit(actualReceiveBN, sendDecimals),
+      actualReceive: weiToUnit(actualReceiveBN, sendDecimals),
     };
 
     return {
@@ -517,7 +576,7 @@ export default class EvmWallet extends BaseWallet {
     const baseMain = await this.#toTxReq(adjusted, sendDecimals);
     const kindHint =
       adjusted.kind === 'tokenTransfer' ? 'tokenTransfer' :
-        adjusted.kind === 'contractCall'  ? 'contractCall'  : 'nativeTransfer';
+        adjusted.kind === 'contractCall' ? 'contractCall' : 'nativeTransfer';
 
     const mainUnsigned = await this.#populateUnsignedTx(baseMain, kindHint);
 
@@ -555,6 +614,147 @@ export default class EvmWallet extends BaseWallet {
     return [mainUnsigned, feeUnsigned];
   }
 
+  /**
+   * Override submit to use a simpler, more reliable send flow.
+   * Instead of build → sign → send (which can lose fields during Transaction.from),
+   * we delegate directly to ethers Wallet.sendTransaction() which handles everything.
+   */
+  async submit(intent) {
+    await this.#ensureWallet();
+    this.#ensureCapabilities(intent);
+
+    const nativeDecimals = this.deps.decimals ?? 18;
+    let sendDecimals = nativeDecimals;
+
+    if (intent.kind === 'tokenTransfer') {
+      const meta = await this.#resolveTokenMeta(intent.tokenAddress, { allowLazy: true });
+      sendDecimals = meta.decimals;
+    }
+
+    // Apply platform fee if subtract mode
+    const adjusted = this.#maybeApplyPlatformFee(intent, sendDecimals);
+
+    // Build the raw tx request
+    const txReq = await this.#toTxReq(adjusted, sendDecimals);
+
+    // Estimate gas
+    const MIN_NATIVE_GAS = BigInt(21_000);
+    const TOKEN_BASELINE = BigInt(65_000);
+    const kindHint = adjusted.kind === 'tokenTransfer' ? 'tokenTransfer'
+      : adjusted.kind === 'contractCall' ? 'contractCall' : 'nativeTransfer';
+
+    let gasLimit;
+    try {
+      const est = await this.provider.estimateGas({ ...txReq, from: this._wallet.address });
+      const estBN = BigInt(est);
+      if (kindHint === 'nativeTransfer') {
+        gasLimit = estBN < MIN_NATIVE_GAS ? MIN_NATIVE_GAS : estBN;
+      } else {
+        gasLimit = (estBN * BigInt(12)) / BigInt(10);
+      }
+    } catch {
+      gasLimit = kindHint === 'nativeTransfer' ? MIN_NATIVE_GAS
+        : kindHint === 'tokenTransfer' ? TOKEN_BASELINE : BigInt(100_000);
+    }
+
+    // Detect EIP-1559 support by checking the latest block's baseFeePerGas.
+    // Some custom chains (like SLX) expose eth_feeHistory but have baseFeePerGas=0,
+    // meaning they don't actually process type-2 txs — they get stuck forever.
+    let useEip1559 = false;
+    try {
+      const latestBlock = await this.provider.getBlock('latest');
+      const baseFee = latestBlock?.baseFeePerGas;
+      useEip1559 = baseFee != null && BigInt(baseFee) > BigInt(0);
+    } catch {
+      useEip1559 = false;
+    }
+
+    const fd = await this.provider.getFeeData();
+    const gasPrice = fd.gasPrice ?? ONE_GWEI * BigInt(1);
+
+    let feeParams;
+    if (useEip1559 && fd.maxFeePerGas != null) {
+      let maxPriorityFeePerGas = fd.maxPriorityFeePerGas ?? ONE_GWEI * BigInt(2);
+      let maxFeePerGas = fd.maxFeePerGas ?? (gasPrice * BigInt(12)) / BigInt(10);
+      if (maxPriorityFeePerGas > maxFeePerGas) {
+        maxPriorityFeePerGas = maxFeePerGas / BigInt(2);
+        if (maxFeePerGas < gasPrice) {
+          maxFeePerGas = gasPrice * BigInt(12) / BigInt(10);
+          maxPriorityFeePerGas = maxFeePerGas / BigInt(2);
+        }
+      }
+      feeParams = { type: 2, maxFeePerGas, maxPriorityFeePerGas };
+      console.log('⛽ EIP-1559 tx: maxFee=' + maxFeePerGas + ', priority=' + maxPriorityFeePerGas);
+    } else {
+      // Legacy (type 0) — for chains like SLX with baseFeePerGas=0
+      feeParams = { type: 0, gasPrice };
+      console.log('⛽ Legacy tx (type 0): gasPrice=' + gasPrice);
+    }
+
+    // ─── Auto-clear stuck pending transactions ───
+    // Previous type-2 (EIP-1559) txs may be stuck in pending pool, blocking all new txs.
+    // We replace them with minimal type-0 self-transfers to unblock the nonce sequence.
+    const confirmedNonce = await this.provider.getTransactionCount(this._wallet.address, 'latest');
+    const pendingNonce = await this.provider.getTransactionCount(this._wallet.address, 'pending');
+    const stuckCount = pendingNonce - confirmedNonce;
+
+    if (stuckCount > 0) {
+      console.log(`⚠️ Found ${stuckCount} stuck pending txs (nonces ${confirmedNonce}-${pendingNonce - 1}). Clearing...`);
+      const clearGasPrice = (feeParams.gasPrice ?? ONE_GWEI) * BigInt(2); // 2x to outbid stuck txs
+
+      for (let n = confirmedNonce; n < pendingNonce; n++) {
+        try {
+          const clearTx = await this._wallet.sendTransaction({
+            to: this._wallet.address, // self-transfer
+            value: 0n,
+            nonce: n,
+            gasLimit: 21000n,
+            gasPrice: clearGasPrice,
+            type: 0,
+          });
+          console.log(`  🧹 Replaced nonce ${n}: ${clearTx.hash}`);
+        } catch (e) {
+          console.warn(`  ⚠️ Skip nonce ${n}: ${e.message?.slice(0, 80)}`);
+        }
+      }
+
+      // Brief pause for replacements to propagate
+      await new Promise(r => setTimeout(r, 3000));
+      const newConfirmed = await this.provider.getTransactionCount(this._wallet.address, 'latest');
+      console.log(`  ✅ Nonces cleared. Confirmed nonce now: ${newConfirmed}`);
+    }
+
+    // Get fresh nonce after clearing
+    const txNonce = await this.provider.getTransactionCount(this._wallet.address, 'pending');
+
+    // Final tx ready for ethers Wallet.sendTransaction
+    const finalTx = {
+      to: txReq.to,
+      data: txReq.data || undefined,
+      value: txReq.value != null ? BigInt(txReq.value) : BigInt(0),
+      nonce: txNonce,
+      gasLimit,
+      ...feeParams,
+    };
+
+    console.log('📤 [EvmWallet.submit] Sending tx:', {
+      to: finalTx.to,
+      value: finalTx.value?.toString(),
+      gasLimit: gasLimit?.toString(),
+      type: feeParams.type,
+      nonce: txNonce,
+      hasData: !!finalTx.data,
+      gasPrice: feeParams.gasPrice?.toString(),
+    });
+
+    // Let ethers handle sign + broadcast in one step (most reliable)
+    const response = await this._wallet.sendTransaction(finalTx);
+    console.log('✅ [EvmWallet.submit] Tx broadcast, hash:', response.hash);
+
+    // Return immediately — don't wait for mining (causes ANR on custom chains)
+    return { txid: response.hash };
+  }
+
   async sign(unsignedTxOrArray) {
     await this.#ensureWallet();
 
@@ -567,14 +767,14 @@ export default class EvmWallet extends BaseWallet {
       const { from: _ignoreFrom, ...noFrom } = txLike;
 
       const t = { ...noFrom };
-      if (t.gasLimit != null)             t.gasLimit = BigInt(t.gasLimit);
-      if (t.maxFeePerGas != null)         t.maxFeePerGas = BigInt(t.maxFeePerGas);
+      if (t.gasLimit != null) t.gasLimit = BigInt(t.gasLimit);
+      if (t.maxFeePerGas != null) t.maxFeePerGas = BigInt(t.maxFeePerGas);
       if (t.maxPriorityFeePerGas != null) t.maxPriorityFeePerGas = BigInt(t.maxPriorityFeePerGas);
-      if (t.gasPrice != null)             t.gasPrice = BigInt(t.gasPrice);
-      if (t.value != null)                t.value = BigInt(t.value);
-      if (t.type != null)                 t.type = Number(t.type);
-      if (t.chainId != null)              t.chainId = Number(t.chainId);
-      if (t.nonce != null)                t.nonce = Number(t.nonce);
+      if (t.gasPrice != null) t.gasPrice = BigInt(t.gasPrice);
+      if (t.value != null) t.value = BigInt(t.value);
+      if (t.type != null) t.type = Number(t.type);
+      if (t.chainId != null) t.chainId = Number(t.chainId);
+      if (t.nonce != null) t.nonce = Number(t.nonce);
 
       if (!t.chainId || t.chainId === 0) {
         t.chainId = chainIdNum;
@@ -584,8 +784,8 @@ export default class EvmWallet extends BaseWallet {
 
     const signOne = async (u) => {
       const normalized = normalizeForTxFrom(u);
-      const unsigned   = Transaction.from(normalized);
-      const raw        = await this._wallet.signTransaction(unsigned);
+      const unsigned = Transaction.from(normalized);
+      const raw = await this._wallet.signTransaction(unsigned);
       return { kind: 'tx', raw };
     };
 
@@ -635,7 +835,7 @@ export default class EvmWallet extends BaseWallet {
   }
 
   // no-op event wiring placeholder
-  on() { return () => {}; }
+  on() { return () => { }; }
 
   /* --------------------------- tx request builder --------------------------- */
 
@@ -646,7 +846,7 @@ export default class EvmWallet extends BaseWallet {
     if (intent.kind === 'tokenTransfer') {
       if (!intent.tokenAddress) throw new WalletError('INVALID_INTENT', 'tokenTransfer requires intent.tokenAddress');
       const decs = tokenDecimalsIfAny ?? 18;
-      const amt  = unitToWei(intent.amount, decs);
+      const amt = unitToWei(intent.amount, decs);
       const data = ERC20_IFACE.encodeFunctionData('transfer', [intent.to, amt]);
       return { to: String(intent.tokenAddress), data, value: ZERO };
     }
@@ -670,7 +870,7 @@ export default class EvmWallet extends BaseWallet {
    * @param {number} [params.limit] - max records (default 20)
    * @returns {Promise<Array>} normalized tx list
    */
-  async getTransactionHistory({address = this._wallet.address,tokenAddress = null, chain = this.deps.chainId, limit = 20 }) {
+  async getTransactionHistory({ address = this._wallet.address, tokenAddress = null, chain = this.deps.chainId, limit = 20 }) {
     const client = this.deps.txHistoryProvider;
     if (!client) throw new WalletError('MISSING_CLIENT', 'Moralis client not configured');
     if (!address || !address.startsWith('0x')) throw new WalletError('INVALID_ADDRESS', 'Invalid wallet address');

@@ -10,85 +10,6 @@ import VItemSeparator from '@src/shared/ui/molecules/VItemSeparator';
 import VListEmpty from '@src/shared/ui/molecules/VListEmpty';
 import VSearchBar from '@src/shared/ui/primitives/VSearchBar';
 import { useTranslation } from 'react-i18next';
-const FEATURED = [
-  {
-    id: 'solxdapp',
-    title: 'Solxdapp',
-    subtitle: 'Solana X Foundation DAPP',
-    url: 'https://Solxdapp.io',
-    icon: 'https://i.ibb.co/7WkxZZ2/Untitled-3.png',
-  },
-    {
-    id: 'rwa',
-    title: 'RWA-T Global',
-    subtitle: 'Solana X Real World Asset',
-    url: '',
-    icon: 'https://i.ibb.co/7WkxZZ2/Untitled-3.png',
-  },
-    {
-    id: 'solxscan',
-    title: 'Solxscan',
-    subtitle: 'Solana X Foundation Scan',
-    url: 'https://Solxscan.io',
-    icon: 'https://i.ibb.co/7WkxZZ2/Untitled-3.png',
-  },
-  {
-    id: 'uniswap',
-    title: 'Uniswap',
-    subtitle: 'Swap tokens on Ethereum & L2s.',
-    url: 'https://app.uniswap.org/swap',
-    icon: 'https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png',
-  },
-  {
-    id: 'pancake',
-    title: 'PancakeSwap',
-    subtitle: 'DEX on BNB Chain.',
-    url: 'https://pancakeswap.finance/',
-    icon: 'https://coin-images.coingecko.com/coins/images/12632/large/pancakeswap-cake-logo_%281%29.png?1696512440',
-  },
-  {
-    id: 'raydium',
-    title: 'Raydium',
-    subtitle: 'AMM + order book on Solana.',
-    url: 'https://raydium.io/',
-    icon: 'https://img-v1.raydium.io/icon/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R.png',
-  },
-  // {
-  //   id: 'jupiter',
-  //   title: 'Jupiter',
-  //   subtitle: 'Best swap aggregator on Solana.',
-  //   url: 'https://jup.ag/',
-  //   icon: 'https://jup.ag/_next/image?url=%2Fsvg%2Fjupiter-logo.png&w=48&q=75',
-  // },
-  {
-    id: 'opensea',
-    title: 'OpenSea',
-    subtitle: 'Largest NFT marketplace.',
-    url: 'https://opensea.io/',
-    icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/35744.png',
-  }
-  // {
-  //   id: 'zapper',
-  //   title: 'Zapper',
-  //   subtitle: 'DeFi dashboard & portfolio tracker.',
-  //   url: 'https://zapper.fi/',
-  //   icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/32085.png',
-  // },
-  // {
-  //   id: 'defillama',
-  //   title: 'DefiLlama',
-  //   subtitle: 'DeFi analytics and TVL tracker.',
-  //   url: 'https://defillama.com/',
-  //   icon: 'https://defillama.com/icons/defillama.webp',
-  // },
-  // {
-  //   id: 'aerodrome',
-  //   title: 'Aerodrome',
-  //   subtitle: 'Base ecosystem DEX & liquidity hub.',
-  //   url: 'https://aerodrome.finance/',
-  //   icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/29270.png',
-  // }
-];
 
 const isLikelyUrl = (q) => {
   if (!q) return false;
@@ -100,6 +21,67 @@ const normalizeUrl = (q) => (/^[a-z]+:\/\//i.test(q) ? q : `https://${q}`);
 export default function DappsDiscoverScreen({ navigation }) {
   const [query, setQuery] = useState('');
   const { t } = useTranslation();
+
+  // Define FEATURED inside useMemo so 't' can translate them dynamically
+  const FEATURED = useMemo(() => [
+    {
+      id: 'slxdex',
+      title: t('dapps.slxdex.title', 'SLX Decentralized Exchange'),
+      subtitle: t('dapps.slxdex.subtitle', 'Solana X Decentralized exchanger'),
+      url: 'https://slxdex.com',
+      icon: 'https://i.ibb.co/7WkxZZ2/Untitled-3.png',
+    },
+    {
+      id: 'solxdapp',
+      title: t('dapps.solxdapp.title', 'Solxdapp'),
+      subtitle: t('dapps.solxdapp.subtitle', 'Solana X Foundation DAPP'),
+      url: 'https://Solxdapp.io',
+      icon: 'https://i.ibb.co/7WkxZZ2/Untitled-3.png',
+    },
+    {
+      id: 'rwa',
+      title: t('dapps.rwa.title', 'RWA-T Global'),
+      subtitle: t('dapps.rwa.subtitle', 'Solana X Real World Asset'),
+      url: '',
+      icon: 'https://i.ibb.co/7WkxZZ2/Untitled-3.png',
+    },
+    {
+      id: 'solxscan',
+      title: t('dapps.solxscan.title', 'Solxscan'),
+      subtitle: t('dapps.solxscan.subtitle', 'Solana X Foundation Scan'),
+      url: 'https://Solxscan.io',
+      icon: 'https://i.ibb.co/7WkxZZ2/Untitled-3.png',
+    },
+    {
+      id: 'uniswap',
+      title: 'Uniswap', // Names usually don't need translation
+      subtitle: t('dapps.uniswap.subtitle', 'Swap tokens on Ethereum & L2s.'),
+      url: 'https://app.uniswap.org/swap',
+      icon: 'https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png',
+    },
+    {
+      id: 'pancake',
+      title: 'PancakeSwap',
+      subtitle: t('dapps.pancake.subtitle', 'DEX on BNB Chain.'),
+      url: 'https://pancakeswap.finance/',
+      icon: 'https://coin-images.coingecko.com/coins/images/12632/large/pancakeswap-cake-logo_%281%29.png?1696512440',
+    },
+    {
+      id: 'raydium',
+      title: 'Raydium',
+      subtitle: t('dapps.raydium.subtitle', 'AMM + order book on Solana.'),
+      url: 'https://raydium.io/',
+      icon: 'https://img-v1.raydium.io/icon/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R.png',
+    },
+    {
+      id: 'opensea',
+      title: 'OpenSea',
+      subtitle: t('dapps.opensea.subtitle', 'Largest NFT marketplace.'),
+      url: 'https://opensea.io/',
+      icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/35744.png',
+    }
+  ], [t]);
+
   const open = useCallback(
     (url) => {
       navigation.navigate('DappsBrowserScreen', { initialUrl: url });
@@ -117,12 +99,12 @@ export default function DappsDiscoverScreen({ navigation }) {
     const url = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
     return {
       kind: 'search',
-      title: `${q} - Google Search`,
+      title: `${q} - ${t('dappBrowserScreen.googleSearch', 'Google Search')}`,
       subtitle: 'https://google.com',
       url,
       icon: 'external-link',
     };
-  }, [query]);
+  }, [query, t]);
 
   const filtered = useMemo(() => {
     const q = (query || '').toLowerCase().trim();
@@ -133,7 +115,7 @@ export default function DappsDiscoverScreen({ navigation }) {
         d.subtitle.toLowerCase().includes(q) ||
         d.url.toLowerCase().includes(q)
     );
-  }, [query]);
+  }, [query, FEATURED]);
 
   const renderFeaturedItem = useCallback(
     ({ item }) => (
@@ -155,7 +137,6 @@ export default function DappsDiscoverScreen({ navigation }) {
 
   return (
     <View className="flex-1 bg-app">
-      {/* Search bar */}
       <View className="px-4 h-12">
         <VSearchBar
           value={query}
@@ -169,7 +150,6 @@ export default function DappsDiscoverScreen({ navigation }) {
         />
       </View>
 
-      {/* Suggestion section */}
       <View className="px-4 mt-2">
         {suggestion ? (
           <VPressable onPress={() => open(suggestion.url)}>
@@ -190,7 +170,6 @@ export default function DappsDiscoverScreen({ navigation }) {
           </VPressable>
         ) : null}
       </View>
-      {/* Featured list */}
       <VFlatList
         data={filtered}
         keyExtractor={(item) => item.id}

@@ -46,7 +46,7 @@ export default function DappsBrowserScreen({ route }) {
     dappBrowserStore.syncWalletState();
     return s.activeAddress;
   }, [s.activeAddress]);
-  
+
   const getActiveChainId = useCallback(() => {
     return s.activeChainId || 1;
   }, [s.activeChainId]);
@@ -91,13 +91,7 @@ export default function DappsBrowserScreen({ route }) {
         const errorObj = { code: 4001, message: errorMessage };
         webref.current?.injectJavaScript(jsResolve(id, false, errorObj));
 
-        snackbarStore.show(
-          t('dappBrowserScreen.rpcError', '{{method}} failed: {{msg}}', {
-            method: rpcMethod,
-            msg: errorMessage,
-          }),
-          'error'
-        );
+        snackbarStore.show(errorMessage, 'error');
       }
     },
     [routeRpc, t]
@@ -132,35 +126,35 @@ export default function DappsBrowserScreen({ route }) {
   const onLoadEnd = useCallback(() => {
     dappBrowserStore.setLoading(false);
     setTimeout(() => dappBrowserStore.setProgress(0), 150);
-    
+
     // CRITICAL: Re-sync state after page load
     const addr = getActiveAddress();
     const chainId = getActiveChainId();
-    
+
     if (addr && chainId) {
       const hexChainId = toHexChainId(chainId);
-      
+
       console.log('[DApp Browser] Page loaded, re-syncing state:', { addr, chainId: hexChainId });
-      
+
       // Re-inject state after page load with multiple attempts
       const syncAttempts = [500, 1000, 2000, 3000]; // Try multiple times
-      
+
       syncAttempts.forEach((delay) => {
         setTimeout(() => {
           console.log(`[DApp Browser] Sync attempt at ${delay}ms`);
-          
+
           // 1. Sync state
           webref.current?.injectJavaScript(jsSyncState({
             selectedAddress: addr,
             chainId: hexChainId
           }));
-          
+
           // 2. Re-emit events
           setTimeout(() => {
             webref.current?.injectJavaScript(jsEmit('accountsChanged', [addr]));
             webref.current?.injectJavaScript(jsEmit('chainChanged', hexChainId));
             webref.current?.injectJavaScript(jsEmit('connect', { chainId: hexChainId }));
-            
+
             // 3. Force provider to be "ready"
             webref.current?.injectJavaScript(`
               (function() {
@@ -187,10 +181,10 @@ export default function DappsBrowserScreen({ route }) {
   useEffect(() => {
     // CRITICAL: Set URL first before syncing wallet state
     dappBrowserStore.setInitialUrl(initialUrl);
-    
+
     // THEN sync wallet state (so BSC detection works)
     dappBrowserStore.syncWalletState();
-    
+
     const addr = getActiveAddress();
     const chainId = getActiveChainId();
 
@@ -209,9 +203,9 @@ export default function DappsBrowserScreen({ route }) {
     // CRITICAL: Sync provider state first, then emit events
     if (addr && chainId) {
       const hexChainId = toHexChainId(chainId);
-      
+
       console.log('[DApp Browser] Using chain:', { chainId, hexChainId, addr });
-      
+
       // 1. Sync provider internal state
       const stateScript = jsSyncState({
         selectedAddress: addr,
@@ -219,18 +213,18 @@ export default function DappsBrowserScreen({ route }) {
       });
       console.log('[DApp Browser] Syncing provider state:', stateScript);
       webref.current?.injectJavaScript(stateScript);
-      
+
       // 2. Then emit events (with delay to ensure state is synced)
       setTimeout(() => {
         const accountScript = jsEmit('accountsChanged', [addr]);
         const chainScript = jsEmit('chainChanged', hexChainId);
-        
+
         console.log('[DApp Browser] Injecting accountsChanged:', accountScript);
         console.log('[DApp Browser] Injecting chainChanged:', chainScript);
-        
+
         webref.current?.injectJavaScript(accountScript);
         webref.current?.injectJavaScript(chainScript);
-        
+
         // 3. Emit connect event
         const connectScript = jsEmit('connect', { chainId: hexChainId });
         console.log('[DApp Browser] Injecting connect event:', connectScript);
@@ -246,17 +240,17 @@ export default function DappsBrowserScreen({ route }) {
     const interval = setInterval(() => {
       const prevAddress = s.activeAddress;
       dappBrowserStore.syncWalletState();
-      
+
       // If address changed, notify DApp
       if (s.activeAddress !== prevAddress && s.activeAddress) {
         console.log('[DApp Browser] Address changed, notifying DApp:', s.activeAddress);
-        
+
         // Sync state first
         webref.current?.injectJavaScript(jsSyncState({
           selectedAddress: s.activeAddress,
           chainId: s.activeChainHex
         }));
-        
+
         // Then emit event
         setTimeout(() => {
           webref.current?.injectJavaScript(jsEmit('accountsChanged', [s.activeAddress]));

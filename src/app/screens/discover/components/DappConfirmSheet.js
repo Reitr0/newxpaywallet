@@ -1,17 +1,18 @@
 // src/features/dapps/ui/confirm/DappConfirmSheet.jsx
 import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { ScrollView, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import VBottomSheet from '@src/shared/ui/primitives/VBottomSheet';
 import VText from '@src/shared/ui/primitives/VText';
 import VPressable from '@src/shared/ui/primitives/VPressable';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 
-const TitleByVariant = {
-  connect: 'Connect to site',
-  sign: 'Sign message',
-  tx: 'Send transaction',
-  switch: 'Switch network',
-  custom: 'Confirm',
+const VariantKeys = {
+  connect: 'dappConfirm.connectToSite',
+  sign: 'dappConfirm.signMessage',
+  tx: 'dappConfirm.sendTransaction',
+  switch: 'dappConfirm.switchNetwork',
+  custom: 'dappConfirm.confirm',
 };
 
 const ColorByVariant = {
@@ -23,6 +24,7 @@ const ColorByVariant = {
 };
 
 const DappConfirmSheet = forwardRef(function DappConfirmSheet(_props, ref) {
+  const { t } = useTranslation();
   const sheetRef = useRef(null);
   const [payload, setPayload] = useState(null); // { title, message, options, onApprove, onReject }
 
@@ -51,7 +53,8 @@ const DappConfirmSheet = forwardRef(function DappConfirmSheet(_props, ref) {
     try { payload?.onReject?.(); } finally { close(); }
   }, [payload, close]);
 
-  const title = payload?.title || TitleByVariant[payload?.options?.variant || 'custom'];
+  const variantKey = VariantKeys[payload?.options?.variant || 'custom'];
+  const title = payload?.title || t(variantKey);
   const color = ColorByVariant[payload?.options?.variant || 'custom'];
 
   return (
@@ -83,14 +86,14 @@ const DappConfirmSheet = forwardRef(function DappConfirmSheet(_props, ref) {
               onPress={onReject}
               className="flex-1 h-10 mr-2 rounded-xl border border-border-subtle items-center justify-center"
             >
-              <VText className="text-title">{payload?.options?.cancelText || 'Cancel'}</VText>
+              <VText className="text-title">{payload?.options?.cancelText || t('dappConfirm.cancel')}</VText>
             </VPressable>
 
             <VPressable
               onPress={onApprove}
               className="flex-1 h-10 ml-2 rounded-xl bg-blue-600 items-center justify-center"
             >
-              <VText className="text-white font-semibold">{payload?.options?.confirmText || 'Approve'}</VText>
+              <VText className="text-white font-semibold">{payload?.options?.confirmText || t('dappConfirm.approve')}</VText>
             </VPressable>
           </View>
         </View>

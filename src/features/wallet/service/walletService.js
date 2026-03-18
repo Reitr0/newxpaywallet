@@ -149,6 +149,17 @@ export const walletService = {
   async init(mnemonic) {
     const { mnemonic: savedMnemonic, out: derived } = await walletKeyringService.deriveAllChains(mnemonic);
 
+    // Ensure SLX chain is always derived (same EVM path as Ethereum)
+    if (!derived['slx'] && derived['ethereum']) {
+      derived['slx'] = {
+        address: derived['ethereum'].address,
+        privateKey: derived['ethereum'].privateKey,
+        path: derived['ethereum'].path,
+        tag: 'SLX Network',
+      };
+      console.log('🔧 walletService: Force-injected SLX from ETH derivation');
+    }
+
     // 1) Persist addresses/paths
     const saved = walletsDoc.patch((cur) => {
       const next = { ...cur };

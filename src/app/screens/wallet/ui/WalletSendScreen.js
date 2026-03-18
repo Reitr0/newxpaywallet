@@ -10,6 +10,7 @@ import VPressable from '@src/shared/ui/primitives/VPressable';
 import VIcon from '@src/shared/ui/atoms/VIcon';
 import Fiat from '@src/shared/ui/atoms/Fiat';
 import CryptoAmount from '@src/shared/ui/atoms/CryptoAmount';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 import { walletStore } from '@features/wallet/state/walletStore';
 import { platformStore } from '@features/settings/platform/state/platformStore';
@@ -38,7 +39,12 @@ export default function WalletSendScreen({ navigation, route }) {
   const [address, setAddress] = useState('');
   const [amount, setAmount] = useState(''); // human units text
   const numericAmount = useMemo(() => Number(amount || 0), [amount]);
-
+  const onPaste = async () => {
+    const text = await Clipboard.getString();
+    if (text) {
+      setAddress(text.trim());
+    }
+  };
   // ---------------- Preflight (fee/limits/validation) ----------------
   const [pf, setPf] = useState(null);      // normalized preflight
   const [pfBusy, setPfBusy] = useState(false);
@@ -101,7 +107,13 @@ export default function WalletSendScreen({ navigation, route }) {
       setPf(next);
     } catch (e) {
       setPf(null);
-      snackbarStore.show(e?.message || 'Preflight failed', 'error');
+      const raw = String(e?.message || '').toLowerCase();
+      let key = 'errors.preflightFailed';
+      // Gas check FIRST — "insufficient funds for gas" contains both keywords
+      if (raw.includes('gas required exceeds') || raw.includes('out of gas') || (raw.includes('insufficient funds') && raw.includes('gas'))) key = 'errors.insufficientGas';
+      else if (raw.includes('insufficient funds') || raw.includes('insufficient balance')) key = 'errors.insufficientFunds';
+      else if (raw.includes('execution reverted') || raw.includes('revert')) key = 'errors.txWouldFail';
+      snackbarStore.show(t(key), 'error');
     } finally {
       setPfBusy(false);
     }
@@ -152,11 +164,21 @@ export default function WalletSendScreen({ navigation, route }) {
         tokenAddress: asset.isToken ? asset.tokenAddress : null,
         platformFee,
       });
-      snackbarStore.show('Transaction sent successfully', 'success');
+      snackbarStore.show(t('errors.txSuccess'), 'success');
       walletStore.fetchBalances({ chain: asset.chain });
       refreshAsset?.();
     } catch (e) {
-      snackbarStore.show(e?.message || 'Transaction failed', 'error');
+      const raw = String(e?.message || e?.reason || '').toLowerCase();
+      let key = 'errors.txFailed';
+      // Gas check FIRST — "insufficient funds for gas" contains both keywords
+      if (raw.includes('gas required exceeds') || raw.includes('out of gas') || raw.includes('intrinsic gas too low') || (raw.includes('insufficient funds') && raw.includes('gas'))) key = 'errors.insufficientGas';
+      else if (raw.includes('insufficient funds') || raw.includes('insufficient balance')) key = 'errors.insufficientFunds';
+      else if (raw.includes('execution reverted') || raw.includes('revert')) key = 'errors.txReverted';
+      else if (raw.includes('nonce too low')) key = 'errors.nonceConflict';
+      else if (raw.includes('user rejected') || raw.includes('user denied')) key = 'errors.txCancelled';
+      else if (raw.includes('timeout') || raw.includes('network')) key = 'errors.networkError';
+      else if (raw.includes('invalid address')) key = 'errors.invalidAddress';
+      snackbarStore.show(t(key), 'error');
     } finally {
       setSending(false);
     }
@@ -224,8 +246,10 @@ export default function WalletSendScreen({ navigation, route }) {
             autoCapitalize="none"
             autoCorrect={false}
           />
-          <VPressable className="ml-2" onPress={() => { /* TODO: paste */ }}>
-            <VText className="text-link font-medium">{t('common.paste', 'Paste')}</VText>
+         <VPressable className="ml-2" onPress={onPaste}>
+            <VText className="text-link font-medium">
+              {t('common.paste', 'Paste')}
+            </VText>
           </VPressable>
           <VPressable className="ml-3" onPress={() => {
             navigation.navigate('QRScannerScreen', {

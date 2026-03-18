@@ -52,7 +52,30 @@ export const walletStore = proxy({
 
         // First seed defaults, then get actual list (which includes stock/forex tokens)
         walletRegistryStore.list(chain); // This seeds defaults
-        const tokens = walletRegistryService.list(chain) || []; // Get actual current list
+        let tokens = walletRegistryService.list(chain) || []; // Get actual current list
+
+        // For SLX: always merge defaults from code to ensure new tokens appear
+        if (chain === 'slx') {
+          const slxDefaults = walletRegistryService.getDefaultsForChain('slx') || [];
+          console.log('🔍 [SLX] DB tokens:', tokens?.map(t => t.symbol), 'Code defaults:', slxDefaults?.map(t => t.symbol));
+          // Merge: start with DB tokens, then add any missing defaults
+          const merged = [...tokens];
+          for (const def of slxDefaults) {
+            const exists = merged.some(t =>
+              (t.symbol === def.symbol) ||
+              (t.address && def.address && t.address.toLowerCase() === def.address.toLowerCase())
+            );
+            if (!exists) {
+              merged.push(def);
+              console.log(`� [SLX] Adding missing default: ${def.symbol}`);
+            }
+          }
+          tokens = merged;
+          // Also persist to DB so next time it's already there
+          if (merged.length > tokens.length) {
+            walletRegistryService.upsertMany('slx', slxDefaults);
+          }
+        }
 
         // Debug log for token assembly
         console.log(`==== walletStore.init: Processing chain ${chain} ====`);
@@ -61,7 +84,7 @@ export const walletStore = proxy({
           stockTokens: tokens.filter(t => t.type === 'stock').length,
           forexTokens: tokens.filter(t => t.type === 'forex').length,
           solanaXTokens: tokens.filter(t => t.chainName === 'SOLANA X' || t.tag === 'SOLANA X').length,
-          defaultTokens: tokens.filter(t => ['XUSDT', 'JYB', 'SLX', 'BTC', 'ETH', 'DOGE', 'LTC', 'USDC'].includes(t.symbol)).length,
+          defaultTokens: tokens.filter(t => ['XUSDT', 'JYB'].includes(t.symbol)).length,
           examples: tokens.slice(0, 10).map(t => ({ symbol: t.symbol, type: t.type, chainName: t.chainName, tag: t.tag })),
         });
         console.log('Wallet addresses (metas):', metas?.length || 0);
@@ -101,24 +124,16 @@ export const walletStore = proxy({
               }
             }
 
-            // Fallback: For SLX chain, always ensure MEX token is present
+            // Fallback: For SLX chain, ensure ALL default tokens are present
             if (chain === 'slx') {
-              const hasMEX = assembled.some(a => a.chain === 'slx' && a.symbol === 'MEX');
-              if (!hasMEX) {
-                console.log('🔧 SLX fallback: Force-injecting MEX token');
-                const mexToken = {
-                  symbol: 'MEX',
-                  address: '0x1F68B599E176350b920beFd12ceCAd799AfA47A0',
-                  contractAddress: '0x1F68B599E176350b920beFd12ceCAd799AfA47A0',
-                  decimals: 18,
-                  label: 'META X',
-                  name: 'META X',
-                  logo: 'https://i.postimg.cc/2yWz40wQ/xusdt2.png',
-                  type: 'token',
-                  chainId: 781234,
-                };
-                const mexAsset = this._toTokenAsset(chain, m?.address, mexToken);
-                if (mexAsset) assembled.push(mexAsset);
+              const slxDefaults = walletRegistryService.getDefaultsForChain('slx') || [];
+              for (const defToken of slxDefaults) {
+                const hasToken = assembled.some(a => a.chain === 'slx' && a.symbol === defToken.symbol);
+                if (!hasToken) {
+                  console.log(`🔧 SLX fallback: Force-injecting ${defToken.symbol} token`);
+                  const tokenAsset = this._toTokenAsset(chain, m?.address, defToken);
+                  if (tokenAsset) assembled.push(tokenAsset);
+                }
               }
             }
           }
@@ -127,7 +142,7 @@ export const walletStore = proxy({
         // Special case: For Solana, ONLY show specific default tokens without wallet address
         // This ensures XUSDT, JYB, SLX, etc. are visible in Assets tab
         if (chain === 'solana' && Array.isArray(tokens)) {
-          const defaultTokenSymbols = ['XUSDT', 'JYB', 'SLX', 'BTC', 'ETH', 'DOGE', 'LTC', 'USDC'];
+          const defaultTokenSymbols = ['XUSDT', 'JYB'];
 
           // Only include: 8 default tokens + stock + forex
           const defaultTokens = tokens.filter(t =>
@@ -171,22 +186,37 @@ export const walletStore = proxy({
                 console.log('✅ SLX native asset injected');
               }
 
-              // Build MEX token asset
-              const mexMeta = {
-                symbol: 'MEX',
-                address: '0x1F68B599E176350b920beFd12ceCAd799AfA47A0',
-                contractAddress: '0x1F68B599E176350b920beFd12ceCAd799AfA47A0',
-                decimals: 18,
-                label: 'META X',
-                name: 'META X',
-                logo: 'https://i.postimg.cc/2yWz40wQ/xusdt2.png',
-                type: 'token',
-                chainId: 781234,
-              };
-              const mexAsset = this._toTokenAsset('slx', ethAddr, mexMeta);
-              if (mexAsset) {
-                assembled.push(mexAsset);
-                console.log('✅ MEX token asset injected');
+              // Build ALL default SLX token assets (MEX, USDT, etc.)
+              const slxDefaults = walletRegistryService.getDefaultsForChain('slx') || [];
+              console.log('🔍 [SLX force-inject] defaults count:', slxDefaults.length, slxDefaults.map(d => d.symbol));
+              for (const defToken of slxDefaults) {
+                const tokenAsset = this._toTokenAsset('slx', ethAddr, defToken);
+                if (tokenAsset) {
+                  assembled.push(tokenAsset);
+                  console.log(`✅ ${defToken.symbol} token asset injected from defaults`);
+                }
+              }
+
+              // HARDCODE fallback: ensure USDT is ALWAYS injected on SLX
+              const hasUSDT = assembled.some(a => a.chain === 'slx' && a.symbol === 'USDT');
+              if (!hasUSDT) {
+                console.log('🔧 [SLX] USDT not found after defaults — hardcode injecting');
+                const usdtMeta = {
+                  symbol: 'USDT',
+                  address: '0x2b14d8242b186116b6fd628c65d12559e96d522b',
+                  contractAddress: '0x2b14d8242b186116b6fd628c65d12559e96d522b',
+                  decimals: 18,
+                  label: 'TETHER',
+                  name: 'TETHER',
+                  logo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/825.png',
+                  type: 'token',
+                  chainId: 781234,
+                };
+                const usdtAsset = this._toTokenAsset('slx', ethAddr, usdtMeta);
+                if (usdtAsset) {
+                  assembled.push(usdtAsset);
+                  console.log('✅ USDT hardcode injected on SLX');
+                }
               }
             }
           } catch (e) {
@@ -647,7 +677,7 @@ export const walletStore = proxy({
       decimals,
       address: address || undefined,
       networkLogoUrl: net.logoUrl,
-      tag: chain // Native SOL stays as "solana"
+      tag: chain === 'slx' ? 'SLX Network' : chain // Native SOL stays as "solana"
     };
   },
 
@@ -702,7 +732,7 @@ export const walletStore = proxy({
       tokenAddress: tokenAddr,
       address: walletAddrL || undefined,
       networkLogoUrl: net.logoUrl,
-      tag: isSolanaX ? 'SOLANA X' : chain,
+      tag: isSolanaX ? 'SOLANA X' : chain === 'slx' ? 'SLX Network' : chain,
       label: tokenMeta?.label || null,
       logo: tokenMeta?.logo || null,
       type: tokenMeta?.type || 'token', // 'token' | 'stock' | 'forex'
@@ -713,6 +743,58 @@ export const walletStore = proxy({
   },
   getInstance(chain) {
     return this.instances[chain];
+  },
+
+  /**
+   * Send a raw EVM transaction from the DApp browser.
+   * @param {Object} txRequest - Normalized tx object { to, data, value, gasLimit, gasPrice, type, ... }
+   * @param {number} chainId - Numeric chain ID (e.g. 781234 for SLX)
+   * @returns {string} Transaction hash
+   */
+  async sendDappsTransaction(txRequest, chainId) {
+    const chain = CHAIN_ID_TO_FAMILY[chainId];
+    if (!chain) throw new Error(`Unsupported chain ID: ${chainId}`);
+
+    const wallet = this.instances?.[chain];
+    if (!wallet) throw new Error(`No wallet instance for chain: ${chain}`);
+
+    console.log('🌐 [walletStore] sendDappsTransaction:', { chain, chainId, to: txRequest.to });
+
+    // Use the wallet's internal ethers Wallet to send the raw tx directly
+    if (wallet._wallet?.sendTransaction) {
+      const response = await wallet._wallet.sendTransaction(txRequest);
+      console.log('✅ [walletStore] DApp tx broadcast:', response.hash);
+      return response.hash;
+    }
+
+    // Fallback: use submit with contractCall intent
+    const result = await wallet.submit({
+      kind: 'contractCall',
+      to: txRequest.to,
+      data: txRequest.data,
+      value: txRequest.value ? String(txRequest.value) : '0',
+    });
+    return result.txid;
+  },
+
+  /**
+   * Estimate gas for a transaction (DApp browser RPC: eth_estimateGas)
+   */
+  async estimateGas(txRequest, chainId) {
+    const chain = CHAIN_ID_TO_FAMILY[chainId];
+    const wallet = this.instances?.[chain];
+    if (!wallet?.provider) throw new Error(`No provider for chain: ${chain}`);
+    return await wallet.provider.estimateGas(txRequest);
+  },
+
+  /**
+   * Call a contract (DApp browser RPC: eth_call)
+   */
+  async call(txRequest, chainId) {
+    const chain = CHAIN_ID_TO_FAMILY[chainId];
+    const wallet = this.instances?.[chain];
+    if (!wallet?.provider) throw new Error(`No provider for chain: ${chain}`);
+    return await wallet.provider.call(txRequest);
   },
 
   async sendTransaction({ chain, to, amount, tokenAddress = null, platformFee }) {

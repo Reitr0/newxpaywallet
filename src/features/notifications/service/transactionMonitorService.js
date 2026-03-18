@@ -4,19 +4,27 @@
 import { pushNotificationService } from './pushNotificationService';
 import log from '@src/shared/infra/log/logService';
 
+// ── Config ──
+const POLL_INTERVAL = 60000;     // Check every 60 seconds
+const BATCH_SIZE = 4;            // Check max 4 wallets per cycle
+const EMPTY_THRESHOLD = 3;       // After 3 empty results, demote to idle
+const IDLE_CHECK_EVERY = 5;      // Idle wallets checked once every 5 cycles (~5 min)
+
 class TransactionMonitorService {
   constructor() {
-    this.monitoredWallets = new Map(); // address -> { chain, lastTxHash, lastBalance }
+    this.monitoredWallets = new Map();
     this.pollingInterval = null;
-    this.pollingIntervalMs = 10000; // Check every 10 seconds
     this.isMonitoring = false;
-    this.walletStore = null; // Will be set when monitoring starts
+    this.walletStore = null;
+    this._notifiedHashes = new Set();
+    this._checkInProgress = false;
+    this._cycleCount = 0;
+    this._walletKeys = [];       // ordered keys for round-robin
+    this._batchIndex = 0;        // current position in round-robin
   }
 
   /**
    * Start monitoring wallets for transactions
-   * @param {Array} wallets - Array of wallet objects with address and chain
-   * @param {Object} walletStore - Reference to walletStore for fetching history
    */
   async startMonitoring(wallets, walletStore = null) {
     if (this.isMonitoring) {
@@ -25,74 +33,67 @@ class TransactionMonitorService {
     }
 
     try {
-      // Initialize push notification service
       await pushNotificationService.initialize();
-
-      // Store wallet store reference
       this.walletStore = walletStore;
 
-      // Store initial wallet states
       console.log('[TransactionMonitor] 📥 Received wallets to monitor:', wallets.length);
-      console.log('[TransactionMonitor] 📋 Sample wallet structure:', wallets[0]);
-      
+
       let skippedCount = 0;
       wallets.forEach(wallet => {
-        // Check if wallet has required fields
         const hasAddress = wallet.address || wallet.walletAddress;
         const hasChain = wallet.chain;
-        
+
         if (hasAddress && hasChain) {
           const address = wallet.address || wallet.walletAddress;
           const tokenAddress = wallet.tokenAddress || wallet.contractAddr || null;
-          
-          // Create unique key: for tokens, combine address + tokenAddress
-          // For native, just use address
-          const uniqueKey = tokenAddress 
-            ? `${address}:${tokenAddress}` 
-            : address;
-          
+
+          const uniqueKey = tokenAddress
+            ? `${wallet.chain}:${address}:${tokenAddress}`
+            : `${wallet.chain}:${address}`;
+
           this.monitoredWallets.set(uniqueKey, {
-            address: address, // Store actual wallet address
+            address,
             chain: wallet.chain,
             symbol: wallet.symbol,
             lastBalance: wallet.balance || '0',
-            lastIncomingHash: null, // Track incoming separately
-            lastOutgoingHash: null, // Track outgoing separately
+            lastIncomingHash: null,
+            lastOutgoingHash: null,
             isToken: wallet.isToken || false,
-            tokenAddress: tokenAddress,
+            tokenAddress,
+            emptyCount: 0,
+            // Solana starts idle (expensive RPC). SLX uses local cache so OK to check often.
+            isIdle: wallet.chain === 'solana',
           });
           console.log(`[TransactionMonitor] ✅ Added: ${wallet.symbol} (${wallet.chain})`);
         } else {
           skippedCount++;
-          console.log(`[TransactionMonitor] ⏭️ Skipped: ${wallet.symbol} - missing address or chain`, {
-            hasAddress,
-            hasChain,
-            wallet: wallet
-          });
         }
       });
-      
-      console.log(`[TransactionMonitor] 📊 Summary: ${this.monitoredWallets.size} monitored, ${skippedCount} skipped`);
 
-      // Do initial check to set lastTxHash
-      await this.checkForNewTransactions();
+      this._walletKeys = [...this.monitoredWallets.keys()];
+      console.log(`[TransactionMonitor] 📊 Total: ${this._walletKeys.length} monitored, ${skippedCount} skipped`);
+
+      // Initial check (seeds hashes) — skip Solana to save compute
+      const initialKeys = this._walletKeys.filter(key => {
+        const info = this.monitoredWallets.get(key);
+        return info && info.chain !== 'solana';
+      });
+      console.log(`[TransactionMonitor] 🌱 Initial seed: ${initialKeys.length} wallets (SOL deferred)`);
+      await this._checkBatch(initialKeys, true);
 
       // Start polling
       this.isMonitoring = true;
       this.pollingInterval = setInterval(() => {
         this.checkForNewTransactions();
-      }, this.pollingIntervalMs);
+      }, POLL_INTERVAL);
 
-      console.log(`✅ Transaction monitoring started for ${this.monitoredWallets.size} wallets`);
+      console.log(`✅ Transaction monitoring started (${POLL_INTERVAL / 1000}s interval, batch ${BATCH_SIZE})`);
     } catch (error) {
       console.error('❌ Failed to start transaction monitoring:', error);
       log.error('TransactionMonitor: Failed to start', { error: error.message });
     }
   }
 
-  /**
-   * Stop monitoring transactions
-   */
   stopMonitoring() {
     if (this.pollingInterval) {
       clearInterval(this.pollingInterval);
@@ -103,176 +104,192 @@ class TransactionMonitorService {
   }
 
   /**
-   * Check for new transactions by fetching latest transaction history
+   * Pick next batch of wallets to check (round-robin + idle skip)
    */
-  async checkForNewTransactions() {
-    if (!this.walletStore) {
-      console.warn('⚠️ WalletStore not available, skipping transaction check');
-      return;
+  _getNextBatch() {
+    this._cycleCount++;
+    const checkIdle = (this._cycleCount % IDLE_CHECK_EVERY) === 0;
+    const batch = [];
+
+    for (let i = 0; i < this._walletKeys.length && batch.length < BATCH_SIZE; i++) {
+      const idx = (this._batchIndex + i) % this._walletKeys.length;
+      const key = this._walletKeys[idx];
+      const info = this.monitoredWallets.get(key);
+
+      // Skip idle wallets unless it's their turn
+      if (info?.isIdle && !checkIdle) continue;
+
+      batch.push(key);
     }
 
-    console.log('🔍 [TransactionMonitor] Checking for new transactions...');
-    console.log('📊 [TransactionMonitor] Monitoring', this.monitoredWallets.size, 'wallets');
+    // Advance index for next cycle
+    this._batchIndex = (this._batchIndex + BATCH_SIZE) % this._walletKeys.length;
+
+    return batch;
+  }
+
+  /**
+   * Check for new transactions — batched + throttled
+   */
+  async checkForNewTransactions() {
+    if (!this.walletStore) return;
+    if (this._checkInProgress) {
+      console.log('⏳ [TransactionMonitor] Previous check still running, skipping...');
+      return;
+    }
+    this._checkInProgress = true;
 
     try {
-      let checkedCount = 0;
-      let newTxCount = 0;
-      let skippedCount = 0;
-      
-      for (const [uniqueKey, walletInfo] of this.monitoredWallets.entries()) {
+      const batch = this._getNextBatch();
+      console.log(`🔍 [TransactionMonitor] Cycle #${this._cycleCount}: checking ${batch.length}/${this._walletKeys.length} wallets`);
+      await this._checkBatch(batch, false);
+    } catch (error) {
+      console.error('❌ Error in checkForNewTransactions:', error);
+    } finally {
+      this._checkInProgress = false;
+    }
+  }
+
+  /**
+   * Check a specific batch of wallet keys
+   */
+  async _checkBatch(keys, isFirstCheck) {
+    let newTxCount = 0;
+
+    for (const uniqueKey of keys) {
+      const walletInfo = this.monitoredWallets.get(uniqueKey);
+      if (!walletInfo) continue;
+
+
+      try {
+        let historyResult;
         try {
-          checkedCount++;
-          console.log(`🔎 [TransactionMonitor] Checking wallet ${checkedCount}/${this.monitoredWallets.size}:`, {
-            address: walletInfo.address.slice(0, 8) + '...',
+          historyResult = await this.walletStore.getTransactionHistory({
             chain: walletInfo.chain,
-            symbol: walletInfo.symbol,
-            isToken: walletInfo.isToken,
-            lastInHash: walletInfo.lastIncomingHash ? walletInfo.lastIncomingHash.slice(0, 8) + '...' : 'none',
-            lastOutHash: walletInfo.lastOutgoingHash ? walletInfo.lastOutgoingHash.slice(0, 8) + '...' : 'none',
+            address: walletInfo.address,
+            tokenAddress: walletInfo.tokenAddress,
+            limit: 2,
           });
-          
-          // Note: We DON'T skip tokens with 0 balance anymore
-          // We need to monitor them to detect the FIRST incoming transaction
-          
-          // Fetch latest transactions (get more to catch both incoming and outgoing)
-          // For tokens, we need to pass both wallet address and token address
-          const historyResult = await this.walletStore.getTransactionHistory({
-            chain: walletInfo.chain,
-            address: walletInfo.address, // Pass the wallet address
-            tokenAddress: walletInfo.tokenAddress, // Pass token address if it's a token
-            limit: 5, // Get last 5 transactions to catch both in/out
-          });
+        } catch (fetchErr) {
+          console.warn(`  ⚠️ [TxMon] ${walletInfo.symbol}: fetch failed — ${fetchErr.message}`);
+          continue;
+        }
 
-          if (!historyResult || !historyResult.items || historyResult.items.length === 0) {
-            console.log(`  ℹ️ [TransactionMonitor] No transactions found`);
-            continue;
+        if (!historyResult || !historyResult.items || historyResult.items.length === 0) {
+          // Track empty count → demote to idle after threshold
+          const newEmpty = (walletInfo.emptyCount || 0) + 1;
+          const shouldIdle = newEmpty >= EMPTY_THRESHOLD && !walletInfo.isIdle;
+          this.monitoredWallets.set(uniqueKey, {
+            ...walletInfo,
+            firstCheckDone: true,
+            emptyCount: newEmpty,
+            isIdle: walletInfo.isIdle || shouldIdle,
+          });
+          if (shouldIdle) {
+            console.log(`  💤 [TxMon] ${walletInfo.symbol}: demoted to idle (no activity)`);
           }
+          continue;
+        }
 
-          // Find latest incoming and outgoing transactions
-          const latestIncoming = historyResult.items.find(tx => tx.direction === 'in');
-          const latestOutgoing = historyResult.items.find(tx => tx.direction === 'out');
-          
-          console.log(`  📝 [TransactionMonitor] Latest transactions:`, {
-            incoming: latestIncoming ? latestIncoming.hash.slice(0, 8) + '...' : 'none',
-            outgoing: latestOutgoing ? latestOutgoing.hash.slice(0, 8) + '...' : 'none',
+        // Has transactions — reset idle status
+        if (walletInfo.isIdle) {
+          console.log(`  ⏰ [TxMon] ${walletInfo.symbol}: reactivated (has transactions)`);
+        }
+
+        // Filter dust/fee transactions — Solana especially has many micro-txs
+        // (rent payments, fee refunds, etc.) that spam notifications
+        const DUST_THRESHOLD = {
+          solana: 0.001,  // < 0.001 SOL = dust (rent/fees)
+          slx: 0.0001,
+          ethereum: 0.0001,
+          bsc: 0.0001,
+          polygon: 0.001,
+          default: 0.0001,
+        };
+        const minValue = DUST_THRESHOLD[walletInfo.chain] || DUST_THRESHOLD.default;
+        const hasValue = (tx) => {
+          const v = parseFloat(tx.value || '0');
+          return !isNaN(v) && v > minValue;
+        };
+        const latestIncoming = historyResult.items.find(tx => tx.direction === 'in' && hasValue(tx));
+        const latestOutgoing = historyResult.items.find(tx => tx.direction === 'out' && hasValue(tx));
+
+        let hasNewTransaction = false;
+        const dedupKey = (hash, direction) => `${uniqueKey}:${direction}:${hash}`;
+
+        if (isFirstCheck || !walletInfo.firstCheckDone) {
+          // Seed existing hashes
+          historyResult.items.forEach(tx => {
+            if (tx.hash) this._notifiedHashes.add(dedupKey(tx.hash, tx.direction));
           });
-
-          let hasNewTransaction = false;
-
-          // Check for new incoming transaction
+        } else {
           if (latestIncoming) {
-            const inHash = latestIncoming.hash;
-            if (walletInfo.lastIncomingHash && inHash !== walletInfo.lastIncomingHash) {
+            const inKey = dedupKey(latestIncoming.hash, 'in');
+            if (!this._notifiedHashes.has(inKey)) {
               newTxCount++;
               hasNewTransaction = true;
-              console.log('🔔 [TransactionMonitor] NEW INCOMING TRANSACTION!', {
-                hash: inHash.slice(0, 8) + '...',
-                value: latestIncoming.value,
-                symbol: latestIncoming.symbol,
-              });
-
-              console.log('  💰 [TransactionMonitor] Triggering INCOMING notification...');
+              this._notifiedHashes.add(inKey);
+              console.log(`🔔 [TxMon] ${walletInfo.symbol} INCOMING: ${latestIncoming.value}`);
               await pushNotificationService.notifyIncomingTransaction({
                 amount: latestIncoming.value,
                 symbol: latestIncoming.symbol || walletInfo.symbol,
                 from: latestIncoming.from || 'Unknown',
-                txHash: inHash,
+                txHash: latestIncoming.hash,
                 chain: walletInfo.chain,
               });
-              console.log('  ✅ [TransactionMonitor] Incoming notification sent');
-            } else if (!walletInfo.lastIncomingHash) {
-              console.log(`  ℹ️ [TransactionMonitor] First check, setting initial incoming hash`);
             }
           }
 
-          // Check for new outgoing transaction
           if (latestOutgoing) {
-            const outHash = latestOutgoing.hash;
-            if (walletInfo.lastOutgoingHash && outHash !== walletInfo.lastOutgoingHash) {
+            const outKey = dedupKey(latestOutgoing.hash, 'out');
+            if (!this._notifiedHashes.has(outKey)) {
               newTxCount++;
               hasNewTransaction = true;
-              console.log('🔔 [TransactionMonitor] NEW OUTGOING TRANSACTION!', {
-                hash: outHash.slice(0, 8) + '...',
-                value: latestOutgoing.value,
-                symbol: latestOutgoing.symbol,
-              });
-
-              console.log('  📤 [TransactionMonitor] Triggering OUTGOING notification...');
+              this._notifiedHashes.add(outKey);
+              console.log(`🔔 [TxMon] ${walletInfo.symbol} OUTGOING: ${latestOutgoing.value}`);
               await pushNotificationService.notifyOutgoingTransaction({
                 amount: latestOutgoing.value,
                 symbol: latestOutgoing.symbol || walletInfo.symbol,
                 to: latestOutgoing.to || 'Unknown',
-                txHash: outHash,
+                txHash: latestOutgoing.hash,
                 chain: walletInfo.chain,
               });
-              console.log('  ✅ [TransactionMonitor] Outgoing notification sent');
-            } else if (!walletInfo.lastOutgoingHash) {
-              console.log(`  ℹ️ [TransactionMonitor] First check, setting initial outgoing hash`);
             }
           }
-
-          if (!hasNewTransaction && (walletInfo.lastIncomingHash || walletInfo.lastOutgoingHash)) {
-            console.log(`  ✅ [TransactionMonitor] No new transactions`);
-          }
-
-          // Update last transaction hashes (track both directions separately)
-          this.monitoredWallets.set(uniqueKey, {
-            ...walletInfo,
-            lastIncomingHash: latestIncoming?.hash || walletInfo.lastIncomingHash,
-            lastOutgoingHash: latestOutgoing?.hash || walletInfo.lastOutgoingHash,
-          });
-        } catch (error) {
-          console.error(`❌ Error checking transactions for ${walletInfo.address}:`, error.message);
         }
+
+        // Update state
+        this.monitoredWallets.set(uniqueKey, {
+          ...walletInfo,
+          firstCheckDone: true,
+          emptyCount: 0,
+          isIdle: false,
+          lastIncomingHash: latestIncoming?.hash || walletInfo.lastIncomingHash,
+          lastOutgoingHash: latestOutgoing?.hash || walletInfo.lastOutgoingHash,
+        });
+      } catch (error) {
+        console.error(`❌ [TxMon] ${walletInfo?.symbol}: ${error.message}`);
       }
-      
-      console.log(`✅ [TransactionMonitor] Check complete: ${checkedCount} wallets, ${skippedCount} skipped, ${newTxCount} new tx`);
-    } catch (error) {
-      console.error('❌ Error in checkForNewTransactions:', error);
-      log.error('TransactionMonitor: Check failed', { error: error.message });
+    }
+
+    if (newTxCount > 0) {
+      console.log(`🔔 [TxMon] ${newTxCount} new transaction(s) detected`);
     }
   }
 
   /**
    * Manually trigger notification for a transaction
-   * Use this when sending a transaction
    */
   async notifyTransaction(transaction) {
     try {
       const { type, amount, symbol, to, from, txHash, chain } = transaction;
-
       if (type === 'outgoing' || type === 'send') {
-        await pushNotificationService.notifyOutgoingTransaction({
-          amount,
-          symbol,
-          to,
-          txHash,
-          chain,
-        });
+        await pushNotificationService.notifyOutgoingTransaction({ amount, symbol, to, txHash, chain });
       } else if (type === 'incoming' || type === 'receive') {
-        await pushNotificationService.notifyIncomingTransaction({
-          amount,
-          symbol,
-          from,
-          txHash,
-          chain,
-        });
+        await pushNotificationService.notifyIncomingTransaction({ amount, symbol, from, txHash, chain });
       }
     } catch (error) {
       console.error('❌ Failed to notify transaction:', error);
-    }
-  }
-
-  /**
-   * Update polling interval
-   * @param {number} intervalMs - Interval in milliseconds
-   */
-  setPollingInterval(intervalMs) {
-    this.pollingIntervalMs = intervalMs;
-    if (this.isMonitoring) {
-      this.stopMonitoring();
-      // Restart with new interval (you'll need to pass wallets again)
-      console.log(`⚙️ Polling interval updated to ${intervalMs}ms`);
     }
   }
 }
