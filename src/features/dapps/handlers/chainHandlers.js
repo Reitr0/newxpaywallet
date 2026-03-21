@@ -34,9 +34,15 @@ export const chainHandlers = (ctx) => ({
    * DApp asks to switch to another chain (EIP-3326)
    */
   async wallet_switchEthereumChain(params) {
-    const { walletStore, webref, PROVIDER_ID, confirmDialog, jsSyncState, t } = ctx;
+    const { walletStore, webref, PROVIDER_ID, confirmDialog, jsSyncState, t, perm, origin } = ctx;
     const targetHex = String(params?.[0]?.chainId || '').toLowerCase();
     if (!/^0x[0-9a-f]+$/.test(targetHex)) throw new Error('Invalid chainId');
+
+    // SECURITY: require connected permission
+    if (!perm?.connected) throw new Error('Site not connected');
+
+    // SECURITY: require confirmDialog
+    if (!confirmDialog) throw new Error('Confirm dialog not available');
 
     const targetNum = parseInt(targetHex, 16);
     const chainInfo = SUPPORTED_CHAINS[targetHex];
@@ -45,24 +51,21 @@ export const chainHandlers = (ctx) => ({
       throw new Error(`Chain ${targetHex} not supported. Supported chains: ${Object.keys(SUPPORTED_CHAINS).join(', ')}`);
     }
 
-    // 🧠 Auto-approve for trusted DEX sites (slxdex.com)
-    const origin = ctx.origin || '';
-    const isTrustedDex = origin.includes('slxdex');
-    let ok = isTrustedDex;
-    if (!ok) {
-      ok = await confirmDialog(
-        t?.('dapp.switchNetworkTitle', 'Switch Network'),
-        t?.('dapp.switchNetworkMessage', {
-          defaultValue: 'Allow this site to switch your network to {{chainName}}?',
-          chainName: chainInfo.name,
-        }),
-        {
-          variant: 'switch',
-          confirmText: t?.('common.switch', 'Switch'),
-          cancelText: t?.('common.cancel', 'Cancel'),
-        }
-      );
-    }
+    // SECURITY: always require user confirmation — no auto-approve
+    const siteLabel = origin || 'Unknown site';
+    const ok = await confirmDialog(
+      t?.('dapp.switchNetworkTitle', 'Switch Network'),
+      t?.('dapp.switchNetworkMessage', {
+        defaultValue: '{{site}} wants to switch your network to {{chainName}}',
+        site: siteLabel,
+        chainName: chainInfo.name,
+      }),
+      {
+        variant: 'switch',
+        confirmText: t?.('common.switch', 'Switch'),
+        cancelText: t?.('common.cancel', 'Cancel'),
+      }
+    );
 
     if (!ok) throw new Error(t?.('errors.userRejected', 'User rejected'));
 

@@ -64,14 +64,27 @@ function normalizeDappTx(dappTx) {
 
 export const txHandlers = (ctx) => ({
   async eth_sendTransaction(params) {
-    const { walletStore, chainId, activeAddr, confirmDialog } = ctx;
+    const { walletStore, chainId, activeAddr, confirmDialog, perm, origin } = ctx;
     const tx = params?.[0] || {};
+
+    // SECURITY: require confirmDialog
+    if (!confirmDialog) throw new Error('Confirm dialog not available');
+
+    // SECURITY: require connected permission
+    if (!perm?.connected) {
+      throw new Error('Site not connected');
+    }
+
     if (!tx?.from) throw new Error('Invalid tx');
     if (!activeAddr || activeAddr.toLowerCase() !== String(tx.from).toLowerCase()) {
       throw new Error('Invalid from address');
     }
 
-    // Optional: quick human preview
+    // SECURITY: from must match connected address
+    if (perm.address && perm.address.toLowerCase() !== String(tx.from).toLowerCase()) {
+      throw new Error('Account mismatch');
+    }
+
     const toLabel = tx.to || (ctx.t ? ctx.t('dappConfirm.contract') : '(contract)');
     const amountEth = (() => {
       try {
@@ -80,20 +93,19 @@ export const txHandlers = (ctx) => ({
     })();
 
     const t = ctx.t || ((k, fb) => fb || k);
+    // SECURITY: show site origin in confirm dialog
+    const siteLabel = origin || 'Unknown site';
     const ok = await confirmDialog(
       t('dappConfirm.sendTransaction', 'Send transaction'),
-      `${t('dappConfirm.from', 'From')}: ${tx.from}\n${t('dappConfirm.to', 'To')}: ${toLabel}\n${t('dappConfirm.amount', 'Amount')}: ${amountEth} ETH`
+      `${siteLabel}\n\n${t('dappConfirm.from', 'From')}: ${tx.from}\n${t('dappConfirm.to', 'To')}: ${toLabel}\n${t('dappConfirm.amount', 'Amount')}: ${amountEth} ETH`
     );
     if (!ok) throw new Error('User rejected');
 
-    // ✅ Rebuild tx for ethers/provider
     const normalized = normalizeDappTx(tx);
 
-    // Hand off to your wallet store (use your dapps-specific send if you have it)
     if (typeof walletStore.sendDappsTransaction === 'function') {
       return await walletStore.sendDappsTransaction(normalized, chainId);
     }
-    // fallback
     return await walletStore.sendTransaction(normalized, chainId);
   },
 

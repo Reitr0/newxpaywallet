@@ -11,32 +11,13 @@ export const accountHandlers = (ctx) => ({
     const perm = sitePermissions.get(origin);
     console.log('[Account Handler] Current permission:', perm);
     
-    // If site has permission, return address
+    // If site has been explicitly connected by user, return address
     if (perm?.connected && perm?.address) {
       console.log('[Account Handler] ✅ eth_accounts returning connected address:', perm.address);
       return [perm.address];
     }
     
-    // For auto-connect sites, return address immediately
-    try {
-      const host = new URL(origin).hostname;
-      const shouldAutoConnect = host.includes('solxdapp') || 
-                               host.includes('pancake') || 
-                               host.includes('uniswap') ||
-                               host.includes('bsc');
-      
-      console.log('[Account Handler] Auto-connect check:', { host, shouldAutoConnect, activeAddr });
-      
-      if (shouldAutoConnect && activeAddr) {
-        console.log('[Account Handler] ✅ eth_accounts auto-returning address for trusted site:', activeAddr);
-        // Auto-grant permission
-        sitePermissions.set(origin, { connected: true, address: activeAddr });
-        return [activeAddr];
-      }
-    } catch (e) {
-      console.warn('[Account Handler] Failed to parse origin:', e);
-    }
-    
+    // SECURITY: no auto-connect — site must use eth_requestAccounts
     console.log('[Account Handler] ⚠️ eth_accounts returning empty (not connected)');
     return [];
   },

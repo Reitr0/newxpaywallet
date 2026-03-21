@@ -80,18 +80,33 @@ export default function DappsBrowserScreen({ route }) {
       }
 
       if (msg?.type !== 'provider_request') return;
-      const { id, payload, origin } = msg;
+      const { id, payload } = msg;
+
+      // SECURITY: derive origin from native WebView URL, NOT from JS message
+      const nativeUrl = e.nativeEvent?.url || s.url || '';
+      const origin = nativeUrl ? (() => { try { return new URL(nativeUrl).origin; } catch { return ''; } })() : '';
 
       try {
         const result = await routeRpc(payload, { origin });
         webref.current?.injectJavaScript(jsResolve(id, true, result));
       } catch (err) {
-        const rpcMethod = payload?.method || 'unknown_method';
-        const errorMessage = err?.message || String(err) || t('errors.unknown', 'Unknown error');
-        const errorObj = { code: 4001, message: errorMessage };
-        webref.current?.injectJavaScript(jsResolve(id, false, errorObj));
+        const raw = String(err?.message || err || '').toLowerCase();
+        let key = 'errors.txFailed';
+        // Gas check FIRST — "insufficient funds for gas" contains both keywords
+        if (raw.includes('gas required exceeds') || raw.includes('out of gas') || raw.includes('intrinsic gas too low') || (raw.includes('insufficient funds') && raw.includes('gas'))) key = 'errors.insufficientGas';
+        else if (raw.includes('insufficient funds') || raw.includes('insufficient balance')) key = 'errors.insufficientFunds';
+        else if (raw.includes('execution reverted') || raw.includes('revert')) key = 'errors.txReverted';
+        else if (raw.includes('nonce too low')) key = 'errors.nonceConflict';
+        else if (raw.includes('user rejected') || raw.includes('user denied') || raw.includes('cancelled')) key = 'errors.txCancelled';
+        else if (raw.includes('timeout') || raw.includes('network') || raw.includes('econnrefused')) key = 'errors.networkError';
+        else if (raw.includes('invalid signature') || raw.includes('unknown account')) key = 'errors.signatureFailed';
+        else if (raw.includes('not supported') || raw.includes('not implemented')) key = 'errors.methodNotSupported';
+        else if (raw.includes('invalid address')) key = 'errors.invalidAddress';
 
-        snackbarStore.show(errorMessage, 'error');
+        const translated = t(key);
+        const errorObj = { code: 4001, message: translated };
+        webref.current?.injectJavaScript(jsResolve(id, false, errorObj));
+        snackbarStore.show(translated, 'error');
       }
     },
     [routeRpc, t]

@@ -8,18 +8,31 @@ export const signHandlers = (ctx) => ({
    * params: [address, messageHash]
    */
   async eth_sign(params) {
-    const { walletStore, chainId, activeAddr, confirmDialog } = ctx;
+    const { walletStore, chainId, activeAddr, confirmDialog, perm, origin } = ctx;
     const [from, msgHash] = params;
 
     console.log('🖊️ [eth_sign] chainId:', chainId, 'from:', from, 'activeAddr:', activeAddr);
 
+    // SECURITY: require confirmDialog
+    if (!confirmDialog) throw new Error('Confirm dialog not available');
+
+    // SECURITY: require connected permission
+    if (!perm?.connected) throw new Error('Site not connected');
+
+    // SECURITY: from must match active connected address
     if (!activeAddr || activeAddr.toLowerCase() !== String(from).toLowerCase())
       throw new Error('Invalid from address');
+    if (perm.address && perm.address.toLowerCase() !== String(from).toLowerCase())
+      throw new Error('Account mismatch');
 
-    const ok = await confirmDialog('Sign message', `Sign raw data as ${from}?\n\nWarning: eth_sign signs raw data without prefix.`);
+    // SECURITY: show site origin + warning
+    const siteLabel = origin || 'Unknown site';
+    const ok = await confirmDialog(
+      'Sign message',
+      `${siteLabel}\n\nSign raw data as ${from}?\n\n⚠️ Warning: eth_sign signs raw data without prefix.`
+    );
     if (!ok) throw new Error('User rejected');
 
-    // Try to sign with any available EVM wallet instance
     const chainIds = [chainId, 781234, 56, 1, 137];
     const tried = new Set();
     for (const cid of chainIds) {
@@ -31,7 +44,6 @@ export const signHandlers = (ctx) => ({
         const inst = walletStore.instances?.[chain];
         if (!inst?._wallet?.signingKey) continue;
 
-        // eth_sign: sign raw 32-byte hash directly (no EIP-191 prefix)
         const digest = getBytes(msgHash);
         const sig = inst._wallet.signingKey.sign(digest);
         const signature = Signature.from(sig).serialized;
@@ -43,33 +55,41 @@ export const signHandlers = (ctx) => ({
     }
     throw new Error('No wallet instance available for signing');
   },
+
   async personal_sign(params) {
-    const { walletStore, chainId, activeAddr, confirmDialog } = ctx;
+    const { walletStore, chainId, activeAddr, confirmDialog, perm, origin } = ctx;
     let msg, from;
     const [a, b] = params;
     if (String(a).startsWith('0x') && a.length > 42) { msg = a; from = b; } else { from = a; msg = b; }
 
     console.log('🖊️ [personal_sign] chainId:', chainId, 'from:', from, 'activeAddr:', activeAddr);
 
+    // SECURITY: require confirmDialog
+    if (!confirmDialog) throw new Error('Confirm dialog not available');
+
+    // SECURITY: require connected permission
+    if (!perm?.connected) throw new Error('Site not connected');
+
+    // SECURITY: from must match active connected address
     if (!activeAddr || activeAddr.toLowerCase() !== String(from).toLowerCase())
       throw new Error('Invalid from address');
+    if (perm.address && perm.address.toLowerCase() !== String(from).toLowerCase())
+      throw new Error('Account mismatch');
 
-    const ok = await confirmDialog('Sign message', `Sign as ${from}?`);
+    // SECURITY: show site origin
+    const siteLabel = origin || 'Unknown site';
+    const ok = await confirmDialog('Sign message', `${siteLabel}\n\nSign as ${from}?`);
     if (!ok) throw new Error('User rejected');
 
-    // ensure correct encoding
     const isHex = msg.startsWith('0x');
     const rawMsg = isHex ? msg : '0x' + Buffer.from(msg, 'utf8').toString('hex');
 
-    // Try signing with current chain, fallback to any EVM chain
-    // personal_sign (EIP-191) is chain-independent - same key produces same signature
     try {
       const { signature } = await walletStore.signPersonalMessage(from, rawMsg, chainId);
       console.log('✅ [personal_sign] Signed on chain:', chainId);
       return signature;
     } catch (e) {
       console.warn('⚠️ [personal_sign] Failed on chain', chainId, ':', e?.message, '— trying fallback chains');
-      // Try other EVM chains since personal_sign is chain-independent
       const fallbackChains = [781234, 56, 1, 137].filter(c => c !== chainId);
       for (const altChainId of fallbackChains) {
         try {
@@ -83,14 +103,28 @@ export const signHandlers = (ctx) => ({
   },
 
   async eth_signTypedData_v4(params) {
-    const { walletStore, chainId, confirmDialog } = ctx;
+    const { walletStore, chainId, confirmDialog, perm, origin, activeAddr } = ctx;
     const isAddr = (v) => /^0x[0-9a-fA-F]{40}$/.test(v);
     let from = params[0], typed = params[1];
     if (!isAddr(from) && isAddr(typed)) [from, typed] = [typed, from];
 
     console.log('🖊️ [signTypedData_v4] chainId:', chainId, 'from:', from);
 
-    const ok = await confirmDialog('Sign typed data', `Sign structured data as ${from}?`);
+    // SECURITY: require confirmDialog
+    if (!confirmDialog) throw new Error('Confirm dialog not available');
+
+    // SECURITY: require connected permission
+    if (!perm?.connected) throw new Error('Site not connected');
+
+    // SECURITY: from must match active connected address
+    if (!activeAddr || activeAddr.toLowerCase() !== String(from).toLowerCase())
+      throw new Error('Invalid from address');
+    if (perm.address && perm.address.toLowerCase() !== String(from).toLowerCase())
+      throw new Error('Account mismatch');
+
+    // SECURITY: show site origin
+    const siteLabel = origin || 'Unknown site';
+    const ok = await confirmDialog('Sign typed data', `${siteLabel}\n\nSign structured data as ${from}?`);
     if (!ok) throw new Error('User rejected');
 
     const typedJson = typeof typed === 'string' ? typed : JSON.stringify(typed);
@@ -113,4 +147,3 @@ export const signHandlers = (ctx) => ({
     }
   },
 });
-

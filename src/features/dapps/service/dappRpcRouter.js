@@ -1,9 +1,32 @@
-// dappRpcRouter.js — v2.3 (2026-02-22)
+// dappRpcRouter.js — v3.0 (2026-03-18) — SECURITY HARDENED
 import { allHandlers } from '@features/dapps/handlers';
 import { CHAIN_ID_TO_FAMILY } from '@src/shared/config/chain/constants';
 import { networkStore } from '@features/network/state/networkStore';
 import { getBytes, Signature } from 'ethers';
 import axios from 'axios';
+
+// Methods that require valid origin + connected permission + account match
+const PRIVILEGED_METHODS = new Set([
+  'eth_sendTransaction',
+  'eth_sign',
+  'personal_sign',
+  'eth_signTypedData_v4',
+  'eth_signTypedData_v3',
+  'eth_signTypedData',
+  'wallet_switchEthereumChain',
+  'wallet_addEthereumChain',
+]);
+
+// Methods that are always allowed (read-only, no signing)
+const PUBLIC_METHODS = new Set([
+  'eth_chainId', 'net_version', 'eth_blockNumber',
+  'eth_getBlockByNumber', 'eth_getBalance', 'eth_gasPrice',
+  'eth_maxPriorityFeePerGas', 'eth_estimateGas', 'eth_call',
+  'eth_getCode', 'eth_getTransactionCount', 'eth_getTransactionReceipt',
+  'eth_getTransactionByHash', 'eth_getLogs',
+  'eth_accounts', 'eth_requestAccounts',
+  'wallet_getPermissions', 'wallet_requestPermissions',
+]);
 
 function simplifyError(e) {
   const msg = String(e?.message || e || '').toLowerCase();
@@ -17,15 +40,49 @@ function simplifyError(e) {
   return new Error(raw.length > 100 ? raw.substring(0, 100) + '...' : raw);
 }
 
+// Derive safe origin from native URL context (not from JS message)
+function safeOrigin(nativeOrigin) {
+  if (!nativeOrigin || typeof nativeOrigin !== 'string') return '';
+  try {
+    const u = new URL(nativeOrigin);
+    return u.origin; // e.g. "https://example.com"
+  } catch {
+    return '';
+  }
+}
+
 export function makeDappRpcRouter(deps) {
   const { walletStore, sitePermissions, getActiveAddress, getActiveChainId, PROVIDER_ID, confirmDialog } = deps;
 
-  return async function routeRpc(payload, { origin }) {
+  return async function routeRpc(payload, { origin: rawOrigin }) {
     const method = payload?.method;
     const params = payload?.params || [];
     const chainId = getActiveChainId();
     const activeAddr = getActiveAddress();
+    const origin = safeOrigin(rawOrigin);
+
+    // SECURITY: privileged methods require valid origin
+    if (PRIVILEGED_METHODS.has(method)) {
+      if (!origin) {
+        console.warn('[DApp RPC] BLOCKED: privileged method without valid origin:', method);
+        throw new Error('Invalid origin');
+      }
+    }
+
     const perm = sitePermissions.get(origin) || { connected: false, address: null };
+
+    // SECURITY: privileged methods require connected permission + matching account
+    if (PRIVILEGED_METHODS.has(method) && method !== 'eth_requestAccounts') {
+      if (!perm.connected) {
+        console.warn('[DApp RPC] BLOCKED: not connected:', method, origin);
+        throw new Error('Site not connected. Please connect first.');
+      }
+      if (perm.address && activeAddr &&
+          perm.address.toLowerCase() !== activeAddr.toLowerCase()) {
+        console.warn('[DApp RPC] BLOCKED: address mismatch:', method);
+        throw new Error('Account mismatch. Please reconnect.');
+      }
+    }
 
     const ctx = {
       ...deps,
@@ -58,7 +115,7 @@ export function makeDappRpcRouter(deps) {
     };
 
     try {
-      // ── Inline sign handlers ──
+      // ── Inline sign handlers (personal_sign, eth_sign) ──
       if (method === 'personal_sign' || method === 'eth_sign') {
         let from, msgData;
         const isAddr = (v) => /^0x[0-9a-fA-F]{40}$/.test(v);
@@ -74,12 +131,20 @@ export function makeDappRpcRouter(deps) {
           else { from = activeAddr; msgData = a; }
         }
 
-        console.log('[sign] method:', method, 'from:', from);
-
-        if (confirmDialog) {
-          const ok = await confirmDialog('Sign Message', 'Sign as ' + String(from) + '?');
-          if (!ok) throw new Error('User rejected');
+        // SECURITY: verify from matches active connected address
+        if (!from || !activeAddr || from.toLowerCase() !== activeAddr.toLowerCase()) {
+          throw new Error('Signing address does not match connected account');
         }
+
+        console.log('[sign] method:', method, 'from:', from, 'origin:', origin);
+
+        // SECURITY: always require confirmation for signing
+        if (!confirmDialog) throw new Error('Confirm dialog not available');
+        const ok = await confirmDialog(
+          'Sign Message',
+          `${origin || 'Unknown site'} wants to sign as ${String(from).slice(0, 8)}...`
+        );
+        if (!ok) throw new Error('User rejected');
 
         const tryChains = [chainId, 781234, 56, 1, 137];
         for (const cid of tryChains) {
@@ -112,7 +177,11 @@ export function makeDappRpcRouter(deps) {
       const handlers = allHandlers(ctx);
       if (handlers[method]) return await handlers[method](params);
 
-      // ── RPC Proxy Fallback ──
+      // ── RPC Proxy Fallback (read-only methods only) ──
+      if (PRIVILEGED_METHODS.has(method)) {
+        throw new Error('Unhandled privileged method: ' + method);
+      }
+
       const family = CHAIN_ID_TO_FAMILY[chainId] || 'ethereum';
       const netConfig = networkStore.getConfig(family);
       const rpcUrl = netConfig?.rpc;

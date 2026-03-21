@@ -3,7 +3,8 @@ import { proxy } from 'valtio';
 import { walletStore } from '@features/wallet/state/walletStore';
 
 /* ---------------- allowlist + helpers ---------------- */
-const AUTO_CONNECT_HOSTS = new Set(['app.uniswap.org', 'pancakeswap.finance']);
+// SECURITY: No auto-connect — all sites must go through eth_requestAccounts
+// const AUTO_CONNECT_HOSTS = new Set([]);
 
 const getHost = (u) => { try { return new URL(u).hostname; } catch { return ''; } };
 const getOrigin = (u) => { try { return new URL(u).origin; } catch { return ''; } };
@@ -35,19 +36,10 @@ export const dappBrowserStore = proxy({
   /* -------- permissions (origin -> { connected, address, chainId? }) -------- */
   sitePermissions: new Map(),
 
-  /* -------- allowlist -------- */
-  AUTO_CONNECT_HOSTS,
-
-  // Check if current site should auto-connect
+  /* -------- allowlist (DISABLED for security) -------- */
+  // SECURITY: auto-connect removed — all sites must use eth_requestAccounts
   shouldAutoConnect() {
-    return this.AUTO_CONNECT_HOSTS.has(this.host) ||
-      this.host.includes('solxdapp') ||
-      this.host.includes('pancake') ||
-      this.host.includes('uniswap') ||
-      this.host.includes('slxdex') ||
-      this.url.includes('solxdapp') ||
-      this.url.includes('Solxdapp') ||
-      this.url.includes('slxdex');
+    return false;
   },
 
   /* -------- wallet mirror (reactive) -------- */
@@ -167,9 +159,9 @@ export const dappBrowserStore = proxy({
   },
 
   // auto-connect allowlist
+  // SECURITY: auto-connect disabled
   allowAutoConnectFor(u) {
-    const h = getHost(u);
-    return this.AUTO_CONNECT_HOSTS.has(h);
+    return false;
   },
 
   // permissions
@@ -206,13 +198,9 @@ export const dappBrowserStore = proxy({
   getActiveChainHex() { return this.activeChainHex; },
 
   /* -------- convenience: connect current origin (used for auto-connect) -------- */
+  // SECURITY: removed auto-connect — use setPermission explicitly after user consent
   connectOriginForUrl(u) {
-    const origin = getOrigin(u);
-    if (!origin || !this.activeAddress) return;
-    this.setPermission(origin, {
-      connected: true,
-      address: this.activeAddress,
-      chainId: this.activeChainId,
-    });
+    // Disabled — no silent permission grants
+    console.warn('[DApp Browser] connectOriginForUrl disabled for security');
   },
 });
