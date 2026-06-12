@@ -19,6 +19,7 @@ import SecurityScreen from '@src/app/screens/setting/ui/SecurityScreen';
 import MarketDetailScreen from '@src/app/screens/trending/ui/MarketDetailScreen';
 import WalletsScreen from '@src/app/screens/wallet/ui/WalletsScreen';
 import WalletTxDetailScreen from '@src/app/screens/wallet/ui/WalletTxDetailScreen';
+import ImportWalletScreen from '@src/app/screens/wallet/ui/ImportWalletScreen';
 import NotificationTestComponent from '@src/debug/NotificationTestComponent';
 
 // Lazy load QRScannerScreen to prevent crash on app start
@@ -96,6 +97,7 @@ export default function AppStack() {
         <Stack.Screen name="WalletsScreen" component={WalletsScreen} />
         <Stack.Screen name="WalletTxDetailScreen" component={WalletTxDetailScreen} />
         <Stack.Screen name="NotificationTest" component={NotificationTestComponent} />
+        <Stack.Screen name="ImportWalletScreen" component={ImportWalletScreen} />
         <Stack.Screen name="QRScannerScreen">
           {(props) => (
             <Suspense fallback={null}>

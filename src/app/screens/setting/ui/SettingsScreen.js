@@ -57,7 +57,6 @@ export default function SettingsScreen() {
   const sections = useMemo(
     () => [
       {
-        // Was "Account" — this section holds backup/export, so use Security title for clarity
         title: t('securitySettings.title'),
         data: [
           {
@@ -79,18 +78,12 @@ export default function SettingsScreen() {
       {
         title: t('settingsScreen.general'),
         data: [
-          { type: 'component', key: 'toggleTheme' }, // ToggleTheme has its own internal labels
+          { type: 'component', key: 'toggleTheme' },
         ],
       },
       {
         title: t('settingsScreen.preferences'),
         data: [
-          // {
-          //   key: 'notificationTest',
-          //   label: '🔔 Test Notifications',
-          //   icon: { name: 'bell', type: 'Feather' },
-          //   onPress: () => nav.navigate('NotificationTest'),
-          // },
           {
             key: 'preferences',
             label: t('settingsScreen.preferences'),
@@ -118,16 +111,6 @@ export default function SettingsScreen() {
               if (canOpen) await Linking.openURL(url);
             },
           },
-          // {
-          //   key: 'contactSupport',
-          //   label: t('supportScreen.contactUs'),
-          //   icon: { name: 'headphones', type: 'Feather' },
-          //   onPress: async () => {
-          //     const url = 'https://codecanyon.net/user/godcrypto/portfolio';
-          //     const canOpen = await Linking.canOpenURL(url);
-          //     if (canOpen) await Linking.openURL(url);
-          //   },
-          // },
         ],
       },
     ],
@@ -167,6 +150,13 @@ export default function SettingsScreen() {
     </VText>
   );
 
+  // Added Version Footer component
+  const renderFooter = () => (
+    <View className="py-8 items-center justify-center">
+      <VText className="text-muted text-xs">XPay 2.2.1</VText>
+    </View>
+  );
+
   return (
     <View className="flex-1 bg-app">
       <SectionList
@@ -174,6 +164,7 @@ export default function SettingsScreen() {
         keyExtractor={(item, index) => `${item.key || item.label}-${index}`}
         renderItem={renderItem}
         renderSectionHeader={renderSectionHeader}
+        ListFooterComponent={renderFooter} // Attach the footer here
         stickySectionHeadersEnabled={false}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={72}

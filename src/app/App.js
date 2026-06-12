@@ -126,7 +126,7 @@ function App() {
   }, []);
   return (
     <SafeAreaProvider>
-      <GestureHandlerRootView>
+      <GestureHandlerRootView style={{ flex: 1 }}>
         <NavigationContainer theme={ isDarkMode ? DarkTheme : DefaultTheme}>
           <StatusBar barStyle={barStyle} />
           <ThemeProvider name={'default'}>

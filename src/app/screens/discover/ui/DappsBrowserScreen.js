@@ -203,52 +203,36 @@ export default function DappsBrowserScreen({ route }) {
     const addr = getActiveAddress();
     const chainId = getActiveChainId();
 
-    console.log('[DApp Browser] Initializing with wallet:', { addr, chainId, url: initialUrl });
-
-    // CRITICAL: Auto-grant permission for trusted sites
-    if (addr && s.shouldAutoConnect?.()) {
+    // Auto-connect for trusted sites (exact hostname match only)
+    if (addr && dappBrowserStore.shouldAutoConnect()) {
       const origin = dappBrowserStore.getOrigin(initialUrl);
-      console.log('[DApp Browser] Auto-granting permission for:', origin);
-      dappBrowserStore.sitePermissions.set(origin, {
-        connected: true,
-        address: addr
-      });
+      if (origin) {
+        dappBrowserStore.sitePermissions.set(origin, {
+          connected: true,
+          address: addr
+        });
+      }
     }
 
-    // CRITICAL: Sync provider state first, then emit events
+    // Sync provider state (address + chainId) so DApp can read it
     if (addr && chainId) {
       const hexChainId = toHexChainId(chainId);
 
-      console.log('[DApp Browser] Using chain:', { chainId, hexChainId, addr });
-
-      // 1. Sync provider internal state
       const stateScript = jsSyncState({
         selectedAddress: addr,
         chainId: hexChainId
       });
-      console.log('[DApp Browser] Syncing provider state:', stateScript);
       webref.current?.injectJavaScript(stateScript);
 
-      // 2. Then emit events (with delay to ensure state is synced)
       setTimeout(() => {
-        const accountScript = jsEmit('accountsChanged', [addr]);
-        const chainScript = jsEmit('chainChanged', hexChainId);
-
-        console.log('[DApp Browser] Injecting accountsChanged:', accountScript);
-        console.log('[DApp Browser] Injecting chainChanged:', chainScript);
-
-        webref.current?.injectJavaScript(accountScript);
-        webref.current?.injectJavaScript(chainScript);
-
-        // 3. Emit connect event
-        const connectScript = jsEmit('connect', { chainId: hexChainId });
-        console.log('[DApp Browser] Injecting connect event:', connectScript);
-        webref.current?.injectJavaScript(connectScript);
+        webref.current?.injectJavaScript(jsEmit('accountsChanged', [addr]));
+        webref.current?.injectJavaScript(jsEmit('chainChanged', hexChainId));
+        webref.current?.injectJavaScript(jsEmit('connect', { chainId: hexChainId }));
       }, 500);
     }
 
     if (initialUrl === HOME_BASE) goHome();
-  }, [getActiveAddress, getActiveChainId, goHome, initialUrl, s.shouldAutoConnect]);
+  }, [getActiveAddress, getActiveChainId, goHome, initialUrl]);
 
   // Watch for wallet store changes and sync
   useEffect(() => {

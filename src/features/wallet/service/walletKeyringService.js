@@ -27,15 +27,16 @@ const PATHS = {
   ethereum: "m/44'/60'/0'/0/0",
   bsc: "m/44'/60'/0'/0/0",
   polygon: "m/44'/60'/0'/0/0",
+  slx: "m/44'/60'/0'/0/0",
   tron: "m/44'/195'/0'/0/0",
   solana: "m/44'/501'/0'/0'",
   bitcoin: "m/84'/0'/0'/0/0", // BIP84 bech32 (P2WPKH)
 };
 
 const chainToLabel = {
-  ethereum: 'Ethereum',
-  bsc: 'Binance Smart Chain',
-  polygon: 'Polygon',
+  ethereum: 'ERC20',
+  bsc: 'BEP20',
+  slx: 'SLX Network',
   tron: 'Tron',
   solana: 'solana',
   bitcoin: 'Bitcoin',
@@ -227,7 +228,7 @@ export const walletKeyringService = {
 
       // ---- EVM chains ----
       const hdNode = HDNodeWallet.fromSeed(seed);
-      for (const chain of ['ethereum', 'bsc', 'polygon']) {
+      for (const chain of ['ethereum', 'bsc', 'slx']) {
         const path = PATHS[chain];
         const child = hdNode.derivePath(path);
         out[chain] = {
@@ -298,6 +299,79 @@ export const walletKeyringService = {
       return { mnemonic: useMnemonic, out };
     } catch (e) {
       log.warn('walletKeyringService.deriveAllChains failed', { message: e?.message });
+      throw e;
+    }
+  },
+
+  /**
+   * Derive all chain wallets from a given mnemonic WITHOUT saving to keyring.
+   * Used for multi-wallet: derive addresses from a secondary mnemonic.
+   */
+  async deriveFromMnemonic(mnemonic) {
+    try {
+      const useMnemonic = this.normalizeMnemonic(mnemonic);
+      if (!useMnemonic) throw new Error('Empty mnemonic');
+
+      const out = {};
+      const seedBuf = bip39Service.mnemonicToSeed(useMnemonic, '');
+      const seed =
+        seedBuf instanceof Uint8Array ? seedBuf : new Uint8Array(Buffer.from(seedBuf));
+
+      // EVM chains
+      const hdNode = HDNodeWallet.fromSeed(seed);
+      for (const chain of ['ethereum', 'bsc', 'slx']) {
+        const path = PATHS[chain];
+        const child = hdNode.derivePath(path);
+        out[chain] = {
+          address: child.address,
+          privateKey: child.privateKey,
+          path,
+          tag: chainToLabel[chain],
+        };
+      }
+
+      // Tron
+      {
+        const path = PATHS.tron;
+        const child = hdNode.derivePath(path);
+        const tronAddress = TronWeb.address.fromHex(child.address);
+        out.tron = {
+          address: tronAddress,
+          privateKey: child.privateKey,
+          path,
+          tag: chainToLabel.tron,
+        };
+      }
+
+      // Bitcoin
+      {
+        const path = PATHS.bitcoin;
+        const root = bip32.fromSeed(
+          seedBuf instanceof Uint8Array ? Buffer.from(seedBuf) : seedBuf,
+          btc.networks.bitcoin
+        );
+        const child = root.derivePath(path);
+        const { address } = btc.payments.p2wpkh({
+          pubkey: Buffer.from(child.publicKey),
+          network: btc.networks.bitcoin,
+        });
+        out.bitcoin = { address, privateKey: child.privateKey, path, tag: chainToLabel.bitcoin };
+      }
+
+      // Solana
+      {
+        const path = PATHS.solana;
+        const seedHex = Buffer.isBuffer(seed)
+          ? seed.toString('hex')
+          : Buffer.from(seed).toString('hex');
+        const { key } = deriveEd25519Path(path, seedHex);
+        const solAddr = Keypair.fromSeed(key).publicKey.toBase58();
+        out.solana = { address: solAddr, privateKey: key, path, tag: chainToLabel.solana };
+      }
+
+      return { mnemonic: useMnemonic, out };
+    } catch (e) {
+      log.warn('walletKeyringService.deriveFromMnemonic failed', { message: e?.message });
       throw e;
     }
   },

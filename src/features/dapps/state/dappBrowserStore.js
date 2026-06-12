@@ -3,8 +3,14 @@ import { proxy } from 'valtio';
 import { walletStore } from '@features/wallet/state/walletStore';
 
 /* ---------------- allowlist + helpers ---------------- */
-// SECURITY: No auto-connect — all sites must go through eth_requestAccounts
-// const AUTO_CONNECT_HOSTS = new Set([]);
+// SECURITY: exact hostname match ONLY — no substring matching
+const AUTO_CONNECT_HOSTS = new Set([
+  'slxdex.com',
+  'www.slxdex.com',
+  'app.uniswap.org',
+  'pancakeswap.finance',
+  'app.pangolin.exchange',
+]);
 
 const getHost = (u) => { try { return new URL(u).hostname; } catch { return ''; } };
 const getOrigin = (u) => { try { return new URL(u).origin; } catch { return ''; } };
@@ -36,10 +42,10 @@ export const dappBrowserStore = proxy({
   /* -------- permissions (origin -> { connected, address, chainId? }) -------- */
   sitePermissions: new Map(),
 
-  /* -------- allowlist (DISABLED for security) -------- */
-  // SECURITY: auto-connect removed — all sites must use eth_requestAccounts
+  /* -------- allowlist (STRICT exact hostname match) -------- */
   shouldAutoConnect() {
-    return false;
+    // SECURITY: exact match only — no .includes() substring
+    return AUTO_CONNECT_HOSTS.has(this.host);
   },
 
   /* -------- wallet mirror (reactive) -------- */
@@ -63,7 +69,9 @@ export const dappBrowserStore = proxy({
 
       // Check if we're on a SLX-related site (slxdex.com)
       const isSlxSite = this.host.includes('slxdex') ||
-        this.url.includes('slxdex');
+        this.url.includes('slxdex')||
+        this.host.includes('slxrwa') ||
+        this.url.includes('slxrwa');
 
       // Check if we're on a BSC-related site
       const isBscSite = this.host.includes('bsc') ||
@@ -75,33 +83,23 @@ export const dappBrowserStore = proxy({
         this.url.includes('bnb') ||
         this.url.includes('solxdapp');
 
-      console.log('[DApp Browser] Site detection:', {
-        host: this.host,
-        url: this.url,
-        isSlxSite,
-        isBscSite
-      });
 
       if (isSlxSite) {
         // Use SLX address for SLX DEX (same as ETH address, SLX is EVM)
         activeAddress = walletStore.getWalletAddressByChain('slx') || walletStore.getWalletAddressByChain('ethereum');
-        activeChainId = 781234; // SLX Network
-        console.log('[DApp Browser] SLX site detected, using SLX wallet:', activeAddress, 'chainId:', activeChainId);
+        activeChainId = 781234;
       } else if (isBscSite) {
         activeAddress = walletStore.getWalletAddressByChain('bsc');
-        activeChainId = 56; // BSC mainnet
-        console.log('[DApp Browser] BSC site detected, using BSC wallet:', activeAddress);
+        activeChainId = 56;
       } else {
         activeAddress = walletStore.getWalletAddressByChain('ethereum');
-        activeChainId = 1; // Ethereum mainnet
-        console.log('[DApp Browser] Using Ethereum wallet:', activeAddress);
+        activeChainId = 1;
       }
 
       if (activeAddress && (activeAddress !== this.activeAddress || activeChainId !== this.activeChainId)) {
         this.activeAddress = activeAddress.toLowerCase();
         this.activeChainId = activeChainId;
         this.activeChainHex = toHexChainId(activeChainId);
-        console.log('[DApp Browser] Synced active address:', this.activeAddress, 'Chain:', activeChainId, 'Hex:', this.activeChainHex);
       }
 
       // Fallback to Ethereum if no address found
@@ -111,7 +109,6 @@ export const dappBrowserStore = proxy({
           this.activeAddress = ethAddress.toLowerCase();
           this.activeChainId = 1;
           this.activeChainHex = '0x1';
-          console.log('[DApp Browser] Fallback to Ethereum address:', this.activeAddress);
         }
       }
     } catch (e) {
@@ -124,7 +121,6 @@ export const dappBrowserStore = proxy({
     this.activeAddress = address ? address.toLowerCase() : null;
     this.activeChainId = chainId || 1;
     this.activeChainHex = toHexChainId(chainId || 1);
-    console.log('[DApp Browser] Set active wallet:', { address: this.activeAddress, chainId: this.activeChainId });
   },
 
   // init / set url

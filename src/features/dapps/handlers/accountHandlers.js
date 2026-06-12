@@ -6,19 +6,14 @@ export const accountHandlers = (ctx) => ({
   async eth_accounts() {
     const { sitePermissions, origin, activeAddr } = ctx;
     
-    console.log('[Account Handler] eth_accounts called', { origin, activeAddr });
-    
     const perm = sitePermissions.get(origin);
-    console.log('[Account Handler] Current permission:', perm);
     
-    // If site has been explicitly connected by user, return address
+    // If site has been explicitly connected (or auto-connected), return address
     if (perm?.connected && perm?.address) {
-      console.log('[Account Handler] ✅ eth_accounts returning connected address:', perm.address);
       return [perm.address];
     }
     
-    // SECURITY: no auto-connect — site must use eth_requestAccounts
-    console.log('[Account Handler] ⚠️ eth_accounts returning empty (not connected)');
+    // Site must use eth_requestAccounts to connect
     return [];
   },
 

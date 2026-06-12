@@ -8,6 +8,8 @@ import { networkStore } from '@features/network/state/networkStore';
 import { tokenPriceStore } from '@features/tokens/price/state/tokenPriceStore';
 import { CHAIN_ID_TO_FAMILY, toMoralisChain } from '@src/shared/config/chain/constants';
 import { stockForexService } from '@features/wallet/service/stockForexService';
+import { multiWalletStore } from '@features/wallet/state/multiWalletStore';
+import { walletKeyringService } from '@features/wallet/service/walletKeyringService';
 
 export const walletStore = proxy({
   status: 'idle',          // 'idle' | 'loading' | 'ready' | 'error'
@@ -240,6 +242,27 @@ export const walletStore = proxy({
       this.status = 'ready';
       this.mnemonic = savedMnemonic;
       this.recomputePortfolio();
+
+      // Register in multi-wallet store
+      try {
+        multiWalletStore.init(); // load existing wallets
+        const walletId = (saved?.ethereum?.[0]?.address || 'default').toLowerCase();
+        multiWalletStore.addWallet({
+          id: walletId,
+          name: multiWalletStore.getById(walletId)?.name || 'My wallet',
+          mnemonic: savedMnemonic,
+          evmAddress: saved?.ethereum?.[0]?.address || '',
+          solAddress: saved?.solana?.[0]?.address || '',
+          btcAddress: saved?.bitcoin?.[0]?.address || '',
+        });
+        // If this is first wallet, set as active
+        if (!multiWalletStore.activeId) {
+          multiWalletStore.setActive(walletId);
+        }
+      } catch (mwErr) {
+        console.warn('[walletStore] multiWalletStore registration failed:', mwErr?.message);
+      }
+
       log.info('walletStore.init ok', {
         chains: Object.keys(instances),
         assets: assembled.length,
@@ -248,6 +271,111 @@ export const walletStore = proxy({
       this.status = 'error';
       this.error = e?.message;
       log.error('walletStore.init failed', { message: e?.message });
+      throw e;
+    }
+  },
+
+  /**
+   * Switch to a different wallet by re-initializing from its mnemonic.
+   * @param {string} walletId - multiWalletStore wallet id
+   */
+  async switchToWallet(walletId) {
+    try {
+      multiWalletStore.init();
+      const walletEntry = multiWalletStore.getById(walletId);
+      if (!walletEntry?.mnemonic) {
+        throw new Error('Wallet not found or no mnemonic');
+      }
+
+      console.log('[walletStore] Switching to wallet:', walletId);
+
+      // Save current keyring mnemonic, replace with target wallet's mnemonic
+      const { mnemonic: targetMnemonic, out: derived } =
+        await walletKeyringService.deriveFromMnemonic(walletEntry.mnemonic);
+
+      // Build instances from derived keys (reuse walletService._buildInstance)
+      const instances = {};
+      for (const [chain, info] of Object.entries(derived)) {
+        try {
+          const inst = await walletService._buildInstance(chain, info);
+          if (inst) instances[chain] = inst;
+        } catch (e) {
+          log.warn('switchToWallet: buildInstance failed', { chain, message: e?.message });
+        }
+      }
+
+      // Build saved structure
+      const saved = {};
+      for (const [chain, info] of Object.entries(derived)) {
+        saved[chain] = [{
+          address: info.address,
+          path: info.path,
+          tag: info.tag,
+          createdAt: walletEntry.createdAt || Date.now(),
+        }];
+      }
+
+      // Ensure SLX
+      if (!saved['slx'] && saved['ethereum']) {
+        saved['slx'] = [{ ...saved['ethereum'][0], tag: 'SLX Network' }];
+      }
+
+      // Reassemble assets (simplified version of init)
+      const assembled = [];
+      for (const chain in saved) {
+        if (!Object.prototype.hasOwnProperty.call(saved, chain)) continue;
+        const inst = instances[chain];
+        const metas = saved[chain];
+
+        walletRegistryStore.list(chain);
+        let tokens = walletRegistryService.list(chain) || [];
+
+        if (Array.isArray(metas)) {
+          for (const m of metas) {
+            const nativeAsset = this._toNativeAsset(chain, m);
+            if (nativeAsset) assembled.push(nativeAsset);
+
+            if (Array.isArray(tokens) && chain !== 'solana') {
+              for (const t of tokens) {
+                const tokenAsset = this._toTokenAsset(chain, m?.address, t);
+                if (tokenAsset) assembled.push(tokenAsset);
+              }
+            }
+          }
+        }
+
+        // Solana default tokens
+        if (chain === 'solana' && Array.isArray(tokens)) {
+          const defaultTokenSymbols = ['XUSDT', 'JYB'];
+          const defaultTokens = tokens.filter(t =>
+            defaultTokenSymbols.includes(t.symbol) ||
+            t.type === 'stock' ||
+            t.type === 'forex'
+          );
+          const mainWalletAddress = metas?.[0]?.address;
+          for (const t of defaultTokens) {
+            const tokenAsset = this._toTokenAsset(chain, mainWalletAddress, t);
+            if (tokenAsset) assembled.push(tokenAsset);
+          }
+        }
+      }
+
+      // Update store
+      this.data = saved;
+      this.instances = instances;
+      this.assets = assembled;
+      this.mnemonic = targetMnemonic;
+      this.status = 'ready';
+
+      // Set active in multiWalletStore
+      multiWalletStore.setActive(walletId);
+
+      this.recomputePortfolio();
+      this.fetchBalances();
+
+      console.log('[walletStore] Switched to wallet:', walletId, 'assets:', assembled.length);
+    } catch (e) {
+      log.error('walletStore.switchToWallet failed', { message: e?.message });
       throw e;
     }
   },

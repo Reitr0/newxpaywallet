@@ -1,10 +1,11 @@
 // src/pages/home/ui/HomeScreen.js
-import React, { useEffect, useState, useMemo } from 'react';
-import { RefreshControl, View } from 'react-native';
+import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
+import { RefreshControl, View, Modal, TouchableWithoutFeedback } from 'react-native';
 import { useSnapshot } from 'valtio';
 import { useTranslation } from 'react-i18next';
 
 import { walletStore } from '@features/wallet/state/walletStore';
+import { multiWalletStore } from '@features/wallet/state/multiWalletStore';
 
 import VText from '@src/shared/ui/primitives/VText';
 import VPressable from '@src/shared/ui/primitives/VPressable';
@@ -17,6 +18,7 @@ import { RowWallet } from '@src/app/screens/wallet/components/RowItem';
 import useWallet from '@src/app/screens/wallet/hooks/useWallet';
 import Percent from '@src/shared/ui/atoms/Percent';
 import VImage from '@src/shared/ui/primitives/VImage';
+import WalletSwitchSheet from '@src/app/screens/home/components/WalletSwitchSheet';
 
 function QuickAction({ icon, label, active, onPress }) {
   const base =
@@ -44,11 +46,121 @@ function QuickAction({ icon, label, active, onPress }) {
   );
 }
 
+/* ── Category Dropdown ── */
+const CATEGORIES = [
+  { key: 'assets', label: 'Assets' },
+  { key: 'stock', label: 'Stock' },
+  { key: 'forex', label: 'Forex' },
+  { key: 'rwa', label: 'RWA-T' },
+];
+
+function CategoryDropdown({ selected, onSelect, labels }) {
+  const [open, setOpen] = useState(false);
+  const current = CATEGORIES.find(c => c.key === selected) || CATEGORIES[0];
+  const displayLabel = labels?.[`${selected}Tab`] || current.label;
+
+  return (
+    <View className="relative z-10">
+      {/* Trigger */}
+      <VPressable
+        className="flex-row items-center bg-item px-4 py-2 rounded-xl"
+        onPress={() => setOpen(!open)}
+      >
+        <VText className="text-title text-base font-semibold mr-2">{displayLabel}</VText>
+        <VIcon
+          name={open ? 'chevron-up' : 'chevron-down'}
+          type="MaterialCommunityIcons"
+          size={18}
+          className="text-muted"
+        />
+      </VPressable>
+
+      {/* Dropdown overlay */}
+      {open && (
+        <Modal transparent animationType="fade" onRequestClose={() => setOpen(false)}>
+          <TouchableWithoutFeedback onPress={() => setOpen(false)}>
+            <View className="flex-1">
+              {/* Positioned dropdown */}
+              <View
+                className="absolute bg-card rounded-xl border border-border-subtle mx-4 mt-48 shadow-lg"
+                style={{ left: 0, right: 0, elevation: 8 }}
+              >
+                {CATEGORIES.map((cat) => {
+                  const isActive = cat.key === selected;
+                  const catLabel = labels?.[`${cat.key}Tab`] || cat.label;
+                  return (
+                    <VPressable
+                      key={cat.key}
+                      className={[
+                        'px-4 py-3',
+                        isActive ? 'bg-link/10' : '',
+                      ].join(' ')}
+                      onPress={() => {
+                        onSelect(cat.key);
+                        setOpen(false);
+                      }}
+                    >
+                      <View className="flex-row items-center justify-between">
+                        <VText
+                          className={
+                            isActive
+                              ? 'text-link font-semibold text-base'
+                              : 'text-title text-base'
+                          }
+                        >
+                          {catLabel}
+                        </VText>
+                        {isActive && (
+                          <VIcon
+                            name="check"
+                            type="MaterialCommunityIcons"
+                            size={18}
+                            className="text-link"
+                          />
+                        )}
+                      </View>
+                    </VPressable>
+                  );
+                })}
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+      )}
+    </View>
+  );
+}
+
 export default function HomeScreen({ navigation }) {
   const { t } = useTranslation();
   const { portfolio } = useSnapshot(walletStore);
   const [tab, setTab] = useState('assets');
   const { list: wallets, totalUsd, refresh, refreshing } = useWallet();
+  const switchSheetRef = useRef(null);
+
+  // Multi-wallet state from multiWalletStore
+  const mwSnap = useSnapshot(multiWalletStore);
+  const [activeWalletId, setActiveWalletId] = useState(() => {
+    multiWalletStore.init();
+    return multiWalletStore.activeId || 'default';
+  });
+
+  const walletsList = useMemo(() => {
+    const mwWallets = mwSnap.wallets || [];
+    if (mwWallets.length === 0) {
+      // Fallback: show current wallet if multiWalletStore is empty
+      const evmAddr = walletStore.getWalletAddressByChain?.('ethereum') || '';
+      return [{ id: evmAddr.toLowerCase() || 'default', name: 'My wallet', address: evmAddr, totalUsd }];
+    }
+    return mwWallets.map(w => ({
+      id: w.id,
+      name: w.name || 'Wallet',
+      address: w.evmAddress || '',
+      totalUsd: w.id === mwSnap.activeId ? totalUsd : 0,
+    }));
+  }, [mwSnap.wallets, mwSnap.activeId, totalUsd]);
+
+  const activeWallet = walletsList.find(w => w.id === (mwSnap.activeId || activeWalletId)) || walletsList[0];
 
   useEffect(() => {
     refresh();
@@ -57,7 +169,6 @@ export default function HomeScreen({ navigation }) {
 
   const isUp = (portfolio?.changeUsd24h ?? 0) >= 0;
 
-  // localized labels (memoized to avoid re-renders)
   const labels = useMemo(
     () => ({
       send: t('home.actions.send', 'Send'),
@@ -78,44 +189,61 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('WalletDetailScreen', { assetId: item.id });
   };
 
-  // Filter wallets based on tab
   const filteredWallets = useMemo(() => {
-    console.log('====== HomeScreen Filter Debug ======');
-    console.log('Current tab:', tab);
-    console.log('Total wallets:', wallets.length);
-    console.log('Wallets with type property:', wallets.filter(w => w.type).map(w => ({symbol: w.symbol, type: w.type, chain: w.chain})));
-    
-    if (tab === 'stock') {
-      const stockWallets = wallets.filter(w => w.type === 'stock');
-      console.log('Stock wallets found:', stockWallets.length, stockWallets.map(w => w.symbol));
-      return stockWallets;
-    }
-    if (tab === 'forex') {
-      const forexWallets = wallets.filter(w => w.type === 'forex');
-      console.log('Forex wallets found:', forexWallets.length, forexWallets.map(w => w.symbol));
-      return forexWallets;
-    }
-        if (tab === 'rwa') {
-      const rwaWallets = wallets.filter(w => w.type === 'rwa');
-      console.log('RWA wallets found:', rwaWallets.length, rwaWallets.map(w => w.symbol));
-      return rwaWallets;
-    }
-    // 'assets' tab shows regular tokens (not stock/forex)
-    const assetWallets = wallets.filter(w => !w.type || w.type === 'token');
-    console.log('Asset wallets found:', assetWallets.length);
-    return assetWallets;
+    const HIDDEN_CHAINS = new Set(['polygon']);
+    const HIDDEN_SYMBOLS = new Set(['JYB', 'MEX']);
+
+    const visible = wallets.filter(w =>
+      !HIDDEN_CHAINS.has(w.chain) && !HIDDEN_SYMBOLS.has(w.symbol?.toUpperCase())
+    );
+
+    if (tab === 'stock') return visible.filter(w => w.type === 'stock');
+    if (tab === 'forex') return visible.filter(w => w.type === 'forex');
+    if (tab === 'rwa') return visible.filter(w => w.type === 'rwa');
+    return visible.filter(w => !w.type || w.type === 'token');
   }, [wallets, tab]);
+
+  const handleAddWallet = useCallback(() => {
+    // Navigate to import/create wallet flow
+    navigation.navigate('ImportWalletScreen');
+  }, [navigation]);
+
+  const truncateAddr = (addr) => {
+    if (!addr || addr.length < 10) return '';
+    return addr.slice(0, 6) + '...' + addr.slice(-4);
+  };
 
   return (
     <View className="flex-1 bg-app">
-      {/* Header */}
-      <View className="flex-row items-center justify-between px-2">
-        <View className="flex-row items-center gap-3">
+      {/* Header — wallet name (tappable) */}
+      <View className="flex-row items-center justify-between px-4 pt-1">
+        <VPressable
+          className="flex-row items-center"
+          onPress={() => switchSheetRef.current?.present()}
+        >
           <VImage
             source={require('@assets/images/logo.png')}
-            className={'w-9 h-9 bg-item rounded-full'}
+            className={'w-9 h-9 bg-item rounded-full mr-2'}
           />
-        </View>
+          <View>
+            <View className="flex-row items-center">
+              <VText className="text-title font-semibold text-base">
+                {activeWallet.name}
+              </VText>
+              {activeWallet.address ? (
+                <VText className="text-muted text-xs ml-1">
+                  ({truncateAddr(activeWallet.address)})
+                </VText>
+              ) : null}
+              <VIcon
+                name="chevron-down"
+                type="MaterialCommunityIcons"
+                size={16}
+                className="text-muted ml-1"
+              />
+            </View>
+          </View>
+        </VPressable>
       </View>
 
       {/* Balance */}
@@ -141,60 +269,19 @@ export default function HomeScreen({ navigation }) {
           label={labels.receive}
           onPress={() => navigation.navigate('WalletsScreen', { action: 'RECEIVE' })}
         />
-        {/* <QuickAction
-          icon="lightning-bolt"
-          label={labels.fund}
-          active
-          onPress={() => navigation.navigate('WalletsScreen', { action: 'BUY' })}
-        />
-        <QuickAction
-          icon="bank-outline"
-          label={labels.sell}
-          onPress={() => navigation.navigate('WalletsScreen', { action: 'SELL' })}
-        /> */}
       </View>
 
-      {/* Tabs */}
-      <View className="flex-row gap-8 px-4 mt-8">
-        <VPressable onPress={() => setTab('assets')} accessibilityRole="tab">
-          <VText className="text-title text-lg font-semibold">{labels.assetsTab}</VText>
-          {tab === 'assets' ? (
-            <View className="h-1 rounded-full bg-title mt-2" />
-          ) : (
-            <View className="h-1 mt-2" />
-          )}
-        </VPressable>
-        <VPressable onPress={() => setTab('stock')} accessibilityRole="tab">
-          <VText className="text-title text-lg font-semibold">{labels.stockTab}</VText>
-          {tab === 'stock' ? (
-            <View className="h-1 rounded-full bg-title mt-2" />
-          ) : (
-            <View className="h-1 mt-2" />
-          )}
-        </VPressable>
-        <VPressable onPress={() => setTab('forex')} accessibilityRole="tab">
-          <VText className="text-title text-lg font-semibold">{labels.forexTab}</VText>
-          {tab === 'forex' ? (
-            <View className="h-1 rounded-full bg-title mt-2" />
-          ) : (
-            <View className="h-1 mt-2" />
-          )}
-        </VPressable>
-        <VPressable onPress={() => setTab('rwa')} accessibilityRole="tab">
-          <VText className="text-title text-lg font-semibold">{labels.rwaTab}</VText>
-          {tab === 'rwa' ? (
-            <View className="h-1 rounded-full bg-title mt-2" />
-          ) : (
-            <View className="h-1 mt-2" />
-          )}
-        </VPressable>
-        <View className="flex-1" />
+      {/* Category dropdown + manage button */}
+      <View className="flex-row items-center justify-between px-4 mt-8">
+        <CategoryDropdown
+          selected={tab}
+          onSelect={setTab}
+          labels={labels}
+        />
         <VPressable
           className="p-2 rounded-lg active:bg-item"
           accessibilityRole="button"
-          onPress={() => {
-            navigation.navigate('ManageCrypto');
-          }}
+          onPress={() => navigation.navigate('ManageCrypto')}
           accessibilityLabel={labels.manageCrypto}
         >
           <VIcon
@@ -231,6 +318,26 @@ export default function HomeScreen({ navigation }) {
           ListEmptyComponent={VListEmpty}
         />
       </View>
+
+      {/* Wallet switch bottom sheet */}
+      <WalletSwitchSheet
+        ref={switchSheetRef}
+        wallets={walletsList}
+        activeId={mwSnap.activeId || activeWalletId}
+        totalUsd={totalUsd}
+        onSelect={async (w) => {
+          try {
+            if (w.id !== (mwSnap.activeId || activeWalletId)) {
+              setActiveWalletId(w.id);
+              await walletStore.switchToWallet(w.id);
+              refresh();
+            }
+          } catch (e) {
+            console.warn('Switch wallet failed:', e?.message);
+          }
+        }}
+        onAddWallet={handleAddWallet}
+      />
     </View>
   );
 }

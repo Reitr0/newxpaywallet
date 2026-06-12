@@ -27,59 +27,24 @@ export default function DappsDiscoverScreen({ navigation }) {
     {
       id: 'slxdex',
       title: t('dapps.slxdex.title', 'SLX Decentralized Exchange'),
-      subtitle: t('dapps.slxdex.subtitle', 'Solana X Decentralized exchanger'),
+      subtitle: t('dapps.slxdex.subtitle', 'SLX Decentralized exchanger'),
       url: 'https://slxdex.com',
-      icon: 'https://i.ibb.co/7WkxZZ2/Untitled-3.png',
-    },
-    {
-      id: 'solxdapp',
-      title: t('dapps.solxdapp.title', 'Solxdapp'),
-      subtitle: t('dapps.solxdapp.subtitle', 'Solana X Foundation DAPP'),
-      url: 'https://Solxdapp.io',
       icon: 'https://i.ibb.co/7WkxZZ2/Untitled-3.png',
     },
     {
       id: 'rwa',
       title: t('dapps.rwa.title', 'RWA-T Global'),
-      subtitle: t('dapps.rwa.subtitle', 'Solana X Real World Asset'),
+      subtitle: t('dapps.rwa.subtitle', 'SLX Real World Asset'),
       url: '',
       icon: 'https://i.ibb.co/7WkxZZ2/Untitled-3.png',
     },
     {
       id: 'solxscan',
-      title: t('dapps.solxscan.title', 'Solxscan'),
-      subtitle: t('dapps.solxscan.subtitle', 'Solana X Foundation Scan'),
-      url: 'https://Solxscan.io',
+      title: t('dapps.solxscan.title', 'Slxscan'),
+      subtitle: t('dapps.solxscan.subtitle', 'SLX Foundation Scan'),
+      url: 'https://Slxscan.io',
       icon: 'https://i.ibb.co/7WkxZZ2/Untitled-3.png',
     },
-    {
-      id: 'uniswap',
-      title: 'Uniswap', // Names usually don't need translation
-      subtitle: t('dapps.uniswap.subtitle', 'Swap tokens on Ethereum & L2s.'),
-      url: 'https://app.uniswap.org/swap',
-      icon: 'https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png',
-    },
-    {
-      id: 'pancake',
-      title: 'PancakeSwap',
-      subtitle: t('dapps.pancake.subtitle', 'DEX on BNB Chain.'),
-      url: 'https://pancakeswap.finance/',
-      icon: 'https://coin-images.coingecko.com/coins/images/12632/large/pancakeswap-cake-logo_%281%29.png?1696512440',
-    },
-    {
-      id: 'raydium',
-      title: 'Raydium',
-      subtitle: t('dapps.raydium.subtitle', 'AMM + order book on Solana.'),
-      url: 'https://raydium.io/',
-      icon: 'https://img-v1.raydium.io/icon/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R.png',
-    },
-    {
-      id: 'opensea',
-      title: 'OpenSea',
-      subtitle: t('dapps.opensea.subtitle', 'Largest NFT marketplace.'),
-      url: 'https://opensea.io/',
-      icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/35744.png',
-    }
   ], [t]);
 
   const open = useCallback(

@@ -68,7 +68,7 @@ export const DEFAULTS_NETWORKS = {
     mainnet: {
       chainId: 56,
       label: 'BNB Smart Chain',
-      rpc: 'https://bsc-mainnet.infura.io/v3/45cd0ef9d5b64a9d88dbf7cae5c0e3a9',
+      rpc: 'https://bsc-mainnet.core.chainstack.com/1a77c61186697e6fc1578820af49f223',
       explorerTxBase: 'https://bscscan.com/tx/',
       explorerAddressBase: 'https://bscscan.com/address/',
       logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png',

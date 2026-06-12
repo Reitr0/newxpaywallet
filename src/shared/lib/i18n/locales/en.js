@@ -633,19 +633,19 @@ export const en = {
     dapps: {
     slxdex: {
       title: 'SLX Decentralized Exchange',
-      subtitle: 'Solana X Decentralized exchanger',
+      subtitle: 'SLX Decentralized exchanger',
     },
     solxdapp: {
       title: 'Solxdapp',
-      subtitle: 'Solana X Foundation DAPP',
+      subtitle: 'SLX Foundation DAPP',
     },
     rwa: {
       title: 'RWA-T Global',
-      subtitle: 'Solana X Real World Asset',
+      subtitle: 'SLX Real World Asset',
     },
     solxscan: {
-      title: 'Solxscan',
-      subtitle: 'Solana X Foundation Scan',
+      title: 'Slxscan',
+      subtitle: 'SLX Foundation Scan',
     },
     uniswap: {
       subtitle: 'Swap tokens on Ethereum & L2s.',
